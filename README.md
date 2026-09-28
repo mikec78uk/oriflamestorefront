@@ -40,4 +40,4 @@ A single-page, mobile-first wireframe of a seller storefront (example seller: "M
 - **Desktop (≥ 1024px):** 12-column editorial grid, with a split hero and a large portrait. Section navigation, Ask Mary and Bag sit in the top bar. Panels open as a right-hand drawer.
 
 ## Visual language
-A warm tonal greyscale (stone neutrals, not pure grey), Cormorant Garamond display type with Inter for UI, hairline borders, small corner radii, tracked uppercase labels, and one inverted (dark) card for live help.
+A warm tonal greyscale (stone neutrals, not pure grey), Inter throughout (light-weight accents in headings, tight tracking on display sizes), hairline borders, small corner radii, tracked uppercase labels, and one inverted (dark) card for live help.

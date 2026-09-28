@@ -7,7 +7,7 @@
 <meta name="description" content="Greyscale wireframe of an Oriflame seller storefront, for unmoderated usability testing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
      Tokens: a warm, tonal greyscale
@@ -38,7 +38,7 @@
     --stick: calc(var(--topbar-h) + var(--tabs-h));
     --dock-h: 76px;
 
-    --serif: "Cormorant Garamond", "Cormorant", Garamond, Georgia, serif;
+    --serif: var(--sans); /* display face: sans throughout */
     --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --ease: cubic-bezier(.2,.7,.2,1);
     --shadow: 0 1px 2px rgba(28,27,25,.04), 0 8px 24px -12px rgba(28,27,25,.10);
@@ -64,8 +64,8 @@
   /* ============================================================
      Type
      ============================================================ */
-  .display { font-family: var(--serif); font-weight: 500; letter-spacing: -.01em; line-height: 1.02; margin: 0; }
-  .display em { font-style: italic; color: var(--ink-3); }
+  .display { font-family: var(--serif); font-weight: 500; letter-spacing: -.035em; line-height: 1.04; margin: 0; }
+  .display em { font-style: normal; font-weight: 300; color: var(--ink-3); }
   .eyebrow {
     font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
     color: var(--ink-4); margin: 0;
@@ -73,7 +73,7 @@
   .muted { color: var(--ink-3); }
   .tiny { font-size: 12px; color: var(--ink-4); }
   .price { font-weight: 600; font-variant-numeric: tabular-nums; }
-  .price-lg { font-family: var(--serif); font-weight: 600; font-size: 28px; line-height: 1; font-variant-numeric: lining-nums; }
+  .price-lg { font-family: var(--serif); font-weight: 600; font-size: 22px; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
   .strike { text-decoration: line-through; color: var(--ink-4); font-family: var(--sans); font-size: 14px; font-weight: 400; }
   .clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -130,7 +130,7 @@
   }
   .topbar .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
   .wordmark { font-weight: 600; letter-spacing: .34em; font-size: 12px; text-transform: uppercase; line-height: 1.2; }
-  .wordmark small { display: block; font-family: var(--serif); font-style: italic; font-weight: 500; letter-spacing: 0; font-size: 15px; color: var(--ink-3); text-transform: none; }
+  .wordmark small { display: block; font-weight: 400; letter-spacing: .02em; font-size: 12px; color: var(--ink-3); text-transform: none; }
   .topnav { display: none; gap: 32px; }
   .topnav button {
     background: none; border: 0; padding: 6px 0; font-size: 11.5px; font-weight: 600; letter-spacing: .16em;
@@ -178,13 +178,13 @@
   }
   .avatar .icon { width: 34px; height: 34px; stroke-width: 1.1; }
   .hero .eyebrow { margin-bottom: 14px; }
-  .hero h1 { font-size: 56px; }
+  .hero h1 { font-size: 44px; }
   .role { margin: 14px 0 0; display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; font-weight: 500; color: var(--ink-2); }
   .bio { color: var(--ink-3); margin: 14px auto 0; max-width: 38ch; font-size: 16px; }
   .stats { display: flex; justify-content: center; gap: 0; margin: 24px 0 26px; }
   .stat { padding: 0 20px; border-left: 1px solid var(--line); text-align: center; background: none; border-top: 0; border-right: 0; border-bottom: 0; }
   .stat:first-child { border-left: 0; }
-  .stat b { display: block; font-family: var(--serif); font-weight: 600; font-size: 26px; line-height: 1; }
+  .stat b { display: block; font-weight: 500; font-size: 22px; letter-spacing: -.02em; line-height: 1; }
   .stat span { font-size: 11px; color: var(--ink-4); letter-spacing: .06em; }
   button.stat span { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ink-5); }
   .hero-actions { display: grid; grid-template-columns: 1fr auto; gap: 10px; max-width: 420px; margin: 0 auto; }
@@ -196,7 +196,7 @@
   .section { padding-top: 48px; scroll-margin-top: var(--stick); }
   .section-head { margin-bottom: 20px; }
   .section-head .eyebrow { margin-bottom: 8px; }
-  .section-head h2 { font-size: 38px; }
+  .section-head h2 { font-size: 30px; }
   .section-head p:last-child:not(.eyebrow) { color: var(--ink-3); margin: 10px 0 0; max-width: 46ch; }
   .grid { display: grid; gap: 16px; grid-auto-flow: row dense; }
 
@@ -208,7 +208,7 @@
   .card.tint { background: var(--fill); border-color: transparent; }
   .card.ink { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
   .card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
-  .card h3 { font-family: var(--serif); font-weight: 500; font-size: 30px; line-height: 1.08; letter-spacing: -.005em; margin: 0; }
+  .card h3 { font-weight: 500; font-size: 23px; line-height: 1.15; letter-spacing: -.025em; margin: 0; }
   .card .sub { color: var(--ink-3); margin: 8px 0 0; }
   .meta { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4); white-space: nowrap; }
   .push { margin-top: auto; }
@@ -228,13 +228,13 @@
   .countdown { font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); }
   .media-row { display: grid; grid-template-columns: 112px 1fr; gap: 18px; margin-bottom: 22px; align-items: start; }
   .media-row .ph { aspect-ratio: 1; }
-  .media-row h3 { font-size: 26px; }
+  .media-row h3 { font-size: 20px; }
   .price-line { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
   .save { font-size: 10px; font-weight: 600; letter-spacing: .14em; padding: 3px 6px; border: 1px solid var(--ink); border-radius: var(--r-sm); }
 
   /* ---------- Recommendation ---------- */
   .rec .ph { aspect-ratio: 4 / 3; }
-  .quote { font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1.35; color: var(--ink-2); margin: 14px 0 22px; }
+  .quote { font-size: 16px; font-weight: 300; line-height: 1.55; color: var(--ink-2); margin: 14px 0 22px; }
   .title-price { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 22px; }
   .signature { display: flex; align-items: center; gap: 10px; margin: -8px 0 22px; font-size: 13px; color: var(--ink-3); }
   .signature i { width: 28px; height: 1px; background: var(--ink-5); }
@@ -243,7 +243,7 @@
   .ootm { display: grid; gap: 14px; }
   .featured { background: var(--fill); border-radius: var(--r-md); padding: 16px; display: flex; flex-direction: column; }
   .featured .ph { background: linear-gradient(160deg, var(--paper), var(--fill-2)); aspect-ratio: 16/9; }
-  .featured h4 { font-family: var(--serif); font-weight: 500; font-size: 22px; margin: 16px 0 10px; }
+  .featured h4 { font-weight: 500; font-size: 18px; letter-spacing: -.02em; margin: 16px 0 10px; }
   .featured-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; }
   .mini-list { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
   .mini {
@@ -287,7 +287,7 @@
   /* ---------- Routine ---------- */
   .steps { display: grid; gap: 0; border-top: 1px solid var(--line); }
   .step { display: grid; grid-template-columns: 26px 52px 1fr; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
-  .step-num { font-family: var(--serif); font-size: 24px; font-weight: 500; color: var(--ink-4); line-height: 1; }
+  .step-num { font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ink-4); line-height: 1; }
   .step .ph { width: 52px; height: 52px; padding: 0; }
   .step .ph .icon { width: 18px; height: 18px; }
   .step small { display: block; font-size: 10px; font-weight: 600; letter-spacing: .18em; color: var(--ink-4); }
@@ -297,7 +297,7 @@
 
   /* ---------- Reviews ---------- */
   .rating-summary { display: flex; align-items: center; gap: 12px; margin-top: 8px; font-size: 13px; color: var(--ink-3); }
-  .rating-summary b { font-family: var(--serif); font-weight: 600; font-size: 30px; color: var(--ink); line-height: 1; }
+  .rating-summary b { font-weight: 500; font-size: 24px; letter-spacing: -.02em; color: var(--ink); line-height: 1; }
   .stars { display: inline-flex; gap: 2px; color: var(--ink-2); }
   .stars .icon { width: 12px; height: 12px; fill: currentColor; stroke: none; }
   .carousel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
@@ -309,7 +309,7 @@
   .review-head b { font-weight: 600; font-size: 14px; }
   .verified { font-size: 11px; color: var(--ink-4); display: inline-flex; align-items: center; gap: 3px; }
   .review-head .stars { margin-left: auto; }
-  .review p { margin: 0; font-family: var(--serif); font-size: 18px; line-height: 1.4; color: var(--ink-2); }
+  .review p { margin: 0; font-size: 15px; font-weight: 300; line-height: 1.5; color: var(--ink-2); }
   .review .tiny { margin-top: 10px; }
   .dots { display: flex; justify-content: center; gap: 6px; margin-top: 18px; }
   .dots button { width: 18px; height: 2px; border: 0; padding: 6px 0; background: var(--line) content-box; transition: all .25s; }
@@ -334,7 +334,7 @@
   .swatches { position: absolute; bottom: 14px; left: 0; right: 0; display: flex; justify-content: center; gap: 10px; }
   .swatch { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255,255,255,.85); padding: 0; transition: transform .2s; }
   .swatch[aria-pressed="true"] { transform: scale(1.18); box-shadow: 0 0 0 1.5px var(--ink); }
-  .shade-name { position: absolute; bottom: 52px; left: 0; right: 0; text-align: center; font-family: var(--serif); font-style: italic; font-size: 17px; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.25); }
+  .shade-name { position: absolute; bottom: 52px; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.25); }
 
   /* ---------- AI adviser ---------- */
   .status-on { font-size: 10px; font-weight: 600; letter-spacing: .16em; display: inline-flex; align-items: center; gap: 7px; color: var(--ink-2); }
@@ -363,7 +363,7 @@
   .play { width: 40px; height: 40px; border-radius: 50%; background: rgba(28,27,25,.85); color: #fff; display: grid; place-items: center; }
   .play .icon { fill: currentColor; stroke: none; width: 14px; height: 14px; margin-left: 2px; }
   .post .eyebrow { font-size: 10px; margin-bottom: 4px; }
-  .post b { display: block; font-family: var(--serif); font-weight: 500; font-size: 21px; line-height: 1.15; margin-bottom: 4px; }
+  .post b { display: block; font-weight: 500; font-size: 16px; letter-spacing: -.015em; line-height: 1.25; margin-bottom: 4px; }
   .post p { margin: 0 0 8px; color: var(--ink-3); font-size: 14px; }
 
   /* ---------- Live help (inverted card) ---------- */
@@ -381,7 +381,7 @@
   .person { background: var(--fill); border-radius: var(--r-md); padding: 20px 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
   .person .avatar { width: 68px; height: 68px; margin: 0 0 6px; box-shadow: 0 0 0 4px var(--fill), 0 0 0 5px var(--line); }
   .person .avatar .icon { width: 24px; height: 24px; }
-  .person b { font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1; }
+  .person b { font-size: 16px; font-weight: 500; letter-spacing: -.01em; line-height: 1; }
   .person .btn { width: 100%; margin-top: 8px; }
   .person .link { font-size: 10px; }
 
@@ -445,7 +445,7 @@
   .sheet.open { transform: translateY(0); }
   .grabber { width: 36px; height: 3px; border-radius: 2px; background: var(--line); margin: 6px auto 14px; }
   .sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
-  .sheet-head h3 { font-family: var(--serif); font-weight: 500; font-size: 30px; margin: 0; line-height: 1.1; }
+  .sheet-head h3 { font-weight: 500; font-size: 22px; letter-spacing: -.025em; margin: 0; line-height: 1.1; }
   .sheet p { color: var(--ink-3); }
   .bag-line { display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line-2); }
   .bag-line .ph { width: 56px; height: 56px; padding: 0; }
@@ -462,17 +462,17 @@
   .progress { height: 2px; background: var(--fill-2); overflow: hidden; margin: 4px 0 20px; }
   .progress i { display: block; height: 100%; background: var(--ink); transition: width .4s var(--ease); }
   .score { display: grid; grid-template-columns: 1fr 40px; gap: 6px 10px; align-items: center; font-size: 14px; margin: 10px 0; }
-  .score b { font-family: var(--serif); font-size: 22px; font-weight: 600; text-align: right; line-height: 1; }
+  .score b { font-size: 16px; font-weight: 500; text-align: right; line-height: 1; }
   .score .bar { grid-column: 1 / -1; height: 3px; background: var(--fill-2); overflow: hidden; }
   .score .bar i { display: block; height: 100%; background: var(--ink-2); }
   .how { counter-reset: s; list-style: none; padding: 0; margin: 14px 0 22px; display: grid; gap: 18px; }
   .how li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
-  .how li::before { content: counter(s); font-family: var(--serif); font-size: 30px; line-height: 1; color: var(--ink-4); }
+  .how li::before { content: counter(s); font-size: 13px; font-weight: 500; width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; color: var(--ink-2); }
   .how b { display: block; font-weight: 600; }
   .how span { color: var(--ink-3); font-size: 14px; }
   .stat-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
   .stat-pair div { background: var(--fill); border-radius: var(--r-md); padding: 16px; text-align: center; }
-  .stat-pair b { display: block; font-family: var(--serif); font-size: 30px; font-weight: 600; line-height: 1; }
+  .stat-pair b { display: block; font-size: 24px; font-weight: 500; letter-spacing: -.02em; line-height: 1; }
 
   /* ---------- Toast ---------- */
   .toast {
@@ -491,12 +491,12 @@
   @media (min-width: 700px) {
     :root { --gutter: 32px; }
     .hero { padding-top: 56px; padding-bottom: 48px; }
-    .hero h1 { font-size: 72px; }
+    .hero h1 { font-size: 60px; }
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
     .t-full { grid-column: 1 / -1; }
     .section { padding-top: 64px; }
     .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 28px; }
-    .section-head h2 { font-size: 46px; }
+    .section-head h2 { font-size: 36px; }
     .section-head p:last-child:not(.eyebrow) { margin: 0; max-width: 36ch; text-align: right; }
     .card { padding: 28px; }
     .tiles { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
@@ -528,32 +528,32 @@
     .hero { text-align: left; padding-top: 72px; padding-bottom: 32px; }
     .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 72px; }
     .hero .avatar { display: none; }
-    .hero h1 { font-size: 104px; }
+    .hero h1 { font-size: 80px; }
     .role { justify-content: flex-start; }
     .bio { margin-left: 0; font-size: 17px; }
     .stats { justify-content: flex-start; margin: 32px 0 36px; }
     .stat { padding: 0 28px; text-align: left; }
     .stat:first-child { padding-left: 0; }
-    .stat b { font-size: 34px; }
+    .stat b { font-size: 28px; }
     .hero-actions { margin: 0; max-width: 440px; }
     .hero-portrait.ph { display: flex; aspect-ratio: 4 / 5; border-radius: var(--r-lg); }
     .hero-portrait .icon { width: 44px; height: 44px; }
     .hero-portrait .caption { position: absolute; left: 20px; bottom: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,.85); backdrop-filter: blur(8px); padding: 14px 16px; border-radius: var(--r-md); text-align: left; }
-    .hero-portrait .caption b { font-family: var(--serif); font-size: 19px; font-weight: 500; color: var(--ink); display: block; }
+    .hero-portrait .caption b { font-size: 15px; font-weight: 500; color: var(--ink); display: block; }
     .hero-portrait .caption span { letter-spacing: .1em; }
 
     .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
     .d5 { grid-column: span 5; } .d6 { grid-column: span 6; } .d7 { grid-column: span 7; } .d12 { grid-column: span 12; }
     .r2 { grid-row: span 2; }
     .section { padding-top: 88px; }
-    .section-head h2 { font-size: 56px; }
+    .section-head h2 { font-size: 44px; }
     .card { padding: 32px; }
-    .card h3 { font-size: 34px; }
+    .card h3 { font-size: 26px; }
     .rec .ph { aspect-ratio: 16 / 10; flex: 1; min-height: 280px; }
-    .quote { font-size: 23px; }
+    .quote { font-size: 17px; }
     .ootm { grid-template-columns: 1.4fr 1fr; gap: 32px; }
     .featured { padding: 20px; }
-    .featured h4 { font-size: 26px; }
+    .featured h4 { font-size: 20px; }
     .tiles { gap: 20px; }
     .measure { grid-template-columns: 120px 1fr; }
     .people .btn { min-height: 44px; }
@@ -568,7 +568,7 @@
   }
 
   @media (min-width: 1280px) {
-    .hero h1 { font-size: 120px; }
+    .hero h1 { font-size: 92px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -791,7 +791,7 @@
           <div>
             <b style="font-weight:600;font-size:15px">Optimals Moisture Serum</b>
             <div class="price-lg" style="margin:8px 0">£16.50</div>
-            <p class="muted clamp-2" style="margin:0;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.35">"Locks in hydration immediately and genuinely transforms dry patches in a week."</p>
+            <p class="muted clamp-2" style="margin:0;font-size:14px;font-weight:300;line-height:1.5">"Locks in hydration immediately and genuinely transforms dry patches in a week."</p>
           </div>
         </div>
         <div class="btn-row push">
@@ -1289,7 +1289,7 @@
         const [q, opts] = qs[i];
         show(`Question ${i + 1} of ${qs.length}`, `
           <div class="progress"><i style="width:${((i + 1) / (qs.length + 1)) * 100}%"></i></div>
-          <p style="color:var(--ink);font-family:var(--serif);font-size:24px;line-height:1.2;margin:0">${q}</p>
+          <p style="color:var(--ink);font-size:19px;font-weight:500;letter-spacing:-.02em;line-height:1.3;margin:0">${q}</p>
           <div class="options">${opts.map(o => `<button class="option">${o}</button>`).join('')}</div>`);
         $$('.option', body).forEach(b => b.onclick = () => { b.setAttribute('aria-pressed', 'true'); answers[i] = b.textContent; setTimeout(() => step(i + 1), 250); });
       };
@@ -1301,7 +1301,7 @@
         show('Your skin results', `
           <div class="progress"><i style="width:100%"></i></div>
           <p class="eyebrow">Main focus</p>
-          <p style="color:var(--ink);font-family:var(--serif);font-size:26px;margin:4px 0 12px">${answers[1] || 'Dehydration'}</p>
+          <p style="color:var(--ink);font-size:22px;font-weight:500;letter-spacing:-.02em;margin:4px 0 12px">${answers[1] || 'Dehydration'}</p>
           <div class="score"><span>Hydration balance</span><b>62</b><div class="bar"><i style="width:62%"></i></div></div>
           <div class="score"><span>Redness &amp; sensitivity</span><b>78</b><div class="bar"><i style="width:78%"></i></div></div>
           <div class="score"><span>Pores &amp; texture</span><b>71</b><div class="bar"><i style="width:71%"></i></div></div>
