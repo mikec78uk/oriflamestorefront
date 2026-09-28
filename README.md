@@ -33,3 +33,11 @@ A single-page, mobile-first wireframe of a seller storefront (example seller: "M
 - The AI adviser gives canned, keyword-matched replies with hand-off to Mary.
 - The join form validates and shows a success state. "How it works" explains the steps.
 - Share uses the native share sheet, or copies the link.
+
+## Responsive behaviour
+- **Phone (< 700px):** single column, sticky section tabs, and a bottom dock with Ask Mary and Bag. Panels slide up from the bottom.
+- **Tablet (700–1023px):** two-column grid. Wide modules (offer, recommendation, catalogue, My Edit, reviews, AI adviser, join form) span the full width.
+- **Desktop (≥ 1024px):** 12-column editorial grid, with a split hero and a large portrait. Section navigation, Ask Mary and Bag sit in the top bar. Panels open as a right-hand drawer.
+
+## Visual language
+A warm tonal greyscale (stone neutrals, not pure grey), Cormorant Garamond display type with Inter for UI, hairline borders, small corner radii, tracked uppercase labels, and one inverted (dark) card for live help.

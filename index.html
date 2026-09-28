@@ -7,407 +7,570 @@
 <meta name="description" content="Greyscale wireframe of an Oriflame seller storefront, for unmoderated usability testing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* ============================================================
+     Tokens: a warm, tonal greyscale
+     ============================================================ */
   :root {
-    --ink: #161616;
-    --ink-2: #3a3a3a;
-    --ink-3: #5e5e5e;
-    --ink-4: #8a8a8a;
-    --line: #d4d4d4;
-    --line-2: #e6e6e6;
-    --fill: #f3f3f3;
-    --fill-2: #ebebeb;
-    --paper: #ffffff;
-    --canvas: #e2e2e2;
-    --primary: #1f1f1f;
-    --on-primary: #ffffff;
-    --radius: 14px;
-    --radius-sm: 8px;
-    --gutter: 16px;
-    --serif: "DM Serif Display", Georgia, "Times New Roman", serif;
-    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --topbar-h: 56px;
+    --ink:    #1c1b19;
+    --ink-2:  #3b3936;
+    --ink-3:  #66635e;
+    --ink-4:  #9a968f;
+    --ink-5:  #bdb9b2;
+    --line:   #e4e1dc;
+    --line-2: #efece8;
+    --fill:   #f6f5f2;
+    --fill-2: #eeece8;
+    --fill-3: #e5e2dd;
+    --paper:  #ffffff;
+    --canvas: #fbfaf8;
+    --primary: #1c1b19;
+    --on-primary: #faf9f7;
+
+    --r-lg: 6px;
+    --r-md: 4px;
+    --r-sm: 2px;
+    --gutter: 20px;
+    --wrap: 1200px;
+    --topbar-h: 60px;
     --tabs-h: 48px;
-    --dock-h: 72px;
+    --stick: calc(var(--topbar-h) + var(--tabs-h));
+    --dock-h: 76px;
+
+    --serif: "Cormorant Garamond", "Cormorant", Garamond, Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --ease: cubic-bezier(.2,.7,.2,1);
+    --shadow: 0 1px 2px rgba(28,27,25,.04), 0 8px 24px -12px rgba(28,27,25,.10);
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
     margin: 0; background: var(--canvas); color: var(--ink);
-    font-family: var(--sans); font-size: 15px; line-height: 1.45;
-    -webkit-font-smoothing: antialiased;
+    font-family: var(--sans); font-size: 15px; line-height: 1.55; letter-spacing: -.003em;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom));
   }
   button, input { font: inherit; color: inherit; }
   button { cursor: pointer; }
   a { color: inherit; }
-  img { max-width: 100%; display: block; }
-  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  :focus-visible { outline: 1.5px solid var(--ink); outline-offset: 3px; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
 
-  /* ---------- App shell ---------- */
-  .app {
-    max-width: 440px; margin: 0 auto; background: var(--paper);
-    min-height: 100vh; position: relative;
-    padding-bottom: calc(var(--dock-h) + 24px + env(safe-area-inset-bottom));
-    box-shadow: 0 0 0 1px rgba(0,0,0,.04), 0 10px 40px rgba(0,0,0,.06);
-  }
-  .icon { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .icon { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
   .icon-sm { width: 14px; height: 14px; }
-  .icon-lg { width: 28px; height: 28px; }
 
-  .topbar {
-    position: sticky; top: 0; z-index: 30; height: var(--topbar-h);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 var(--gutter); background: rgba(255,255,255,.96);
-    backdrop-filter: blur(8px); border-bottom: 1px solid var(--line-2);
+  /* ============================================================
+     Type
+     ============================================================ */
+  .display { font-family: var(--serif); font-weight: 500; letter-spacing: -.01em; line-height: 1.02; margin: 0; }
+  .display em { font-style: italic; color: var(--ink-3); }
+  .eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--ink-4); margin: 0;
   }
-  .wordmark { font-weight: 700; letter-spacing: .28em; font-size: 13px; text-transform: uppercase; }
-  .wordmark small { display: block; font-weight: 500; letter-spacing: .06em; font-size: 10px; color: var(--ink-4); text-transform: none; margin-top: 1px; }
-  .topbar-actions { display: flex; gap: 6px; }
-  .icon-btn {
-    position: relative; width: 40px; height: 40px; display: grid; place-items: center;
-    background: transparent; border: 1px solid transparent; border-radius: 10px;
-  }
-  .icon-btn:hover { background: var(--fill); }
-  .badge-count {
-    position: absolute; top: 3px; right: 2px; min-width: 18px; height: 18px; padding: 0 5px;
-    border-radius: 9px; background: var(--primary); color: var(--on-primary);
-    font-size: 11px; font-weight: 700; display: grid; place-items: center;
-    transform: scale(0); transition: transform .2s;
-  }
-  .badge-count.show { transform: scale(1); }
-  .badge-count.bump { animation: bump .35s; }
-  @keyframes bump { 50% { transform: scale(1.35); } }
-
-  /* ---------- Hero ---------- */
-  .hero { padding: 28px var(--gutter) 8px; text-align: center; }
-  .avatar {
-    width: 112px; height: 112px; margin: 0 auto 14px; border-radius: 50%;
-    background: var(--fill); border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink-4);
-  }
-  .avatar .icon { width: 36px; height: 36px; stroke-width: 1.5; }
-  .hero h1 { font-family: var(--serif); font-weight: 400; font-size: 32px; line-height: 1.1; margin: 0; display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .chip {
-    display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans);
-    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-    background: var(--fill-2); color: var(--ink-2); padding: 4px 8px; border-radius: 6px; white-space: nowrap;
-  }
-  .chip.solid { background: var(--primary); color: var(--on-primary); }
-  .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-  .hero .role { font-weight: 600; color: var(--ink-2); margin: 8px 0 2px; }
-  .hero .partner { font-size: 12px; color: var(--ink-4); margin: 0 0 10px; }
-  .hero .bio { color: var(--ink-3); margin: 0 auto 14px; max-width: 34ch; }
-  .rating-link {
-    display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-2);
-    background: none; border: 0; padding: 4px 6px; margin-bottom: 16px; text-decoration: underline; text-underline-offset: 3px;
-  }
-  .stars { display: inline-flex; gap: 1px; color: var(--ink-2); }
-  .stars .icon { width: 14px; height: 14px; fill: currentColor; stroke: none; }
-  .hero-actions { display: grid; grid-template-columns: 1fr auto; gap: 12px; }
-
-  /* ---------- Buttons ---------- */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    min-height: 48px; padding: 0 18px; border-radius: var(--radius-sm);
-    font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
-    border: 1.5px solid var(--primary); background: var(--primary); color: var(--on-primary);
-    text-decoration: none; transition: transform .08s, background .15s;
-  }
-  .btn:active { transform: scale(.98); }
-  .btn:hover { background: #000; }
-  .btn.ghost { background: var(--paper); color: var(--primary); }
-  .btn.ghost:hover { background: var(--fill); }
-  .btn.sm { min-height: 38px; font-size: 12px; padding: 0 14px; }
-  .btn.pill { border-radius: 999px; }
-  .btn.block { width: 100%; }
-  .btn.square { width: 48px; padding: 0; }
-  .btn[disabled] { opacity: .45; cursor: not-allowed; }
-  .btn.done { background: var(--paper); color: var(--ink); }
-  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .link {
-    display: inline-flex; align-items: center; gap: 4px; background: none; border: 0; padding: 4px 0;
-    font-weight: 700; font-size: 13px; letter-spacing: .03em; text-transform: uppercase; color: var(--ink);
-  }
-  .link.u { text-transform: none; letter-spacing: 0; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; }
-
-  /* ---------- Section tabs ---------- */
-  .tabs {
-    position: sticky; top: var(--topbar-h); z-index: 25; background: var(--paper);
-    display: flex; gap: 4px; padding: 0 var(--gutter); border-bottom: 1px solid var(--line);
-    margin-top: 20px; height: var(--tabs-h);
-  }
-  .tabs button {
-    flex: 1; background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -1px;
-    font-size: 15px; color: var(--ink-3); font-weight: 500;
-  }
-  .tabs button[aria-current="true"] { color: var(--ink); font-weight: 700; border-bottom-color: var(--ink); }
-
-  .section-intro { padding: 28px var(--gutter) 0; scroll-margin-top: calc(var(--topbar-h) + var(--tabs-h)); }
-  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4); margin: 0 0 4px; }
-  .section-intro h2 { font-family: var(--serif); font-weight: 400; font-size: 26px; margin: 0; }
-
-  /* ---------- Cards ---------- */
-  .card {
-    margin: 16px var(--gutter) 0; padding: 20px; border: 1px solid var(--line);
-    border-radius: var(--radius); background: var(--paper);
-    scroll-margin-top: calc(var(--topbar-h) + var(--tabs-h) + 12px);
-  }
-  .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
-  .card h3 { font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1.15; margin: 0; }
-  .card .sub { color: var(--ink-3); margin: 6px 0 0; }
-  .meta { font-size: 13px; color: var(--ink-3); font-weight: 600; white-space: nowrap; }
   .muted { color: var(--ink-3); }
   .tiny { font-size: 12px; color: var(--ink-4); }
-  .price { font-weight: 700; }
-  .price-lg { font-weight: 700; font-size: 22px; }
-  .strike { text-decoration: line-through; color: var(--ink-4); }
+  .price { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .price-lg { font-family: var(--serif); font-weight: 600; font-size: 28px; line-height: 1; font-variant-numeric: lining-nums; }
+  .strike { text-decoration: line-through; color: var(--ink-4); font-family: var(--sans); font-size: 14px; font-weight: 400; }
   .clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .centre { text-align: center; }
 
-  .ph {
-    background: var(--fill); border: 1px solid var(--line); border-radius: var(--radius-sm);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-    color: var(--ink-4); text-align: center; padding: 8px; font-size: 12px; font-weight: 500;
-    letter-spacing: .04em; text-transform: uppercase; overflow: hidden; position: relative;
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ink-2); padding: 5px 9px; border: 1px solid var(--line); border-radius: var(--r-sm);
+    background: var(--paper); white-space: nowrap; line-height: 1;
   }
-  .ph span { color: var(--ink-3); max-width: 100%; }
-  .ph .icon { width: 30px; height: 30px; stroke-width: 1.5; }
-  .ph-wide { aspect-ratio: 16 / 8; }
-  .ph-square { aspect-ratio: 1; }
-
-  /* Offer */
-  .offer-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 16px; }
-  .countdown { font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
-  .countdown .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); animation: pulse 1.6s infinite; }
+  .chip.solid { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+  .chip .dot, .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: inline-block; flex: none; }
+  .pulse { animation: pulse 1.8s infinite; }
   @keyframes pulse { 50% { opacity: .25; } }
-  .media-row { display: grid; grid-template-columns: 110px 1fr; gap: 16px; margin-bottom: 18px; }
-  .media-row .ph { aspect-ratio: 1; }
-  .media-row h3 { font-size: 22px; }
-  .price-line { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-  .save { font-size: 12px; font-weight: 800; letter-spacing: .04em; }
 
-  /* Recommendation */
-  .quote { color: var(--ink-3); margin: 10px 0 18px; }
-  .title-price { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 16px; }
-
-  /* Offers of the month */
-  .featured { background: var(--fill); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
-  .featured .ph { background: var(--paper); aspect-ratio: 16/9; }
-  .featured h4 { font-family: var(--serif); font-weight: 400; font-size: 19px; margin: 12px 0 8px; }
-  .featured-foot { display: flex; align-items: center; justify-content: space-between; }
-  .mini-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 12px; }
-  .mini {
-    border: 1px solid var(--line); border-radius: 10px; padding: 8px; background: var(--paper);
-    text-align: left; display: flex; flex-direction: column; gap: 6px;
+  /* ============================================================
+     Buttons
+     ============================================================ */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 50px; padding: 0 22px; border-radius: var(--r-sm);
+    font-weight: 600; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
+    border: 1px solid var(--primary); background: var(--primary); color: var(--on-primary);
+    text-decoration: none; transition: background .2s var(--ease), color .2s, transform .1s;
   }
-  .mini .ph { aspect-ratio: 1.25; font-size: 10px; }
-  .mini .ph .icon { width: 22px; height: 22px; }
-  .mini b { font-size: 13px; font-weight: 600; }
-  .mini .price { font-size: 13px; }
-  .centre { text-align: center; margin-top: 16px; }
+  .btn:hover { background: #000; }
+  .btn:active { transform: translateY(1px); }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink-5); }
+  .btn.ghost:hover { border-color: var(--ink); background: var(--paper); }
+  .btn.sm { min-height: 40px; padding: 0 16px; font-size: 10.5px; }
+  .btn.block { width: 100%; }
+  .btn.square { width: 50px; padding: 0; }
+  .btn[disabled] { opacity: .45; cursor: not-allowed; }
+  .btn.done { background: var(--fill); color: var(--ink); border-color: var(--line); }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .btn-row .btn, .dock .btn { padding: 0 12px; }
+  .link {
+    display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 4px 0;
+    font-weight: 600; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink);
+    border-bottom: 1px solid var(--ink-5); transition: border-color .2s;
+  }
+  .link:hover { border-color: var(--ink); }
+  .link .icon { transition: transform .2s var(--ease); }
+  .link:hover .icon { transform: translateX(3px); }
 
-  /* My Edit */
-  .filters { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
+  /* ============================================================
+     Top bar + section tabs
+     ============================================================ */
+  .topbar {
+    position: sticky; top: 0; z-index: 30; height: var(--topbar-h);
+    background: rgba(251,250,248,.9); backdrop-filter: saturate(1.2) blur(12px);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .topbar .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .wordmark { font-weight: 600; letter-spacing: .34em; font-size: 12px; text-transform: uppercase; line-height: 1.2; }
+  .wordmark small { display: block; font-family: var(--serif); font-style: italic; font-weight: 500; letter-spacing: 0; font-size: 15px; color: var(--ink-3); text-transform: none; }
+  .topnav { display: none; gap: 32px; }
+  .topnav button {
+    background: none; border: 0; padding: 6px 0; font-size: 11.5px; font-weight: 600; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-3); border-bottom: 1px solid transparent;
+  }
+  .topnav button[aria-current="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .topbar-actions { display: flex; align-items: center; gap: 4px; }
+  .top-cta { display: none; }
+  .icon-btn {
+    position: relative; width: 42px; height: 42px; display: grid; place-items: center;
+    background: transparent; border: 0; border-radius: 50%; transition: background .2s;
+  }
+  .icon-btn:hover { background: var(--fill-2); }
+  .badge-count {
+    position: absolute; top: 4px; right: 3px; min-width: 17px; height: 17px; padding: 0 4px;
+    border-radius: 9px; background: var(--primary); color: var(--on-primary);
+    font-size: 10px; font-weight: 600; display: grid; place-items: center;
+    transform: scale(0); transition: transform .25s var(--ease);
+  }
+  .badge-count.show { transform: scale(1); }
+  .badge-count.bump { animation: bump .4s var(--ease); }
+  @keyframes bump { 50% { transform: scale(1.35); } }
+
+  .tabs {
+    position: sticky; top: var(--topbar-h); z-index: 25; height: var(--tabs-h);
+    background: rgba(251,250,248,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
+  }
+  .tabs .wrap { display: flex; height: 100%; }
+  .tabs button {
+    flex: 1; background: none; border: 0; border-bottom: 1.5px solid transparent; margin-bottom: -1px;
+    font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); white-space: nowrap;
+    transition: color .2s, border-color .2s;
+  }
+  .tabs button[aria-current="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+
+  /* ============================================================
+     Hero
+     ============================================================ */
+  .hero { padding-top: 36px; padding-bottom: 36px; text-align: center; }
+  .hero-grid { display: grid; gap: 40px; align-items: center; }
+  .avatar {
+    width: 104px; height: 104px; margin: 0 auto 20px; border-radius: 50%;
+    background: linear-gradient(160deg, var(--fill), var(--fill-3)); display: grid; place-items: center; color: var(--ink-4);
+    box-shadow: 0 0 0 6px var(--paper), 0 0 0 7px var(--line);
+  }
+  .avatar .icon { width: 34px; height: 34px; stroke-width: 1.1; }
+  .hero .eyebrow { margin-bottom: 14px; }
+  .hero h1 { font-size: 56px; }
+  .role { margin: 14px 0 0; display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; font-weight: 500; color: var(--ink-2); }
+  .bio { color: var(--ink-3); margin: 14px auto 0; max-width: 38ch; font-size: 16px; }
+  .stats { display: flex; justify-content: center; gap: 0; margin: 24px 0 26px; }
+  .stat { padding: 0 20px; border-left: 1px solid var(--line); text-align: center; background: none; border-top: 0; border-right: 0; border-bottom: 0; }
+  .stat:first-child { border-left: 0; }
+  .stat b { display: block; font-family: var(--serif); font-weight: 600; font-size: 26px; line-height: 1; }
+  .stat span { font-size: 11px; color: var(--ink-4); letter-spacing: .06em; }
+  button.stat span { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ink-5); }
+  .hero-actions { display: grid; grid-template-columns: 1fr auto; gap: 10px; max-width: 420px; margin: 0 auto; }
+  .hero-portrait.ph { display: none; }
+
+  /* ============================================================
+     Sections & grid
+     ============================================================ */
+  .section { padding-top: 48px; scroll-margin-top: var(--stick); }
+  .section-head { margin-bottom: 20px; }
+  .section-head .eyebrow { margin-bottom: 8px; }
+  .section-head h2 { font-size: 38px; }
+  .section-head p:last-child:not(.eyebrow) { color: var(--ink-3); margin: 10px 0 0; max-width: 46ch; }
+  .grid { display: grid; gap: 16px; grid-auto-flow: row dense; }
+
+  .card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg);
+    padding: 24px; display: flex; flex-direction: column; min-width: 0;
+    scroll-margin-top: calc(var(--stick) + 16px);
+  }
+  .card.tint { background: var(--fill); border-color: transparent; }
+  .card.ink { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+  .card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+  .card h3 { font-family: var(--serif); font-weight: 500; font-size: 30px; line-height: 1.08; letter-spacing: -.005em; margin: 0; }
+  .card .sub { color: var(--ink-3); margin: 8px 0 0; }
+  .meta { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4); white-space: nowrap; }
+  .push { margin-top: auto; }
+
+  /* Placeholders */
+  .ph {
+    background: linear-gradient(160deg, var(--fill) 0%, var(--fill-2) 100%);
+    border-radius: var(--r-md); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    color: var(--ink-5); text-align: center; padding: 10px; overflow: hidden; position: relative;
+  }
+  .ph span { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-4); max-width: 100%; }
+  .ph .icon { width: 28px; height: 28px; stroke-width: 1.1; }
+  .ph-wide { aspect-ratio: 16 / 9; }
+
+  /* ---------- Offer ---------- */
+  .offer-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 20px; }
+  .countdown { font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); }
+  .media-row { display: grid; grid-template-columns: 112px 1fr; gap: 18px; margin-bottom: 22px; align-items: start; }
+  .media-row .ph { aspect-ratio: 1; }
+  .media-row h3 { font-size: 26px; }
+  .price-line { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .save { font-size: 10px; font-weight: 600; letter-spacing: .14em; padding: 3px 6px; border: 1px solid var(--ink); border-radius: var(--r-sm); }
+
+  /* ---------- Recommendation ---------- */
+  .rec .ph { aspect-ratio: 4 / 3; }
+  .quote { font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1.35; color: var(--ink-2); margin: 14px 0 22px; }
+  .title-price { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 22px; }
+  .signature { display: flex; align-items: center; gap: 10px; margin: -8px 0 22px; font-size: 13px; color: var(--ink-3); }
+  .signature i { width: 28px; height: 1px; background: var(--ink-5); }
+
+  /* ---------- Offers of the month ---------- */
+  .ootm { display: grid; gap: 14px; }
+  .featured { background: var(--fill); border-radius: var(--r-md); padding: 16px; display: flex; flex-direction: column; }
+  .featured .ph { background: linear-gradient(160deg, var(--paper), var(--fill-2)); aspect-ratio: 16/9; }
+  .featured h4 { font-family: var(--serif); font-weight: 500; font-size: 22px; margin: 16px 0 10px; }
+  .featured-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; }
+  .mini-list { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+  .mini {
+    border: 1px solid var(--line); border-radius: var(--r-md); padding: 8px; background: var(--paper);
+    text-align: left; display: flex; flex-direction: column; gap: 8px; transition: border-color .2s;
+  }
+  .mini:hover { border-color: var(--ink-5); }
+  .mini .ph { aspect-ratio: 1.2; }
+  .mini .ph span { font-size: 9px; }
+  .mini .ph .icon { width: 20px; height: 20px; }
+  .mini b { font-size: 13px; font-weight: 500; display: block; }
+  .mini .price { font-size: 13px; }
+  .mini-info { min-width: 0; width: 100%; }
+  .mini .mini-add { display: none; }
+  .foot-link { margin-top: 20px; text-align: center; }
+
+  /* ---------- My Edit ---------- */
+  .filters { display: flex; gap: 6px; margin-bottom: 18px; overflow-x: auto; scrollbar-width: none; }
   .filters::-webkit-scrollbar { display: none; }
   .filter {
-    border: 1px solid var(--line); background: var(--fill); border-radius: 999px;
-    padding: 8px 16px; font-weight: 600; font-size: 14px; color: var(--ink-2); white-space: nowrap;
+    border: 1px solid var(--line); background: var(--paper); border-radius: 999px;
+    padding: 8px 16px; font-weight: 500; font-size: 13px; color: var(--ink-3); white-space: nowrap; transition: all .2s;
   }
+  .filter:hover { border-color: var(--ink-5); color: var(--ink); }
   .filter[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .tile { border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .tiles { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+  .tile { display: flex; flex-direction: column; gap: 10px; }
   .tile[hidden] { display: none; }
-  .tile .ph { aspect-ratio: 1.45; }
-  .tile b { font-weight: 600; font-size: 14px; }
-  .tile-foot { display: flex; align-items: center; justify-content: space-between; }
+  .tile .ph { aspect-ratio: 4 / 5; }
+  .tile-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; }
+  .tile b { font-weight: 500; font-size: 14px; display: block; }
+  .tile .price { font-size: 13px; color: var(--ink-3); font-weight: 500; }
   .add-sq {
-    width: 36px; height: 36px; border-radius: 8px; border: 0; background: var(--fill-2);
-    display: grid; place-items: center; transition: background .15s;
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper);
+    display: grid; place-items: center; transition: all .2s; flex: none;
   }
-  .add-sq:hover { background: var(--line); }
-  .add-sq.added { background: var(--primary); color: var(--on-primary); }
+  .add-sq:hover { border-color: var(--ink); }
+  .add-sq.added { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+  .show-more { margin-top: 22px; }
 
-  /* Routine */
-  .steps { display: grid; gap: 10px; }
-  .step { display: grid; grid-template-columns: 30px 56px 1fr; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
-  .step-num { width: 30px; height: 30px; border-radius: 50%; background: var(--primary); color: var(--on-primary); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
-  .step .ph { width: 56px; height: 56px; padding: 0; border: 0; }
-  .step .ph .icon { width: 22px; height: 22px; }
-  .step small { display: block; font-size: 11px; font-weight: 800; letter-spacing: .08em; color: var(--ink-3); }
-  .step b { font-weight: 600; }
-  .set-price { display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 12px; flex-wrap: wrap; gap: 6px; }
-  .set-price .price-lg .strike { font-size: 14px; font-weight: 500; margin-right: 6px; }
+  /* ---------- Routine ---------- */
+  .steps { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .step { display: grid; grid-template-columns: 26px 52px 1fr; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .step-num { font-family: var(--serif); font-size: 24px; font-weight: 500; color: var(--ink-4); line-height: 1; }
+  .step .ph { width: 52px; height: 52px; padding: 0; }
+  .step .ph .icon { width: 18px; height: 18px; }
+  .step small { display: block; font-size: 10px; font-weight: 600; letter-spacing: .18em; color: var(--ink-4); }
+  .step b { font-weight: 500; }
+  .set-price { display: flex; justify-content: space-between; align-items: baseline; margin: 22px 0 16px; flex-wrap: wrap; gap: 8px; }
+  .set-price .strike { margin-right: 8px; }
 
-  /* Reviews */
-  .carousel { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 -4px; padding: 0 4px; }
+  /* ---------- Reviews ---------- */
+  .rating-summary { display: flex; align-items: center; gap: 12px; margin-top: 8px; font-size: 13px; color: var(--ink-3); }
+  .rating-summary b { font-family: var(--serif); font-weight: 600; font-size: 30px; color: var(--ink); line-height: 1; }
+  .stars { display: inline-flex; gap: 2px; color: var(--ink-2); }
+  .stars .icon { width: 12px; height: 12px; fill: currentColor; stroke: none; }
+  .carousel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .carousel::-webkit-scrollbar { display: none; }
   .slide { flex: 0 0 100%; scroll-snap-align: start; display: grid; gap: 12px; }
-  .review { background: var(--fill); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
-  .review-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-  .review-head .av { width: 36px; height: 36px; border-radius: 50%; background: var(--line); flex: none; }
-  .review-head b { font-weight: 700; }
-  .verified { font-size: 12px; font-weight: 600; color: var(--ink-2); display: inline-flex; align-items: center; gap: 3px; }
+  .review { background: var(--fill); border-radius: var(--r-md); padding: 18px; }
+  .review-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .review-head .av { width: 34px; height: 34px; border-radius: 50%; background: var(--fill-3); flex: none; }
+  .review-head b { font-weight: 600; font-size: 14px; }
+  .verified { font-size: 11px; color: var(--ink-4); display: inline-flex; align-items: center; gap: 3px; }
   .review-head .stars { margin-left: auto; }
-  .review p { margin: 0; color: var(--ink-3); }
-  .review .tiny { margin-top: 6px; }
-  .dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
-  .dots button { width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; background: var(--line); }
-  .dots button[aria-current="true"] { background: var(--ink); }
-  .rating-summary { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 13px; color: var(--ink-3); }
-  .rating-summary b { font-size: 20px; color: var(--ink); }
+  .review p { margin: 0; font-family: var(--serif); font-size: 18px; line-height: 1.4; color: var(--ink-2); }
+  .review .tiny { margin-top: 10px; }
+  .dots { display: flex; justify-content: center; gap: 6px; margin-top: 18px; }
+  .dots button { width: 18px; height: 2px; border: 0; padding: 6px 0; background: var(--line) content-box; transition: all .25s; }
+  .dots button[aria-current="true"] { width: 32px; background-color: var(--ink); }
 
-  /* Skin analysis */
-  .measure { background: var(--fill); border-radius: 12px; padding: 14px; display: grid; grid-template-columns: 104px 1fr; gap: 14px; align-items: center; }
-  .measure .ph { aspect-ratio: .8; background: var(--fill-2); }
-  .ticks { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; color: var(--ink-3); }
+  /* ---------- Skin analysis ---------- */
+  .measure { background: var(--fill); border-radius: var(--r-md); padding: 16px; display: grid; grid-template-columns: 100px 1fr; gap: 16px; align-items: center; margin-top: 20px; }
+  .measure .ph { aspect-ratio: .8; background: linear-gradient(160deg, var(--paper), var(--fill-3)); }
+  .measure b { display: block; font-weight: 600; font-size: 14px; margin-top: 12px; }
+  .ticks { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; color: var(--ink-3); font-size: 14px; }
   .ticks li { display: flex; gap: 8px; align-items: center; }
-  .ticks .icon { width: 16px; height: 16px; color: var(--ink); stroke-width: 2.5; }
+  .ticks .icon { width: 14px; height: 14px; color: var(--ink); stroke-width: 2; }
 
-  /* Try-on */
+  /* ---------- Try-on ---------- */
   .camera {
-    position: relative; aspect-ratio: 16/10; border-radius: 12px; overflow: hidden;
-    background: repeating-linear-gradient(135deg, #cfcfcf 0 12px, #c6c6c6 12px 24px);
-    display: grid; place-items: center; color: #555; margin: 16px 0;
+    position: relative; aspect-ratio: 16/10; border-radius: var(--r-md); overflow: hidden;
+    background: radial-gradient(ellipse at 50% 38%, #d9d6d1 0%, #bfbbb4 70%, #a9a59e 100%);
+    display: grid; place-items: center; margin: 20px 0;
   }
-  .camera .face { width: 34%; aspect-ratio: .78; border: 2px dashed rgba(0,0,0,.35); border-radius: 50% 50% 46% 46%; }
-  .live { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,.65); color: #fff; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; }
-  .live .dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: pulse 1.6s infinite; }
-  .swatches { position: absolute; bottom: 12px; left: 0; right: 0; display: flex; justify-content: center; gap: 10px; }
-  .swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid rgba(255,255,255,.8); padding: 0; }
-  .swatch[aria-pressed="true"] { outline: 2px solid #111; outline-offset: 2px; }
-  .shade-name { position: absolute; bottom: 52px; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: .1em; color: #222; text-transform: uppercase; }
+  .camera .face { width: 30%; aspect-ratio: .78; border: 1px solid rgba(255,255,255,.7); border-radius: 50% 50% 46% 46%; box-shadow: 0 0 0 999px rgba(0,0,0,.06); }
+  .live { position: absolute; top: 12px; left: 12px; background: rgba(28,27,25,.72); color: #fff; font-size: 10px; font-weight: 600; letter-spacing: .16em; padding: 6px 10px; border-radius: var(--r-sm); display: inline-flex; align-items: center; gap: 7px; }
+  .swatches { position: absolute; bottom: 14px; left: 0; right: 0; display: flex; justify-content: center; gap: 10px; }
+  .swatch { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255,255,255,.85); padding: 0; transition: transform .2s; }
+  .swatch[aria-pressed="true"] { transform: scale(1.18); box-shadow: 0 0 0 1.5px var(--ink); }
+  .shade-name { position: absolute; bottom: 52px; left: 0; right: 0; text-align: center; font-family: var(--serif); font-style: italic; font-size: 17px; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.25); }
 
-  /* AI adviser */
-  .status-on { font-size: 12px; font-weight: 800; letter-spacing: .06em; display: inline-flex; align-items: center; gap: 6px; }
-  .status-on .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
-  .chat-log { background: var(--fill); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 4px; max-height: 300px; overflow-y: auto; margin-top: 16px; }
-  .bubble { max-width: 86%; padding: 10px 14px; border-radius: 16px; font-size: 14px; }
+  /* ---------- AI adviser ---------- */
+  .status-on { font-size: 10px; font-weight: 600; letter-spacing: .16em; display: inline-flex; align-items: center; gap: 7px; color: var(--ink-2); }
+  .chat-log { background: var(--fill); border-radius: var(--r-md); padding: 16px; display: flex; flex-direction: column; gap: 4px; min-height: 180px; max-height: 320px; overflow-y: auto; margin-top: 20px; flex: 1; }
+  .bubble { max-width: 86%; padding: 11px 15px; border-radius: 18px; font-size: 14px; }
   .bubble.me { align-self: flex-end; background: var(--paper); border: 1px solid var(--line); border-bottom-right-radius: 4px; }
-  .bubble.bot { align-self: flex-start; background: var(--fill-2); border-bottom-left-radius: 4px; }
-  .bubble-meta { font-size: 11px; color: var(--ink-4); margin-bottom: 8px; }
+  .bubble.bot { align-self: flex-start; background: var(--fill-3); border-bottom-left-radius: 4px; }
+  .bubble-meta { font-size: 11px; color: var(--ink-4); margin-bottom: 10px; }
   .bubble-meta.me { align-self: flex-end; }
-  .suggest { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-  .suggest button { border: 1px solid var(--line); background: var(--paper); border-radius: 999px; padding: 6px 12px; font-size: 13px; }
-  .composer { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 4px 4px 18px; margin-top: 14px; }
-  .composer input { flex: 1; border: 0; background: none; padding: 10px 0; outline: none; min-width: 0; }
-  .composer button { width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--primary); color: var(--on-primary); display: grid; place-items: center; }
+  .suggest { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+  .suggest button { border: 1px solid var(--line); background: var(--paper); border-radius: 999px; padding: 7px 13px; font-size: 13px; color: var(--ink-3); transition: all .2s; }
+  .suggest button:hover { border-color: var(--ink-5); color: var(--ink); }
+  .composer { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 4px 4px 20px; margin-top: 14px; background: var(--paper); transition: border-color .2s; }
+  .composer:focus-within { border-color: var(--ink-4); }
+  .composer input { flex: 1; border: 0; background: none; padding: 11px 0; outline: none; min-width: 0; }
+  .composer button { width: 42px; height: 42px; border-radius: 50%; border: 0; background: var(--primary); color: var(--on-primary); display: grid; place-items: center; }
   .typing { display: inline-flex; gap: 4px; }
-  .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-4); animation: pulse 1s infinite; }
+  .typing i { width: 5px; height: 5px; border-radius: 50%; background: var(--ink-4); animation: pulse 1s infinite; }
   .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
-  .foot-note { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 12px; font-size: 13px; color: var(--ink-3); display: flex; gap: 8px; align-items: center; }
-  .foot-note .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-3); flex: none; }
+  .foot-note { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 14px; font-size: 12px; color: var(--ink-4); display: flex; gap: 8px; align-items: center; }
 
-  /* Posts */
-  .post { display: grid; grid-template-columns: 120px 1fr; gap: 14px; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: none; text-align: left; width: 100%; }
-  .post + .post { margin-top: 12px; }
-  .post .ph { aspect-ratio: 1.1; border: 0; }
-  .play { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; }
-  .play .icon { fill: currentColor; stroke: none; width: 18px; height: 18px; margin-left: 2px; }
-  .post b { display: block; font-weight: 700; font-size: 16px; margin-bottom: 4px; }
-  .post p { margin: 0 0 6px; color: var(--ink-3); font-size: 14px; }
+  /* ---------- Posts ---------- */
+  .posts { display: grid; gap: 0; margin-top: 18px; border-top: 1px solid var(--line); }
+  .post { display: grid; grid-template-columns: 104px 1fr; gap: 16px; padding: 16px 0; background: none; border: 0; border-bottom: 1px solid var(--line); text-align: left; width: 100%; }
+  .post .ph { aspect-ratio: 1; }
+  .play { width: 40px; height: 40px; border-radius: 50%; background: rgba(28,27,25,.85); color: #fff; display: grid; place-items: center; }
+  .play .icon { fill: currentColor; stroke: none; width: 14px; height: 14px; margin-left: 2px; }
+  .post .eyebrow { font-size: 10px; margin-bottom: 4px; }
+  .post b { display: block; font-family: var(--serif); font-weight: 500; font-size: 21px; line-height: 1.15; margin-bottom: 4px; }
+  .post p { margin: 0 0 8px; color: var(--ink-3); font-size: 14px; }
 
-  /* Live assistance */
-  .chat-pill { display: flex; align-items: center; gap: 12px; width: 100%; border: 1.5px solid var(--ink); border-radius: 999px; padding: 14px 16px 14px 20px; background: var(--paper); font-weight: 700; font-size: 16px; margin-top: 16px; }
-  .chat-pill .chip { margin-left: auto; }
-  .channels { text-align: center; margin-top: 14px; font-size: 13px; color: var(--ink-3); }
-  .channels div { margin-top: 4px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
-  .channels button { background: none; border: 0; font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; padding: 2px; }
+  /* ---------- Live help (inverted card) ---------- */
+  .card.ink h3 { color: var(--on-primary); }
+  .card.ink .sub { color: #b7b3ac; }
+  .chat-pill { display: flex; align-items: center; gap: 12px; width: 100%; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 15px 16px 15px 22px; background: rgba(255,255,255,.06); color: var(--on-primary); font-weight: 500; font-size: 15px; margin-top: 22px; transition: background .2s; }
+  .chat-pill:hover { background: rgba(255,255,255,.12); }
+  .chat-pill .status-on { margin-left: auto; color: #d6d2cb; }
+  .channels { text-align: center; margin-top: 16px; font-size: 12px; color: #9a968f; }
+  .channels div { margin-top: 6px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .channels button { background: none; border: 0; font-size: 13px; font-weight: 500; color: var(--on-primary); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(255,255,255,.35); padding: 2px; }
 
-  /* Team */
-  .people { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-  .person { border: 1px solid var(--line); border-radius: 12px; padding: 16px 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .person .avatar { width: 76px; height: 76px; margin: 0; }
-  .person .avatar .icon { width: 28px; height: 28px; }
-  .person b { font-size: 17px; font-weight: 700; }
-  .person .btn { width: 100%; margin-top: 4px; }
+  /* ---------- Team ---------- */
+  .people { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+  .person { background: var(--fill); border-radius: var(--r-md); padding: 20px 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .person .avatar { width: 68px; height: 68px; margin: 0 0 6px; box-shadow: 0 0 0 4px var(--fill), 0 0 0 5px var(--line); }
+  .person .avatar .icon { width: 24px; height: 24px; }
+  .person b { font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1; }
+  .person .btn { width: 100%; margin-top: 8px; }
+  .person .link { font-size: 10px; }
 
-  /* Join */
-  .perks { list-style: none; padding: 0; margin: 14px 0 16px; display: grid; gap: 8px; }
-  .perks li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink-2); }
-  .perks .icon { width: 18px; height: 18px; margin-top: 1px; stroke-width: 2.4; }
-  .field { display: block; margin-bottom: 12px; }
-  .field span { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--ink-2); }
-  .field input { width: 100%; height: 50px; padding: 0 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--fill); }
-  .field input:focus { outline: 2px solid var(--ink); outline-offset: 0; background: var(--paper); }
-  .field input[aria-invalid="true"] { border-color: var(--ink); border-width: 2px; }
-  .err { font-size: 12px; font-weight: 600; margin-top: 4px; display: none; }
+  /* ---------- Join ---------- */
+  .card.join { background: var(--fill); border-color: transparent; }
+  .perks { list-style: none; padding: 0; margin: 18px 0 22px; display: grid; gap: 10px; }
+  .perks li { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--ink-2); }
+  .perks .icon { width: 16px; height: 16px; margin-top: 3px; stroke-width: 2; }
+  .form-grid { display: grid; gap: 12px; }
+  .field { display: block; }
+  .field span { display: block; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; color: var(--ink-3); }
+  .field input { width: 100%; height: 50px; padding: 0 16px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--paper); transition: border-color .2s; }
+  .field input::placeholder { color: var(--ink-5); }
+  .field input:focus { outline: none; border-color: var(--ink); }
+  .field input[aria-invalid="true"] { border-color: var(--ink); box-shadow: inset 3px 0 0 var(--ink); }
+  .err { font-size: 12px; font-weight: 500; margin-top: 6px; display: none; }
   .field input[aria-invalid="true"] + .err { display: block; }
-  .check { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-3); margin: 4px 0 16px; }
-  .check input { width: 20px; height: 20px; margin: 0; accent-color: var(--ink); flex: none; }
-  .success { text-align: center; padding: 12px 0; }
-  .success .tickc { width: 56px; height: 56px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; margin: 0 auto 12px; }
+  .check { display: flex; gap: 12px; align-items: flex-start; font-size: 13px; color: var(--ink-3); margin: 16px 0 18px; }
+  .check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--ink); flex: none; }
+  .success { text-align: center; padding: 20px 0; }
+  .success .tickc { width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--ink); display: grid; place-items: center; margin: 0 auto 16px; }
+  .success h3 { margin-bottom: 8px !important; }
 
-  /* Follow */
-  .handle { font-weight: 700; margin-top: 4px; font-size: 15px; }
-  .insta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px; }
-  .insta .ph { aspect-ratio: 1; }
-  .socials { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); margin-top: 16px; padding-top: 14px; }
-  .socials button { background: none; border: 0; font-weight: 600; color: var(--ink-2); padding: 4px; }
-  .socials i { width: 4px; height: 4px; background: var(--ink-4); border-radius: 50%; }
+  /* ---------- Follow ---------- */
+  .handle { font-size: 14px; color: var(--ink-3); margin-top: 6px; }
+  .insta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .insta .ph { aspect-ratio: 1; border-radius: var(--r-sm); }
+  .socials { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); margin-top: 20px; padding-top: 16px; }
+  .socials button { background: none; border: 0; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); padding: 4px; }
+  .socials button:hover { color: var(--ink); }
+  .socials i { width: 3px; height: 3px; background: var(--ink-5); border-radius: 50%; }
 
-  /* Footer */
-  .site-foot { margin: 28px var(--gutter) 0; padding: 20px 0; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-4); text-align: center; }
-  .site-foot nav { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
-  .site-foot nav a { color: var(--ink-3); }
+  /* ---------- Footer ---------- */
+  .site-foot { margin-top: 64px; border-top: 1px solid var(--line); background: var(--paper); }
+  .site-foot .wrap { padding-top: 32px; padding-bottom: 32px; display: grid; gap: 18px; text-align: center; font-size: 12px; color: var(--ink-4); }
+  .site-foot nav { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .site-foot nav a { color: var(--ink-3); text-decoration: none; }
+  .site-foot nav a:hover { color: var(--ink); }
 
-  /* ---------- Dock ---------- */
+  /* ============================================================
+     Mobile dock
+     ============================================================ */
   .dock {
-    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 40;
-    width: min(440px, 100%); padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
-    background: rgba(255,255,255,.97); backdrop-filter: blur(8px); border-top: 1px solid var(--line);
-    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+    padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom));
+    background: rgba(251,250,248,.94); backdrop-filter: blur(12px); border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px;
   }
-  .dock .btn { min-height: 50px; }
 
-  /* ---------- Sheet ---------- */
-  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 60; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  /* ============================================================
+     Sheet (bottom sheet on mobile, side drawer on desktop)
+     ============================================================ */
+  .scrim { position: fixed; inset: 0; background: rgba(28,27,25,.38); backdrop-filter: blur(2px); z-index: 60; opacity: 0; pointer-events: none; transition: opacity .3s; }
   .scrim.open { opacity: 1; pointer-events: auto; }
   .sheet {
-    position: fixed; left: 50%; bottom: 0; z-index: 70; width: min(440px, 100%);
-    max-height: 88vh; overflow-y: auto; background: var(--paper);
-    border-radius: 20px 20px 0 0; padding: 8px 20px calc(24px + env(safe-area-inset-bottom));
-    transform: translate(-50%, 105%); transition: transform .28s cubic-bezier(.2,.8,.2,1);
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; margin: 0 auto; width: min(560px, 100%);
+    max-height: 90vh; overflow-y: auto; background: var(--paper);
+    border-radius: 14px 14px 0 0; padding: 8px 24px calc(28px + env(safe-area-inset-bottom));
+    transform: translateY(105%); transition: transform .38s var(--ease);
   }
-  .sheet.open { transform: translate(-50%, 0); }
-  .grabber { width: 40px; height: 4px; border-radius: 2px; background: var(--line); margin: 4px auto 12px; }
-  .sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-  .sheet-head h3 { font-family: var(--serif); font-weight: 400; font-size: 24px; margin: 0; }
+  .sheet.open { transform: translateY(0); }
+  .grabber { width: 36px; height: 3px; border-radius: 2px; background: var(--line); margin: 6px auto 14px; }
+  .sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+  .sheet-head h3 { font-family: var(--serif); font-weight: 500; font-size: 30px; margin: 0; line-height: 1.1; }
   .sheet p { color: var(--ink-3); }
-  .bag-line { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line-2); }
-  .bag-line .ph { width: 52px; height: 52px; padding: 0; }
+  .bag-line { display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line-2); }
+  .bag-line .ph { width: 56px; height: 56px; padding: 0; }
   .bag-line .ph .icon { width: 18px; height: 18px; }
-  .bag-line b { font-weight: 600; font-size: 14px; display: block; }
-  .qty { display: flex; align-items: center; gap: 8px; }
-  .qty button { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--line); background: var(--paper); line-height: 1; }
-  .total { display: flex; justify-content: space-between; font-weight: 700; font-size: 18px; margin: 16px 0; }
-  .options { display: grid; gap: 10px; margin: 14px 0; }
-  .option { text-align: left; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--paper); font-weight: 600; }
-  .option[aria-pressed="true"] { border: 2px solid var(--ink); background: var(--fill); padding: 13px 15px; }
-  .progress { height: 4px; background: var(--fill-2); border-radius: 2px; overflow: hidden; margin: 4px 0 16px; }
-  .progress i { display: block; height: 100%; background: var(--ink); transition: width .3s; }
-  .score { display: grid; grid-template-columns: 1fr 40px; gap: 4px 10px; align-items: center; font-size: 14px; margin: 6px 0; }
-  .score .bar { grid-column: 1 / -1; height: 8px; background: var(--fill-2); border-radius: 4px; overflow: hidden; }
+  .bag-line b { font-weight: 500; font-size: 14px; display: block; }
+  .qty { display: flex; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; }
+  .qty button { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); line-height: 1; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0; }
+  .total span:first-child { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+  .options { display: grid; gap: 8px; margin: 16px 0; }
+  .option { text-align: left; border: 1px solid var(--line); border-radius: var(--r-md); padding: 15px 18px; background: var(--paper); font-weight: 500; transition: border-color .2s; }
+  .option:hover { border-color: var(--ink-5); }
+  .option[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+  .progress { height: 2px; background: var(--fill-2); overflow: hidden; margin: 4px 0 20px; }
+  .progress i { display: block; height: 100%; background: var(--ink); transition: width .4s var(--ease); }
+  .score { display: grid; grid-template-columns: 1fr 40px; gap: 6px 10px; align-items: center; font-size: 14px; margin: 10px 0; }
+  .score b { font-family: var(--serif); font-size: 22px; font-weight: 600; text-align: right; line-height: 1; }
+  .score .bar { grid-column: 1 / -1; height: 3px; background: var(--fill-2); overflow: hidden; }
   .score .bar i { display: block; height: 100%; background: var(--ink-2); }
-  .how { counter-reset: s; list-style: none; padding: 0; margin: 12px 0 18px; display: grid; gap: 14px; }
-  .how li { counter-increment: s; display: grid; grid-template-columns: 32px 1fr; gap: 12px; }
-  .how li::before { content: counter(s); width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; font-weight: 700; }
-  .how b { display: block; }
+  .how { counter-reset: s; list-style: none; padding: 0; margin: 14px 0 22px; display: grid; gap: 18px; }
+  .how li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+  .how li::before { content: counter(s); font-family: var(--serif); font-size: 30px; line-height: 1; color: var(--ink-4); }
+  .how b { display: block; font-weight: 600; }
   .how span { color: var(--ink-3); font-size: 14px; }
+  .stat-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+  .stat-pair div { background: var(--fill); border-radius: var(--r-md); padding: 16px; text-align: center; }
+  .stat-pair b { display: block; font-family: var(--serif); font-size: 30px; font-weight: 600; line-height: 1; }
 
-  /* Toast */
+  /* ---------- Toast ---------- */
   .toast {
-    position: fixed; left: 50%; bottom: calc(var(--dock-h) + 24px + env(safe-area-inset-bottom)); z-index: 80;
-    transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
-    background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 10px; font-size: 14px; font-weight: 500;
-    transition: all .25s; max-width: calc(100% - 32px); display: flex; gap: 10px; align-items: center;
+    position: fixed; left: 50%; bottom: calc(var(--dock-h) + 16px + env(safe-area-inset-bottom)); z-index: 80;
+    transform: translate(-50%, 16px); opacity: 0; pointer-events: none;
+    background: var(--ink); color: var(--on-primary); padding: 13px 20px; border-radius: var(--r-md); font-size: 13px;
+    transition: all .3s var(--ease); max-width: calc(100% - 32px); display: flex; gap: 10px; align-items: center;
+    box-shadow: 0 12px 32px -8px rgba(0,0,0,.35);
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast .icon { width: 16px; height: 16px; }
 
+  /* ============================================================
+     Tablet ≥ 700px
+     ============================================================ */
   @media (min-width: 700px) {
-    body { padding: 24px 0; }
-    .app { border-radius: 24px; overflow: clip; min-height: calc(100vh - 48px); }
+    :root { --gutter: 32px; }
+    .hero { padding-top: 56px; padding-bottom: 48px; }
+    .hero h1 { font-size: 72px; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .t-full { grid-column: 1 / -1; }
+    .section { padding-top: 64px; }
+    .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 28px; }
+    .section-head h2 { font-size: 46px; }
+    .section-head p:last-child:not(.eyebrow) { margin: 0; max-width: 36ch; text-align: right; }
+    .card { padding: 28px; }
+    .tiles { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
+    .ootm { grid-template-columns: 1.25fr 1fr; gap: 16px; }
+    .mini-list { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); align-content: start; }
+    .mini { flex-direction: row; align-items: center; gap: 14px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 12px 0; }
+    .mini .ph { width: 72px; flex: none; aspect-ratio: 1; }
+    .mini .ph span { display: none; }
+    .mini b { font-size: 15px; }
+    .mini .mini-add { display: grid; margin-left: auto; }
+    .foot-link { text-align: left; }
+    .people { gap: 16px; }
+    .form-grid { grid-template-columns: 1fr 1fr; }
+    .toast { bottom: calc(var(--dock-h) + 20px); }
   }
+
+  /* ============================================================
+     Desktop ≥ 1024px
+     ============================================================ */
+  @media (min-width: 1024px) {
+    :root { --gutter: 40px; --stick: var(--topbar-h); --topbar-h: 72px; }
+    body { padding-bottom: 0; }
+    .topnav, .top-cta { display: flex; }
+    .tabs, .dock { display: none; }
+    .top-cta .btn { min-height: 42px; }
+    .top-cta { gap: 8px; margin-left: 8px; }
+    .top-bag-btn { display: none; }
+
+    .hero { text-align: left; padding-top: 72px; padding-bottom: 32px; }
+    .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 72px; }
+    .hero .avatar { display: none; }
+    .hero h1 { font-size: 104px; }
+    .role { justify-content: flex-start; }
+    .bio { margin-left: 0; font-size: 17px; }
+    .stats { justify-content: flex-start; margin: 32px 0 36px; }
+    .stat { padding: 0 28px; text-align: left; }
+    .stat:first-child { padding-left: 0; }
+    .stat b { font-size: 34px; }
+    .hero-actions { margin: 0; max-width: 440px; }
+    .hero-portrait.ph { display: flex; aspect-ratio: 4 / 5; border-radius: var(--r-lg); }
+    .hero-portrait .icon { width: 44px; height: 44px; }
+    .hero-portrait .caption { position: absolute; left: 20px; bottom: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,.85); backdrop-filter: blur(8px); padding: 14px 16px; border-radius: var(--r-md); text-align: left; }
+    .hero-portrait .caption b { font-family: var(--serif); font-size: 19px; font-weight: 500; color: var(--ink); display: block; }
+    .hero-portrait .caption span { letter-spacing: .1em; }
+
+    .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
+    .d5 { grid-column: span 5; } .d6 { grid-column: span 6; } .d7 { grid-column: span 7; } .d12 { grid-column: span 12; }
+    .r2 { grid-row: span 2; }
+    .section { padding-top: 88px; }
+    .section-head h2 { font-size: 56px; }
+    .card { padding: 32px; }
+    .card h3 { font-size: 34px; }
+    .rec .ph { aspect-ratio: 16 / 10; flex: 1; min-height: 280px; }
+    .quote { font-size: 23px; }
+    .ootm { grid-template-columns: 1.4fr 1fr; gap: 32px; }
+    .featured { padding: 20px; }
+    .featured h4 { font-size: 26px; }
+    .tiles { gap: 20px; }
+    .measure { grid-template-columns: 120px 1fr; }
+    .people .btn { min-height: 44px; }
+
+    .scrim { backdrop-filter: blur(3px); }
+    .sheet { left: auto; right: 0; top: 0; bottom: 0; margin: 0; width: 460px; max-height: none; height: 100%; border-radius: 0; padding: 28px 36px 36px; transform: translateX(105%); }
+    .sheet.open { transform: translateX(0); }
+    .grabber { display: none; }
+    .toast { bottom: 32px; }
+
+    .site-foot .wrap { grid-template-columns: 1fr auto; text-align: left; align-items: center; }
+  }
+
+  @media (min-width: 1280px) {
+    .hero h1 { font-size: 120px; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   }
@@ -419,7 +582,7 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></symbol>
   <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
-  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 16l-5-5-9 10"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 16l-5-5-9 10"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-out" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
   <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
@@ -433,366 +596,413 @@
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
 </svg>
 
-<div class="app" id="top">
-
-  <!-- 0. Top bar -->
-  <header class="topbar">
+<!-- Top bar -->
+<header class="topbar" id="top">
+  <div class="wrap">
     <div class="wordmark">Oriflame<small>Mary's Edit</small></div>
-    <div class="topbar-actions">
-      <button class="icon-btn" data-share="Mary's Edit storefront" aria-label="Share this page"><svg class="icon"><use href="#i-share"/></svg></button>
-      <button class="icon-btn" data-open="bag" aria-label="Open bag"><svg class="icon"><use href="#i-bag"/></svg><span class="badge-count" id="bagCount">0</span></button>
-    </div>
-  </header>
-
-  <main>
-    <!-- 1. Profile header -->
-    <section class="hero" aria-labelledby="sellerName">
-      <div class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-user"/></svg></div>
-      <h1 id="sellerName">Mary's Edit <span class="chip">Verified</span></h1>
-      <p class="role">Independent Skincare Curator</p>
-      <p class="partner">Independent Oriflame Brand Partner · London</p>
-      <p class="bio">Personal skincare advice, routines matched to your skin, and my honest monthly favourites.</p>
-      <button class="rating-link" data-jump="reviews">
-        <span class="stars" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span>
-        4.9 · 128 customer reviews
-      </button>
-      <div class="hero-actions">
-        <button class="btn" data-open="about">About me</button>
-        <button class="btn ghost square" data-open="chat" aria-label="Message Mary"><svg class="icon"><use href="#i-chat"/></svg></button>
-      </div>
-    </section>
-
-    <nav class="tabs" aria-label="Page sections">
+    <nav class="topnav" aria-label="Page sections">
       <button data-tab="shop" aria-current="true">Shop</button>
       <button data-tab="advice">Advice</button>
       <button data-tab="team">Join my team</button>
     </nav>
-
-    <!-- ================= SHOP ================= -->
-    <div id="shop" class="section-intro">
-      <p class="eyebrow">Shop</p>
-      <h2>This month's picks</h2>
+    <div class="topbar-actions">
+      <button class="icon-btn" data-share="Mary's Edit storefront" aria-label="Share this page"><svg class="icon"><use href="#i-share"/></svg></button>
+      <button class="icon-btn top-bag-btn" data-open="bag" aria-label="Open bag"><svg class="icon"><use href="#i-bag"/></svg><span class="badge-count" id="bagCount">0</span></button>
+      <div class="top-cta">
+        <button class="btn ghost sm" data-open="chat"><svg class="icon icon-sm"><use href="#i-chat"/></svg>Ask Mary</button>
+        <button class="btn sm" data-open="bag"><svg class="icon icon-sm"><use href="#i-bag"/></svg><span class="bag-label">Bag</span></button>
+      </div>
     </div>
-
-    <!-- 2. Limited-time offer -->
-    <article class="card" aria-labelledby="offerTitle">
-      <div class="offer-top">
-        <span class="chip solid">Offer</span>
-        <span class="countdown"><i class="dot"></i><span id="offerEnds">Ends soon</span></span>
-      </div>
-      <div class="media-row">
-        <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span class="ellipsis">Body wash duo</span></div>
-        <div>
-          <h3 id="offerTitle">3 for 2 on Body Care</h3>
-          <p class="muted clamp-2" style="margin:6px 0 0">Mix and match any three premium bath gels and milk formula body washes.</p>
-          <div class="price-line"><span class="price-lg">£16.00</span><span class="strike">£24.00</span><span class="save">SAVE 33%</span></div>
-        </div>
-      </div>
-      <div class="btn-row">
-        <button class="btn" data-add="3 for 2 Body Care bundle|16.00" data-done="Claimed">Claim offer</button>
-        <button class="btn ghost" data-share="3 for 2 on Body Care">Share <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
-      </div>
-    </article>
-
-    <!-- 3. My recommendation -->
-    <article class="card" aria-labelledby="recTitle">
-      <div class="card-head" style="align-items:center">
-        <span class="chip"><i class="dot"></i>My recommendation</span>
-        <span class="meta" style="color:var(--ink-4);text-transform:uppercase;font-weight:500" id="favMonth">October fav</span>
-      </div>
-      <div class="ph ph-wide"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Hydra Radiance Eye Cream</span></div>
-      <div class="title-price">
-        <h3 id="recTitle">Hydra Radiance Eye Cream</h3>
-        <span class="price-lg">£18.90</span>
-      </div>
-      <p class="quote">"I use this every single night to lock in hydration. It really brightens tired under-eyes and my skin feels calmer by morning."</p>
-      <div class="btn-row">
-        <button class="btn" data-add="Hydra Radiance Eye Cream|18.90">Buy now</button>
-        <button class="btn ghost" data-share="Hydra Radiance Eye Cream">Share edit <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
-      </div>
-    </article>
-
-    <!-- 4. Offers of the month -->
-    <article class="card" aria-labelledby="ootmTitle">
-      <div class="card-head" style="align-items:center">
-        <h3 id="ootmTitle">Offers of the Month</h3>
-        <span class="meta">Catalogue 10</span>
-      </div>
-      <div class="featured">
-        <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Giordani Gold Liquid Silk Foundation</span></div>
-        <h4>Liquid Silk Foundation Set</h4>
-        <div class="featured-foot">
-          <span class="price-lg">£28.90</span>
-          <button class="btn sm" data-add="Liquid Silk Foundation Set|28.90">Add to bag</button>
-        </div>
-      </div>
-      <div class="mini-grid">
-        <button class="mini" data-add="The ONE Mascara|12.90" aria-label="Add The ONE Mascara, £12.90">
-          <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Product 1</span></div>
-          <b class="ellipsis" style="width:100%">The ONE Mascara</b><span class="price">£12.90</span>
-        </button>
-        <button class="mini" data-add="Love Nature Gel|9.90" aria-label="Add Love Nature Gel, £9.90">
-          <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Product 2</span></div>
-          <b class="ellipsis" style="width:100%">Love Nature Gel</b><span class="price">£9.90</span>
-        </button>
-        <button class="mini" data-add="Optimals Tonic|11.00" aria-label="Add Optimals Tonic, £11.00">
-          <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Product 3</span></div>
-          <b class="ellipsis" style="width:100%">Optimals Tonic</b><span class="price">£11.00</span>
-        </button>
-      </div>
-      <div class="centre"><button class="link u" data-toast="Opens the full digital catalogue">See full catalogue <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button></div>
-    </article>
-
-    <!-- 5. My Edit -->
-    <article class="card" id="edit" aria-labelledby="editTitle">
-      <div class="card-head" style="align-items:center">
-        <h3 id="editTitle">My Edit</h3>
-        <span class="meta" id="editCount">8 items</span>
-      </div>
-      <div class="filters" role="group" aria-label="Filter my edit">
-        <button class="filter" data-filter="all" aria-pressed="true">All</button>
-        <button class="filter" data-filter="skincare" aria-pressed="false">Skincare</button>
-        <button class="filter" data-filter="makeup" aria-pressed="false">Make-up</button>
-        <button class="filter" data-filter="wellness" aria-pressed="false">Wellness</button>
-      </div>
-      <div class="grid-2" id="editGrid">
-        <div class="tile" data-cat="skincare"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Glow Serum</span></div><b>Glow Serum</b><div class="tile-foot"><span class="price">£14.50</span><button class="add-sq" data-add="Glow Serum|14.50" aria-label="Add Glow Serum to bag"><svg class="icon"><use href="#i-plus"/></svg></button></div></div>
-        <div class="tile" data-cat="skincare"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Clay Mask</span></div><b>Clay Mask</b><div class="tile-foot"><span class="price">£19.00</span><button class="add-sq" data-add="Clay Mask|19.00" aria-label="Add Clay Mask to bag"><svg class="icon"><use href="#i-plus"/></svg></button></div></div>
-        <div class="tile" data-cat="makeup"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Lip Balm Set</span></div><b>Lip Balm Set</b><div class="tile-foot"><span class="price">£9.90</span><button class="add-sq" data-add="Lip Balm Set|9.90" aria-label="Add Lip Balm Set to bag"><svg class="icon"><use href="#i-plus"/></svg></button></div></div>
-        <div class="tile" data-cat="skincare"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Day Fluid SPF</span></div><b>Day Fluid SPF</b><div class="tile-foot"><span class="price">£12.00</span><button class="add-sq" data-add="Day Fluid SPF|12.00" aria-label="Add Day Fluid SPF to bag"><svg class="icon"><use href="#i-plus"/></svg></button></div></div>
-        <div class="tile" data-cat="wellness" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Omega-3</span></div><b>Wellness Omega-3</b><div class="tile-foot"><span class="price">£21.00</span><button class="add-sq" data-add="Wellness Omega-3|21.00" aria-label="Add Wellness Omega-3 to bag"><svg class="icon"><use href="#i-plus"/></svg></button></div></div>
-        <div class="tile" data-cat="makeup" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Brow Pencil</span></div><b>Brow Pencil</b><div class="tile-foot"><span class="price">£7.50</span><button class="add-sq" data-add="Brow Pencil|7.50" aria-label="Add Brow Pencil to bag"><svg class="icon"><use href="#i-plus"/></svg></button></div></div>
-        <div class="tile" data-cat="wellness" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Protein Shake</span></div><b>Protein Shake</b><div class="tile-foot"><span class="price">£24.00</span><button class="add-sq" data-add="Protein Shake|24.00" aria-label="Add Protein Shake to bag"><svg class="icon"><use href="#i-plus"/></svg></button></div></div>
-        <div class="tile" data-cat="skincare" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Night Cream</span></div><b>Night Cream</b><div class="tile-foot"><span class="price">£16.00</span><button class="add-sq" data-add="Night Cream|16.00" aria-label="Add Night Cream to bag"><svg class="icon"><use href="#i-plus"/></svg></button></div></div>
-      </div>
-      <div class="centre"><button class="btn ghost block" id="showMore">Show all 8 items</button></div>
-    </article>
-
-    <!-- 6. Morning routine bundle -->
-    <article class="card" aria-labelledby="routineTitle">
-      <div class="card-head" style="align-items:center">
-        <h3 id="routineTitle">My Morning Routine</h3>
-        <span class="meta">3 steps</span>
-      </div>
-      <div class="steps">
-        <div class="step"><span class="step-num">1</span><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div><small>PREP</small><b>Purifying Gel Cleanser</b></div></div>
-        <div class="step"><span class="step-num">2</span><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div><small>BOOST</small><b>Skin Hydration Tonic</b></div></div>
-        <div class="step"><span class="step-num">3</span><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div><small>PROTECT</small><b>NovAge+ Shield Day Cream</b></div></div>
-      </div>
-      <div class="set-price">
-        <span class="muted">Bought together</span>
-        <span class="price-lg"><span class="strike">£46.50</span>£39 as a set</span>
-      </div>
-      <button class="btn block" data-add="Morning Routine set (3 steps)|39.00" data-done="Routine in bag">Shop the routine</button>
-    </article>
-
-    <!-- 7. Favourite of the month -->
-    <article class="card" aria-labelledby="favTitle">
-      <div class="card-head" style="align-items:center">
-        <h3 id="favTitle">Favourite of the Month</h3>
-        <span class="chip">This month</span>
-      </div>
-      <div class="media-row" style="grid-template-columns:130px 1fr">
-        <div class="ph" style="aspect-ratio:.95"><svg class="icon"><use href="#i-image"/></svg><span style="text-transform:none">Fav serum</span></div>
-        <div>
-          <b style="font-size:16px">Optimals Moisture Serum</b>
-          <div class="price-lg" style="margin:6px 0">£16.50</div>
-          <p class="muted clamp-2" style="margin:0;font-size:14px">"Locks in hydration immediately — genuinely transforms dry patches in a week."</p>
-        </div>
-      </div>
-      <div class="btn-row">
-        <button class="btn" data-add="Optimals Moisture Serum|16.50">Buy</button>
-        <button class="btn ghost" data-share="Optimals Moisture Serum">Share <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
-      </div>
-    </article>
-
-    <!-- 8. Reviews -->
-    <article class="card" id="reviews" aria-labelledby="revTitle">
-      <div class="card-head">
-        <div>
-          <h3 id="revTitle">What My Customers Say</h3>
-          <div class="rating-summary"><b>4.9</b><span class="stars" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span>128 reviews</div>
-        </div>
-      </div>
-      <div class="carousel" id="reviewTrack" tabindex="0" aria-label="Customer reviews, swipe for more">
-        <div class="slide">
-          <div class="review"><div class="review-head"><span class="av"></span><b>Sofia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified buyer</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Mary matched me to Hydra Radiance and my skin has never felt so comfortable."</p><div class="tiny">Bought: Hydra Radiance Eye Cream</div></div>
-          <div class="review"><div class="review-head"><span class="av"></span><b>Nadia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified buyer</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Smooth application and lasting hydration. Delivery was quick too."</p><div class="tiny">Bought: Morning Routine set</div></div>
-        </div>
-        <div class="slide">
-          <div class="review"><div class="review-head"><span class="av"></span><b>Grace</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified buyer</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Loved having someone real to ask. Mary replied within the hour."</p><div class="tiny">Bought: Glow Serum</div></div>
-          <div class="review"><div class="review-head"><span class="av"></span><b>Priya</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified buyer</span><span class="stars" aria-label="4 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The 3 for 2 body care deal is brilliant value. Will reorder."</p><div class="tiny">Bought: 3 for 2 Body Care</div></div>
-        </div>
-        <div class="slide">
-          <div class="review"><div class="review-head"><span class="av"></span><b>Hannah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified buyer</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The skin check was spot on and the routine was easy to follow."</p><div class="tiny">Bought: Clay Mask</div></div>
-          <div class="review"><div class="review-head"><span class="av"></span><b>Leah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified buyer</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Honest recommendations, never pushy. That's why I keep coming back."</p><div class="tiny">Bought: Day Fluid SPF</div></div>
-        </div>
-      </div>
-      <div class="dots" id="reviewDots">
-        <button aria-label="Reviews page 1" aria-current="true"></button>
-        <button aria-label="Reviews page 2"></button>
-        <button aria-label="Reviews page 3"></button>
-      </div>
-    </article>
-
-    <!-- ================= ADVICE ================= -->
-    <div id="advice" class="section-intro">
-      <p class="eyebrow">Advice</p>
-      <h2>Not sure what's right for you?</h2>
-    </div>
-
-    <!-- 9. Skin analysis -->
-    <article class="card" aria-labelledby="skinTitle">
-      <h3 id="skinTitle">Skin Analysis</h3>
-      <p class="sub">A free 2-minute skin check. Get a personalised routine built from my edit.</p>
-      <div class="measure" style="margin-top:16px">
-        <div class="ph"><svg class="icon"><use href="#i-user"/></svg><span>Selfie scan</span></div>
-        <div>
-          <span class="chip">Free · 2 min</span>
-          <b style="display:block;margin-top:8px">What it measures:</b>
-          <ul class="ticks">
-            <li><svg class="icon"><use href="#i-check"/></svg>Hydration balance</li>
-            <li><svg class="icon"><use href="#i-check"/></svg>Redness &amp; sensitivity</li>
-            <li><svg class="icon"><use href="#i-check"/></svg>Pores &amp; texture</li>
-          </ul>
-        </div>
-      </div>
-      <button class="btn block" style="margin-top:16px" data-open="skin">Start skin check</button>
-      <p class="tiny centre" style="margin-top:12px">Powered by Oriflame SkinExpert · Results shared with Mary only if you choose</p>
-    </article>
-
-    <!-- 10. Try-on -->
-    <article class="card" aria-labelledby="tryTitle">
-      <h3 id="tryTitle">Try It On You</h3>
-      <p class="sub">Virtual lipstick, mascara and blush try-on, straight from your camera.</p>
-      <div class="camera" aria-hidden="true">
-        <span class="live"><i class="dot"></i>Live camera</span>
-        <div class="face"></div>
-        <span class="shade-name" id="shadeNamePreview">Warm Peach</span>
-        <div class="swatches" id="previewSwatches">
-          <button class="swatch" style="background:#9b9b9b" data-shade="Warm Peach" aria-pressed="true" tabindex="-1"></button>
-          <button class="swatch" style="background:#7a7a7a" data-shade="Matte Rose" aria-pressed="false" tabindex="-1"></button>
-          <button class="swatch" style="background:#5a5a5a" data-shade="Berry" aria-pressed="false" tabindex="-1"></button>
-          <button class="swatch" style="background:#3c3c3c" data-shade="Deep Plum" aria-pressed="false" tabindex="-1"></button>
-        </div>
-      </div>
-      <button class="btn block" data-open="tryon">Open virtual try-on</button>
-    </article>
-
-    <!-- 11. AI adviser -->
-    <article class="card" aria-labelledby="aiTitle">
-      <div class="card-head" style="margin-bottom:0">
-        <h3 id="aiTitle">Mary's AI Adviser</h3>
-        <span class="status-on"><i class="dot"></i>ACTIVE</span>
-      </div>
-      <p class="sub">Trained on Mary's edit. Ask anything and find your match instantly.</p>
-      <div class="chat-log" id="chatLog" aria-live="polite">
-        <div class="bubble me">Which cream is best for instant hydration?</div>
-        <div class="bubble-meta me">You · 12:40</div>
-        <div class="bubble bot">Mary recommends the <b>Hydra Radiance Eye Cream</b> for overnight hydration. Want me to add it to your bag?</div>
-        <div class="bubble-meta">Mary's AI Adviser · 12:41</div>
-      </div>
-      <div class="suggest" id="suggest">
-        <button>Something for oily skin?</button>
-        <button>Find my foundation shade</button>
-        <button>Gift under £20</button>
-      </div>
-      <form class="composer" id="composer">
-        <label class="sr-only" for="aiInput">Ask Mary's AI Adviser</label>
-        <input id="aiInput" placeholder="Ask about products, shade matches…" autocomplete="off">
-        <button type="submit" aria-label="Send"><svg class="icon"><use href="#i-send"/></svg></button>
-      </form>
-      <div class="foot-note"><i class="dot"></i>Only recommends from Mary's edit · Hand over to Mary any time</div>
-    </article>
-
-    <!-- 12. Posts & tutorials -->
-    <article class="card" aria-labelledby="postsTitle">
-      <h3 id="postsTitle" style="margin-bottom:16px">Posts &amp; Tutorials</h3>
-      <button class="post" data-toast="Video tutorial would play here">
-        <div class="ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span></div>
-        <div><b>5-Min Glow Routine</b><p>Step-by-step layering for a calm, hydrated barrier.</p><span class="link">Watch now <svg class="icon icon-sm"><use href="#i-arrow"/></svg></span></div>
-      </button>
-      <button class="post" data-toast="Article would open here">
-        <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
-        <div><b>Why Hydration Matters</b><p>What your skin barrier needs overnight, explained simply.</p><span class="link">Read article <svg class="icon icon-sm"><use href="#i-arrow"/></svg></span></div>
-      </button>
-    </article>
-
-    <!-- 13. Live assistance -->
-    <article class="card" aria-labelledby="liveTitle">
-      <h3 id="liveTitle">Need Live Help?</h3>
-      <p class="sub">Mary and her specialists are online to help you choose.</p>
-      <button class="chat-pill" data-open="chat"><svg class="icon"><use href="#i-chat"/></svg>Chat with Mary<span class="chip solid">Online</span></button>
-      <div class="channels">Or message on:
-        <div><button data-channel="WhatsApp">WhatsApp</button>·<button data-channel="Telegram">Telegram</button>·<button data-channel="Messenger">Messenger</button></div>
-      </div>
-    </article>
-
-    <!-- ================= TEAM ================= -->
-    <div id="team" class="section-intro">
-      <p class="eyebrow">Community</p>
-      <h2>Meet the team behind the edit</h2>
-    </div>
-
-    <!-- 14. Meet my team -->
-    <article class="card" aria-labelledby="meetTitle">
-      <h3 id="meetTitle">Meet My Team</h3>
-      <p class="sub">Talk to a specialist, free.</p>
-      <div class="people">
-        <div class="person"><div class="avatar"><svg class="icon"><use href="#i-user"/></svg></div><b>Elena</b><span class="chip">Nutritionist</span><button class="btn sm" data-open="chat" data-person="Elena">Message</button><button class="link" style="text-transform:none;letter-spacing:0;font-size:14px" data-toast="Opens Elena's storefront">Visit page <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button></div>
-        <div class="person"><div class="avatar"><svg class="icon"><use href="#i-user"/></svg></div><b>Tanya</b><span class="chip">Skincare pro</span><button class="btn sm" data-open="chat" data-person="Tanya">Message</button><button class="link" style="text-transform:none;letter-spacing:0;font-size:14px" data-toast="Opens Tanya's storefront">Visit page <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button></div>
-      </div>
-    </article>
-
-    <!-- 15. Join my team -->
-    <article class="card" id="join" aria-labelledby="joinTitle">
-      <div id="joinForm">
-        <h3 id="joinTitle">Join My Team</h3>
-        <p class="sub">Build your own beauty business with my personal guidance.</p>
-        <ul class="perks">
-          <li><svg class="icon"><use href="#i-check"/></svg>Free to join, no stock to buy up front</li>
-          <li><svg class="icon"><use href="#i-check"/></svg>Your own storefront like this one</li>
-          <li><svg class="icon"><use href="#i-check"/></svg>1:1 coaching from Mary</li>
-        </ul>
-        <form id="signup" novalidate>
-          <label class="field"><span>Your name</span><input id="jName" autocomplete="name" placeholder="e.g. Sam"><div class="err">Please enter your name</div></label>
-          <label class="field"><span>Email or phone number</span><input id="jContact" autocomplete="email" placeholder="So Mary can reach you"><div class="err">Please enter an email or phone number</div></label>
-          <label class="check"><input type="checkbox" id="jConsent"><span>I'd like Mary to contact me about joining her team and send business coaching materials. I can unsubscribe at any time.</span></label>
-          <button class="btn block" type="submit" id="jSubmit">Sign up</button>
-        </form>
-        <div class="centre"><button class="link u" data-open="how">How it works <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button></div>
-      </div>
-    </article>
-
-    <!-- 16. Follow me -->
-    <article class="card" aria-labelledby="followTitle">
-      <div class="card-head">
-        <div><h3 id="followTitle">Follow Me</h3><div class="handle">@mary.beauty</div></div>
-        <button class="btn sm pill" id="followBtn" aria-pressed="false">Follow</button>
-      </div>
-      <div class="insta">
-        <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
-        <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
-      </div>
-      <div class="socials">
-        <button data-toast="Opens Instagram">Instagram</button><i></i><button data-toast="Opens Facebook">Facebook</button><i></i><button data-toast="Opens TikTok">TikTok</button>
-      </div>
-    </article>
-
-    <footer class="site-foot">
-      <nav><a href="#top">Delivery &amp; returns</a><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Report this page</a></nav>
-      Mary is an independent Oriflame Brand Partner. Orders are fulfilled by Oriflame.<br>Wireframe · for usability testing only
-    </footer>
-  </main>
-
-  <!-- Persistent action dock -->
-  <div class="dock">
-    <button class="btn ghost" data-open="chat"><svg class="icon"><use href="#i-chat"/></svg>Ask Mary</button>
-    <button class="btn" data-open="bag"><svg class="icon"><use href="#i-bag"/></svg><span id="dockBag">Bag</span></button>
   </div>
+</header>
+
+<!-- Mobile/tablet section tabs -->
+<nav class="tabs" aria-label="Page sections">
+  <div class="wrap">
+    <button data-tab="shop" aria-current="true">Shop</button>
+    <button data-tab="advice">Advice</button>
+    <button data-tab="team">Join my team</button>
+  </div>
+</nav>
+
+<main>
+  <!-- 1. Profile header -->
+  <section class="hero wrap" aria-labelledby="sellerName">
+    <div class="hero-grid">
+      <div>
+        <div class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-user"/></svg></div>
+        <p class="eyebrow">Independent Oriflame Brand Partner · London</p>
+        <h1 class="display" id="sellerName">Mary's <em>Edit</em></h1>
+        <p class="role">Independent Skincare Curator <span class="chip"><svg class="icon icon-sm" style="width:11px;height:11px;stroke-width:2.4"><use href="#i-check"/></svg>Verified</span></p>
+        <p class="bio">Personal skincare advice, routines matched to your skin, and my honest monthly favourites.</p>
+        <div class="stats">
+          <button class="stat" data-jump="reviews"><b>4.9</b><span>128 reviews</span></button>
+          <div class="stat"><b>6 yrs</b><span>with Oriflame</span></div>
+          <div class="stat"><b>1.2k</b><span>customers</span></div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn" data-open="about">About me</button>
+          <button class="btn ghost square" data-open="chat" aria-label="Message Mary"><svg class="icon"><use href="#i-chat"/></svg></button>
+        </div>
+      </div>
+      <div class="ph hero-portrait" aria-hidden="true">
+        <svg class="icon"><use href="#i-user"/></svg><span>Portrait of Mary</span>
+        <div class="caption"><div><b>This month I'm loving</b><span class="tiny">Optimals Hydra Radiance</span></div><svg class="icon" style="color:var(--ink)"><use href="#i-arrow"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHOP ================= -->
+  <section id="shop" class="section wrap" aria-labelledby="shopTitle">
+    <div class="section-head">
+      <div><p class="eyebrow">01 · Shop</p><h2 class="display" id="shopTitle">This month's <em>picks</em></h2></div>
+      <p>Hand-picked offers and the products I use myself, with delivery from Oriflame.</p>
+    </div>
+
+    <div class="grid">
+      <!-- 2. Limited-time offer -->
+      <article class="card d5 t-full" aria-labelledby="offerTitle">
+        <div class="offer-top">
+          <span class="chip solid">Offer</span>
+          <span class="countdown"><i class="dot pulse"></i><span id="offerEnds">Ends soon</span></span>
+        </div>
+        <div class="media-row">
+          <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span class="ellipsis">Body wash duo</span></div>
+          <div>
+            <h3 id="offerTitle">3 for 2 on Body Care</h3>
+            <p class="muted clamp-2" style="margin:8px 0 0;font-size:14px">Mix and match any three premium bath gels and milk formula body washes.</p>
+            <div class="price-line"><span class="price-lg">£16.00</span><span class="strike">£24.00</span><span class="save">SAVE 33%</span></div>
+          </div>
+        </div>
+        <div class="btn-row push">
+          <button class="btn" data-add="3 for 2 Body Care bundle|16.00" data-done="Claimed">Claim offer</button>
+          <button class="btn ghost" data-share="3 for 2 on Body Care">Share <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
+        </div>
+      </article>
+
+      <!-- 3. My recommendation -->
+      <article class="card rec d7 r2 t-full" aria-labelledby="recTitle">
+        <div class="card-head">
+          <span class="chip"><i class="dot"></i>My recommendation</span>
+          <span class="meta" id="favMonth">October fav</span>
+        </div>
+        <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Hydra Radiance Eye Cream</span></div>
+        <div class="title-price">
+          <h3 id="recTitle">Hydra Radiance Eye Cream</h3>
+          <span class="price-lg">£18.90</span>
+        </div>
+        <p class="quote">"I use this every single night to lock in hydration. It really brightens tired under-eyes and my skin feels calmer by morning."</p>
+        <div class="signature"><i></i>Mary</div>
+        <div class="btn-row">
+          <button class="btn" data-add="Hydra Radiance Eye Cream|18.90">Buy now</button>
+          <button class="btn ghost" data-share="Hydra Radiance Eye Cream">Share edit <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
+        </div>
+      </article>
+
+      <!-- 4. Offers of the month -->
+      <article class="card d12 t-full" aria-labelledby="ootmTitle">
+        <div class="card-head">
+          <h3 id="ootmTitle">Offers of the Month</h3>
+          <span class="meta">Catalogue 10</span>
+        </div>
+        <div class="ootm">
+          <div class="featured">
+            <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Giordani Gold Liquid Silk Foundation</span></div>
+            <h4>Liquid Silk Foundation Set</h4>
+            <div class="featured-foot">
+              <span class="price-lg">£28.90</span>
+              <button class="btn sm" data-add="Liquid Silk Foundation Set|28.90">Add to bag</button>
+            </div>
+          </div>
+          <div>
+            <div class="mini-list">
+              <button class="mini" data-add="The ONE Mascara|12.90" aria-label="Add The ONE Mascara, £12.90">
+                <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Product 1</span></div>
+                <div class="mini-info"><b class="ellipsis">The ONE Mascara</b><span class="price">£12.90</span></div>
+                <span class="add-sq mini-add"><svg class="icon icon-sm"><use href="#i-plus"/></svg></span>
+              </button>
+              <button class="mini" data-add="Love Nature Gel|9.90" aria-label="Add Love Nature Gel, £9.90">
+                <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Product 2</span></div>
+                <div class="mini-info"><b class="ellipsis">Love Nature Gel</b><span class="price">£9.90</span></div>
+                <span class="add-sq mini-add"><svg class="icon icon-sm"><use href="#i-plus"/></svg></span>
+              </button>
+              <button class="mini" data-add="Optimals Tonic|11.00" aria-label="Add Optimals Tonic, £11.00">
+                <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Product 3</span></div>
+                <div class="mini-info"><b class="ellipsis">Optimals Tonic</b><span class="price">£11.00</span></div>
+                <span class="add-sq mini-add"><svg class="icon icon-sm"><use href="#i-plus"/></svg></span>
+              </button>
+            </div>
+            <div class="foot-link"><button class="link" data-toast="Opens the full digital catalogue">See full catalogue <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. My Edit -->
+      <article class="card d12 t-full" id="edit" aria-labelledby="editTitle">
+        <div class="card-head">
+          <h3 id="editTitle">My Edit</h3>
+          <span class="meta" id="editCount">8 items</span>
+        </div>
+        <div class="filters" role="group" aria-label="Filter my edit">
+          <button class="filter" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" data-filter="skincare" aria-pressed="false">Skincare</button>
+          <button class="filter" data-filter="makeup" aria-pressed="false">Make-up</button>
+          <button class="filter" data-filter="wellness" aria-pressed="false">Wellness</button>
+        </div>
+        <div class="tiles" id="editGrid">
+          <div class="tile" data-cat="skincare"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Glow Serum</span></div><div class="tile-foot"><div><b>Glow Serum</b><span class="price">£14.50</span></div><button class="add-sq" data-add="Glow Serum|14.50" aria-label="Add Glow Serum to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Clay Mask</span></div><div class="tile-foot"><div><b>Clay Mask</b><span class="price">£19.00</span></div><button class="add-sq" data-add="Clay Mask|19.00" aria-label="Add Clay Mask to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="makeup"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Lip Balm Set</span></div><div class="tile-foot"><div><b>Lip Balm Set</b><span class="price">£9.90</span></div><button class="add-sq" data-add="Lip Balm Set|9.90" aria-label="Add Lip Balm Set to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Day Fluid SPF</span></div><div class="tile-foot"><div><b>Day Fluid SPF</b><span class="price">£12.00</span></div><button class="add-sq" data-add="Day Fluid SPF|12.00" aria-label="Add Day Fluid SPF to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="wellness" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Omega-3</span></div><div class="tile-foot"><div><b>Wellness Omega-3</b><span class="price">£21.00</span></div><button class="add-sq" data-add="Wellness Omega-3|21.00" aria-label="Add Wellness Omega-3 to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="makeup" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Brow Pencil</span></div><div class="tile-foot"><div><b>Brow Pencil</b><span class="price">£7.50</span></div><button class="add-sq" data-add="Brow Pencil|7.50" aria-label="Add Brow Pencil to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="wellness" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Protein Shake</span></div><div class="tile-foot"><div><b>Protein Shake</b><span class="price">£24.00</span></div><button class="add-sq" data-add="Protein Shake|24.00" aria-label="Add Protein Shake to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Night Cream</span></div><div class="tile-foot"><div><b>Night Cream</b><span class="price">£16.00</span></div><button class="add-sq" data-add="Night Cream|16.00" aria-label="Add Night Cream to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+        </div>
+        <div class="show-more centre"><button class="btn ghost" id="showMore">Show all 8 items</button></div>
+      </article>
+
+      <!-- 6. Morning routine bundle -->
+      <article class="card d6" aria-labelledby="routineTitle">
+        <div class="card-head">
+          <h3 id="routineTitle">My Morning Routine</h3>
+          <span class="meta">3 steps</span>
+        </div>
+        <div class="steps">
+          <div class="step"><span class="step-num">1</span><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div><small>PREP</small><b>Purifying Gel Cleanser</b></div></div>
+          <div class="step"><span class="step-num">2</span><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div><small>BOOST</small><b>Skin Hydration Tonic</b></div></div>
+          <div class="step"><span class="step-num">3</span><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div><small>PROTECT</small><b>NovAge+ Shield Day Cream</b></div></div>
+        </div>
+        <div class="set-price push">
+          <span class="muted" style="font-size:14px">Bought together</span>
+          <span><span class="strike">£46.50</span><span class="price-lg">£39</span> <span class="muted" style="font-size:14px">as a set</span></span>
+        </div>
+        <button class="btn block" data-add="Morning Routine set (3 steps)|39.00" data-done="Routine in bag">Shop the routine</button>
+      </article>
+
+      <!-- 7. Favourite of the month -->
+      <article class="card tint d5" aria-labelledby="favTitle">
+        <div class="card-head">
+          <h3 id="favTitle">Favourite of the Month</h3>
+          <span class="chip">This month</span>
+        </div>
+        <div class="media-row" style="grid-template-columns:120px 1fr">
+          <div class="ph" style="aspect-ratio:.9;background:linear-gradient(160deg,var(--paper),var(--fill-3))"><svg class="icon"><use href="#i-image"/></svg><span>Fav serum</span></div>
+          <div>
+            <b style="font-weight:600;font-size:15px">Optimals Moisture Serum</b>
+            <div class="price-lg" style="margin:8px 0">£16.50</div>
+            <p class="muted clamp-2" style="margin:0;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.35">"Locks in hydration immediately and genuinely transforms dry patches in a week."</p>
+          </div>
+        </div>
+        <div class="btn-row push">
+          <button class="btn" data-add="Optimals Moisture Serum|16.50">Buy</button>
+          <button class="btn ghost" data-share="Optimals Moisture Serum">Share <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
+        </div>
+      </article>
+
+      <!-- 8. Reviews -->
+      <article class="card d6 t-full" id="reviews" aria-labelledby="revTitle">
+        <div class="card-head" style="align-items:flex-start">
+          <div>
+            <h3 id="revTitle">What My Customers Say</h3>
+            <div class="rating-summary"><b>4.9</b><span class="stars" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span>128 reviews</div>
+          </div>
+        </div>
+        <div class="carousel" id="reviewTrack" tabindex="0" aria-label="Customer reviews, swipe for more">
+          <div class="slide">
+            <div class="review"><div class="review-head"><span class="av"></span><b>Sofia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Mary matched me to Hydra Radiance and my skin has never felt so comfortable."</p><div class="tiny">Bought: Hydra Radiance Eye Cream</div></div>
+            <div class="review"><div class="review-head"><span class="av"></span><b>Nadia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Smooth application and lasting hydration. Delivery was quick too."</p><div class="tiny">Bought: Morning Routine set</div></div>
+          </div>
+          <div class="slide">
+            <div class="review"><div class="review-head"><span class="av"></span><b>Grace</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Loved having someone real to ask. Mary replied within the hour."</p><div class="tiny">Bought: Glow Serum</div></div>
+            <div class="review"><div class="review-head"><span class="av"></span><b>Priya</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="4 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The 3 for 2 body care deal is brilliant value. Will reorder."</p><div class="tiny">Bought: 3 for 2 Body Care</div></div>
+          </div>
+          <div class="slide">
+            <div class="review"><div class="review-head"><span class="av"></span><b>Hannah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The skin check was spot on and the routine was easy to follow."</p><div class="tiny">Bought: Clay Mask</div></div>
+            <div class="review"><div class="review-head"><span class="av"></span><b>Leah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Honest recommendations, never pushy. That's why I keep coming back."</p><div class="tiny">Bought: Day Fluid SPF</div></div>
+          </div>
+        </div>
+        <div class="dots" id="reviewDots">
+          <button aria-label="Reviews page 1" aria-current="true"></button>
+          <button aria-label="Reviews page 2"></button>
+          <button aria-label="Reviews page 3"></button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= ADVICE ================= -->
+  <section id="advice" class="section wrap" aria-labelledby="adviceTitle">
+    <div class="section-head">
+      <div><p class="eyebrow">02 · Advice</p><h2 class="display" id="adviceTitle">Not sure what's <em>right for you?</em></h2></div>
+      <p>Check your skin, try shades on, or ask a question. Mary is one tap away.</p>
+    </div>
+
+    <div class="grid">
+      <!-- 9. Skin analysis -->
+      <article class="card d6" aria-labelledby="skinTitle">
+        <h3 id="skinTitle">Skin Analysis</h3>
+        <p class="sub">A free 2-minute skin check. Get a personalised routine built from my edit.</p>
+        <div class="measure">
+          <div class="ph"><svg class="icon"><use href="#i-user"/></svg><span>Selfie scan</span></div>
+          <div>
+            <span class="chip">Free · 2 min</span>
+            <b>What it measures</b>
+            <ul class="ticks">
+              <li><svg class="icon"><use href="#i-check"/></svg>Hydration balance</li>
+              <li><svg class="icon"><use href="#i-check"/></svg>Redness &amp; sensitivity</li>
+              <li><svg class="icon"><use href="#i-check"/></svg>Pores &amp; texture</li>
+            </ul>
+          </div>
+        </div>
+        <button class="btn block push" style="margin-top:22px" data-open="skin">Start skin check</button>
+        <p class="tiny centre" style="margin:14px 0 0">Powered by Oriflame SkinExpert · Results shared with Mary only if you choose</p>
+      </article>
+
+      <!-- 10. Try-on -->
+      <article class="card d6" aria-labelledby="tryTitle">
+        <h3 id="tryTitle">Try It On You</h3>
+        <p class="sub">Virtual lipstick, mascara and blush try-on, straight from your camera.</p>
+        <div class="camera" aria-hidden="true">
+          <span class="live"><i class="dot pulse"></i>LIVE CAMERA</span>
+          <div class="face"></div>
+          <span class="shade-name" id="shadeNamePreview">Warm Peach</span>
+          <div class="swatches" id="previewSwatches">
+            <button class="swatch" style="background:#a8a49d" data-shade="Warm Peach" aria-pressed="true" tabindex="-1"></button>
+            <button class="swatch" style="background:#86827b" data-shade="Matte Rose" aria-pressed="false" tabindex="-1"></button>
+            <button class="swatch" style="background:#625e58" data-shade="Berry" aria-pressed="false" tabindex="-1"></button>
+            <button class="swatch" style="background:#3e3b37" data-shade="Deep Plum" aria-pressed="false" tabindex="-1"></button>
+          </div>
+        </div>
+        <button class="btn block push" data-open="tryon">Open virtual try-on</button>
+      </article>
+
+      <!-- 11. AI adviser -->
+      <article class="card d7 r2 t-full" aria-labelledby="aiTitle">
+        <div class="card-head" style="margin-bottom:0">
+          <h3 id="aiTitle">Mary's AI Adviser</h3>
+          <span class="status-on"><i class="dot"></i>ACTIVE</span>
+        </div>
+        <p class="sub">Trained on Mary's edit. Ask anything and find your match instantly.</p>
+        <div class="chat-log" id="chatLog" aria-live="polite">
+          <div class="bubble me">Which cream is best for instant hydration?</div>
+          <div class="bubble-meta me">You · 12:40</div>
+          <div class="bubble bot">Mary recommends the <b>Hydra Radiance Eye Cream</b> for overnight hydration. Want me to add it to your bag?</div>
+          <div class="bubble-meta">Mary's AI Adviser · 12:41</div>
+        </div>
+        <div class="suggest" id="suggest">
+          <button>Something for oily skin?</button>
+          <button>Find my foundation shade</button>
+          <button>Gift under £20</button>
+        </div>
+        <form class="composer" id="composer">
+          <label class="sr-only" for="aiInput">Ask Mary's AI Adviser</label>
+          <input id="aiInput" placeholder="Ask about products, shade matches…" autocomplete="off">
+          <button type="submit" aria-label="Send"><svg class="icon"><use href="#i-send"/></svg></button>
+        </form>
+        <div class="foot-note"><i class="dot"></i>Only recommends from Mary's edit · Hand over to Mary any time</div>
+      </article>
+
+      <!-- 12. Posts & tutorials -->
+      <article class="card d5" aria-labelledby="postsTitle">
+        <h3 id="postsTitle">Posts &amp; Tutorials</h3>
+        <div class="posts">
+          <button class="post" data-toast="Video tutorial would play here">
+            <div class="ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span></div>
+            <div><p class="eyebrow">Video · 5 min</p><b>5-Min Glow Routine</b><p>Step-by-step layering for a calm, hydrated barrier.</p><span class="link">Watch now <svg class="icon icon-sm"><use href="#i-arrow"/></svg></span></div>
+          </button>
+          <button class="post" data-toast="Article would open here">
+            <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
+            <div><p class="eyebrow">Article · 3 min read</p><b>Why Hydration Matters</b><p>What your skin barrier needs overnight, explained simply.</p><span class="link">Read article <svg class="icon icon-sm"><use href="#i-arrow"/></svg></span></div>
+          </button>
+        </div>
+      </article>
+
+      <!-- 13. Live assistance -->
+      <article class="card ink d5" aria-labelledby="liveTitle">
+        <h3 id="liveTitle">Need Live Help?</h3>
+        <p class="sub">Mary and her specialists are online to help you choose.</p>
+        <button class="chat-pill push" data-open="chat"><svg class="icon"><use href="#i-chat"/></svg>Chat with Mary<span class="status-on"><i class="dot pulse"></i>ONLINE</span></button>
+        <div class="channels">Or message on
+          <div><button data-channel="WhatsApp">WhatsApp</button><button data-channel="Telegram">Telegram</button><button data-channel="Messenger">Messenger</button></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= TEAM ================= -->
+  <section id="team" class="section wrap" aria-labelledby="teamTitle">
+    <div class="section-head">
+      <div><p class="eyebrow">03 · Community</p><h2 class="display" id="teamTitle">Meet the team <em>behind the edit</em></h2></div>
+      <p>Talk to a specialist, or start your own beauty business with Mary's guidance.</p>
+    </div>
+
+    <div class="grid">
+      <!-- 14. Meet my team -->
+      <article class="card d5" aria-labelledby="meetTitle">
+        <h3 id="meetTitle">Meet My Team</h3>
+        <p class="sub">Talk to a specialist, free.</p>
+        <div class="people">
+          <div class="person"><div class="avatar"><svg class="icon"><use href="#i-user"/></svg></div><b>Elena</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">Nutritionist</span><button class="btn sm" data-open="chat" data-person="Elena">Message</button><button class="link" data-toast="Opens Elena's storefront">Visit page</button></div>
+          <div class="person"><div class="avatar"><svg class="icon"><use href="#i-user"/></svg></div><b>Tanya</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">Skincare pro</span><button class="btn sm" data-open="chat" data-person="Tanya">Message</button><button class="link" data-toast="Opens Tanya's storefront">Visit page</button></div>
+        </div>
+      </article>
+
+      <!-- 15. Join my team -->
+      <article class="card join d7 r2 t-full" id="join" aria-labelledby="joinTitle">
+        <div id="joinForm">
+          <p class="eyebrow" style="margin-bottom:10px">Now recruiting</p>
+          <h3 id="joinTitle">Join My Team</h3>
+          <p class="sub">Build your own beauty business with my personal guidance.</p>
+          <ul class="perks">
+            <li><svg class="icon"><use href="#i-check"/></svg>Free to join, no stock to buy up front</li>
+            <li><svg class="icon"><use href="#i-check"/></svg>Your own storefront like this one</li>
+            <li><svg class="icon"><use href="#i-check"/></svg>1:1 coaching from Mary as you grow</li>
+          </ul>
+          <form id="signup" novalidate>
+            <div class="form-grid">
+              <label class="field"><span>Your name</span><input id="jName" autocomplete="name" placeholder="e.g. Sam"><div class="err">Please enter your name</div></label>
+              <label class="field"><span>Email or phone</span><input id="jContact" autocomplete="email" placeholder="So Mary can reach you"><div class="err">Please enter an email or phone number</div></label>
+            </div>
+            <label class="check"><input type="checkbox" id="jConsent"><span>I'd like Mary to contact me about joining her team and send business coaching materials. I can unsubscribe at any time.</span></label>
+            <button class="btn block" type="submit">Sign up</button>
+          </form>
+          <div class="centre" style="margin-top:18px"><button class="link" data-open="how">How it works <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button></div>
+        </div>
+      </article>
+
+      <!-- 16. Follow me -->
+      <article class="card d5" aria-labelledby="followTitle">
+        <div class="card-head" style="align-items:flex-start">
+          <div><h3 id="followTitle">Follow Me</h3><div class="handle">@mary.beauty</div></div>
+          <button class="btn sm" id="followBtn" aria-pressed="false" style="border-radius:999px">Follow</button>
+        </div>
+        <div class="insta">
+          <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
+          <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
+        </div>
+        <div class="socials push">
+          <button data-toast="Opens Instagram">Instagram</button><i></i><button data-toast="Opens Facebook">Facebook</button><i></i><button data-toast="Opens TikTok">TikTok</button>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div>Mary is an independent Oriflame Brand Partner. Orders are fulfilled by Oriflame.<br>Wireframe · for usability testing only</div>
+    <nav><a href="#top">Delivery &amp; returns</a><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Report this page</a></nav>
+  </div>
+</footer>
+
+<!-- Mobile/tablet action dock -->
+<div class="dock">
+  <button class="btn ghost" data-open="chat"><svg class="icon icon-sm"><use href="#i-chat"/></svg>Ask Mary</button>
+  <button class="btn" data-open="bag"><svg class="icon icon-sm"><use href="#i-bag"/></svg><span class="bag-label">Bag</span></button>
 </div>
 
-<!-- Bottom sheet -->
+<!-- Sheet -->
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
   <div class="grabber"></div>
@@ -830,7 +1040,7 @@
     const n = bagQty(), c = $('#bagCount');
     c.textContent = n; c.classList.toggle('show', n > 0);
     if (bump) { c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump'); }
-    $('#dockBag').textContent = n ? `Bag (${n}) · ${gbp(bagTotal())}` : 'Bag';
+    $$('.bag-label').forEach(l => l.textContent = n ? `Bag (${n}) · ${gbp(bagTotal())}` : 'Bag');
   }
 
   document.addEventListener('click', e => {
@@ -838,7 +1048,9 @@
     if (add) {
       const [name, price] = add.dataset.add.split('|');
       addToBag(name, parseFloat(price));
-      if (add.classList.contains('add-sq')) { add.classList.add('added'); add.innerHTML = icon('i-check'); }
+      if (add.classList.contains('add-sq')) { add.classList.add('added'); add.innerHTML = icon('i-check', 'icon icon-sm'); }
+      const miniAdd = add.querySelector('.mini-add');
+      if (miniAdd) { miniAdd.classList.add('added'); miniAdd.innerHTML = icon('i-check', 'icon icon-sm'); }
       if (add.dataset.done) { add.textContent = add.dataset.done; add.classList.add('done'); }
       return;
     }
@@ -864,13 +1076,13 @@
   $('#offerEnds').textContent = `Ends ${end.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} · 4 days left`;
   $('#favMonth').textContent = new Date().toLocaleDateString('en-GB', { month: 'long' }) + ' fav';
 
-  /* ---------- Tabs + scrollspy ---------- */
-  const tabs = $$('.tabs button');
+  /* ---------- Tabs / top nav + scrollspy ---------- */
+  const tabs = $$('[data-tab]');
   const setTab = id => tabs.forEach(b => b.setAttribute('aria-current', b.dataset.tab === id));
   tabs.forEach(b => b.addEventListener('click', () => { $('#' + b.dataset.tab).scrollIntoView({ behavior: 'smooth' }); setTab(b.dataset.tab); }));
   const sections = ['shop', 'advice', 'team'].map(id => $('#' + id));
   addEventListener('scroll', () => {
-    const y = scrollY + 140; let cur = 'shop';
+    const y = scrollY + 160; let cur = 'shop';
     sections.forEach(s => { if (s.offsetTop <= y) cur = s.id; });
     setTab(cur);
   }, { passive: true });
@@ -878,15 +1090,14 @@
   /* ---------- My Edit filters & show more ---------- */
   let showAll = false, filter = 'all';
   function renderEdit() {
-    let visible = 0, matching = 0;
+    let matching = 0;
     $$('#editGrid .tile').forEach(t => {
       const match = filter === 'all' || t.dataset.cat === filter;
       if (match) matching++;
-      const show = match && (showAll || filter !== 'all' || !('more' in t.dataset));
-      t.hidden = !show; if (show) visible++;
+      t.hidden = !(match && (showAll || filter !== 'all' || !('more' in t.dataset)));
     });
     $('#editCount').textContent = `${matching} item${matching === 1 ? '' : 's'}`;
-    $('#showMore').hidden = showAll || filter !== 'all';
+    $('#showMore').parentElement.hidden = showAll || filter !== 'all';
   }
   $$('.filter').forEach(f => f.addEventListener('click', () => {
     filter = f.dataset.filter;
@@ -898,9 +1109,9 @@
 
   /* ---------- Reviews carousel ---------- */
   const track = $('#reviewTrack'), dots = $$('#reviewDots button');
-  dots.forEach((d, i) => d.addEventListener('click', () => track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' })));
+  dots.forEach((d, i) => d.addEventListener('click', () => track.scrollTo({ left: i * (track.clientWidth + 16), behavior: 'smooth' })));
   track.addEventListener('scroll', () => {
-    const i = Math.round(track.scrollLeft / track.clientWidth);
+    const i = Math.round(track.scrollLeft / (track.clientWidth + 16));
     dots.forEach((d, k) => d.setAttribute('aria-current', k === i));
   }, { passive: true });
 
@@ -909,7 +1120,7 @@
     const s = $$('#previewSwatches .swatch'); const i = s.findIndex(x => x.getAttribute('aria-pressed') === 'true');
     const n = s[(i + 1) % s.length]; s.forEach(x => x.setAttribute('aria-pressed', x === n));
     $('#shadeNamePreview').textContent = n.dataset.shade;
-  }, 2200);
+  }, 2400);
 
   /* ---------- AI adviser ---------- */
   const log = $('#chatLog');
@@ -922,16 +1133,16 @@
   const now = () => new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
   function ask(q) {
     if (!q.trim()) return;
-    log.insertAdjacentHTML('beforeend', `<div class="bubble me"></div><div class="bubble-meta me">You · ${now()}</div>`);
-    log.querySelectorAll('.bubble.me')[log.querySelectorAll('.bubble.me').length - 1].textContent = q;
-    log.insertAdjacentHTML('beforeend', `<div class="bubble bot" id="typing"><span class="typing"><i></i><i></i><i></i></span></div>`);
+    const me = document.createElement('div'); me.className = 'bubble me'; me.textContent = q;
+    log.append(me);
+    log.insertAdjacentHTML('beforeend', `<div class="bubble-meta me">You · ${now()}</div><div class="bubble bot" id="typing"><span class="typing"><i></i><i></i><i></i></span></div>`);
     log.scrollTop = log.scrollHeight;
     setTimeout(() => {
       $('#typing').remove();
       const r = replies.find(([re]) => re.test(q));
       const html = r
-        ? `${r[1]}<div style="margin-top:8px"><button class="btn sm" data-add="${r[2]}">Add to bag</button></div>`
-        : `Good question. I'm not sure that's in Mary's edit, so I'll pass it to Mary. <div style="margin-top:8px"><button class="btn sm ghost" data-open="chat">Talk to Mary</button></div>`;
+        ? `${r[1]}<div style="margin-top:10px"><button class="btn sm" data-add="${r[2]}">Add to bag</button></div>`
+        : `Good question. I'm not sure that's in Mary's edit, so I'll pass it to Mary. <div style="margin-top:10px"><button class="btn sm ghost" data-open="chat">Talk to Mary</button></div>`;
       log.insertAdjacentHTML('beforeend', `<div class="bubble bot">${html}</div><div class="bubble-meta">Mary's AI Adviser · ${now()}</div>`);
       log.scrollTop = log.scrollHeight;
     }, 900);
@@ -955,15 +1166,15 @@
     if (!okN) return n.focus();
     if (!okC) return c.focus();
     if (!consent.checked) { toast('Please tick the box so Mary can contact you'); return consent.focus(); }
-    $('#joinForm').innerHTML = `<div class="success"><div class="tickc">${icon('i-check')}</div><h3>Welcome, <span id="okName"></span>!</h3><p class="muted">Mary will be in touch within 24 hours to get you started.</p><button class="btn ghost block" data-open="how">What happens next</button></div>`;
+    $('#joinForm').innerHTML = `<div class="success"><div class="tickc">${icon('i-check')}</div><h3>Welcome, <span id="okName"></span></h3><p class="muted">Mary will be in touch within 24 hours to get you started.</p><button class="btn ghost" data-open="how">What happens next</button></div>`;
     $('#okName').textContent = n.value.trim().split(' ')[0];
   });
 
-  /* ---------- Bottom sheet ---------- */
+  /* ---------- Sheet ---------- */
   const sheet = $('#sheet'), scrim = $('#scrim'), body = $('#sheetBody'), title = $('#sheetTitle');
   let lastFocus;
   function show(t, html) {
-    title.textContent = t; body.innerHTML = html;
+    title.textContent = t; body.innerHTML = html; sheet.scrollTop = 0;
     sheet.classList.add('open'); scrim.classList.add('open'); sheet.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     setTimeout(() => $('#sheetClose').focus(), 50);
@@ -978,11 +1189,11 @@
   const sheets = {
     about() {
       show('About Mary', `
-        <div class="ph ph-wide" style="margin-bottom:14px">${icon('i-image')}<span>Photo of Mary</span></div>
+        <div class="ph ph-wide" style="margin-bottom:18px">${icon('i-image')}<span>Photo of Mary</span></div>
         <p>Hi, I'm Mary! I've been helping women across London find skincare that actually works for them for 6 years. I only recommend products I use myself.</p>
-        <div class="grid-2" style="margin:16px 0">
-          <div class="review" style="text-align:center"><b style="font-size:22px">6 yrs</b><div class="tiny">with Oriflame</div></div>
-          <div class="review" style="text-align:center"><b style="font-size:22px">1,200+</b><div class="tiny">happy customers</div></div>
+        <div class="stat-pair">
+          <div><b>6 yrs</b><span class="tiny">with Oriflame</span></div>
+          <div><b>1,200+</b><span class="tiny">happy customers</span></div>
         </div>
         <div class="btn-row"><button class="btn" data-open="chat">Message me</button><button class="btn ghost" data-open="skin">Skin check</button></div>`);
     },
@@ -997,11 +1208,11 @@
           <div><b>${i.name}</b><span class="tiny">${gbp(i.price)} each</span></div>
           <div class="qty"><button data-q="-1" data-n="${i.name}" aria-label="Remove one">−</button><span>${i.qty}</span><button data-q="1" data-n="${i.name}" aria-label="Add one">+</button></div>
         </div>`).join('');
-      const total = bagTotal();
-      const free = 30 - total;
+      const total = bagTotal(), free = 30 - total;
       show('Your bag', `${lines}
-        <p class="tiny" style="margin-top:12px">${free > 0 ? `Add ${gbp(free)} more for free delivery` : 'You qualify for free delivery'}</p>
-        <div class="total"><span>Total</span><span>${gbp(total)}</span></div>
+        <p class="tiny" style="margin-top:14px">${free > 0 ? `Add ${gbp(free)} more for free delivery` : 'You qualify for free delivery'}</p>
+        <div class="progress" style="margin:8px 0 0"><i style="width:${Math.min(100, total / 30 * 100)}%"></i></div>
+        <div class="total"><span>Total</span><span class="price-lg">${gbp(total)}</span></div>
         <button class="btn block" id="checkout">Checkout securely</button>
         <p class="tiny centre">Orders are processed by Oriflame. Mary earns commission on your order.</p>`);
       $$('[data-q]', body).forEach(b => b.onclick = () => {
@@ -1010,7 +1221,7 @@
         renderBagCount(); sheets.bag();
       });
       $('#checkout').onclick = () => {
-        show('Checkout', `<div class="success"><div class="tickc">${icon('i-bag')}</div><p><b>End of prototype.</b></p><p>In the live product you'd now continue to Oriflame's secure checkout.</p><button class="btn ghost block" id="doneBtn">Back to Mary's page</button></div>`);
+        show('Checkout', `<div class="success"><div class="tickc">${icon('i-bag')}</div><p><b style="color:var(--ink)">End of prototype.</b></p><p>In the live product you'd now continue to Oriflame's secure checkout.</p><button class="btn ghost" id="doneBtn">Back to Mary's page</button></div>`);
         $('#doneBtn').onclick = close;
       };
     },
@@ -1024,7 +1235,7 @@
           <button class="option" data-channel="Messenger">Messenger</button>
           <button class="option" id="inPage">Chat here on the page</button>
         </div>`);
-      $('#inPage').onclick = () => { close(); $('#aiInput').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => $('#aiInput').focus(), 500); };
+      $('#inPage').onclick = () => { close(); $('#aiInput').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => $('#aiInput').focus({ preventScroll: true }), 600); };
     },
     how() {
       show('How joining works', `
@@ -1038,18 +1249,18 @@
     },
     tryon() {
       const shades = { Lipstick: ['Warm Peach', 'Matte Rose', 'Berry', 'Deep Plum'], Mascara: ['Black', 'Brown-Black', 'Brown'], Blush: ['Soft Pink', 'Coral', 'Bronze'] };
-      const greys = ['#a3a3a3', '#808080', '#5c5c5c', '#3a3a3a'];
+      const greys = ['#a8a49d', '#86827b', '#625e58', '#3e3b37'];
       let cat = 'Lipstick', shade = 'Warm Peach';
       const draw = () => {
         show('Virtual try-on', `
           <div class="camera" style="margin-top:0">
-            <span class="live"><i class="dot"></i>Live camera</span>
-            <button class="icon-btn" style="position:absolute;top:8px;right:8px;background:rgba(255,255,255,.7)" aria-label="Flip camera">${icon('i-flip')}</button>
+            <span class="live"><i class="dot pulse"></i>LIVE CAMERA</span>
+            <button class="icon-btn" style="position:absolute;top:8px;right:8px;background:rgba(255,255,255,.75)" aria-label="Flip camera">${icon('i-flip')}</button>
             <div class="face"></div>
-            <span class="shade-name" style="bottom:14px">${cat}: ${shade}</span>
+            <span class="shade-name" style="bottom:16px">${cat} · ${shade}</span>
           </div>
           <div class="filters">${Object.keys(shades).map(c => `<button class="filter" data-cat="${c}" aria-pressed="${c === cat}">${c}</button>`).join('')}</div>
-          <div class="options" style="grid-template-columns:repeat(2,1fr)">${shades[cat].map((s, i) => `<button class="option" data-s="${s}" aria-pressed="${s === shade}" style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:22px;border-radius:50%;background:${greys[i]}"></span>${s}</button>`).join('')}</div>
+          <div class="options" style="grid-template-columns:repeat(2,1fr)">${shades[cat].map((s, i) => `<button class="option" data-s="${s}" aria-pressed="${s === shade}" style="display:flex;align-items:center;gap:12px"><span style="width:20px;height:20px;border-radius:50%;background:${greys[i]}"></span>${s}</button>`).join('')}</div>
           <button class="btn block" data-add="${cat} · ${shade}|12.90">Add ${shade} to bag · £12.90</button>
           <p class="tiny centre">Camera access is requested in the live product. Nothing is recorded.</p>`);
         $$('[data-cat]', body).forEach(b => b.onclick = () => { cat = b.dataset.cat; shade = shades[cat][0]; draw(); });
@@ -1067,10 +1278,10 @@
       const intro = () => {
         show('Skin check', `
           <div class="progress"><i style="width:5%"></i></div>
-          <div class="camera" style="margin-top:0"><div class="face"></div><span class="shade-name" style="bottom:14px">Position your face in the frame</span></div>
+          <div class="camera" style="margin-top:0"><div class="face"></div><span class="shade-name" style="bottom:16px">Position your face in the frame</span></div>
           <p>Take a quick selfie in good light, then answer 3 questions.</p>
           <button class="btn block" id="snap">Take selfie</button>
-          <div class="centre"><button class="link u" id="skip">Skip photo, just answer questions</button></div>`);
+          <div class="centre" style="margin-top:16px"><button class="link" id="skip">Skip photo, just answer questions</button></div>`);
         $('#snap').onclick = () => step(0); $('#skip').onclick = () => step(0);
       };
       const step = i => {
@@ -1078,31 +1289,32 @@
         const [q, opts] = qs[i];
         show(`Question ${i + 1} of ${qs.length}`, `
           <div class="progress"><i style="width:${((i + 1) / (qs.length + 1)) * 100}%"></i></div>
-          <p style="color:var(--ink);font-weight:600;font-size:17px">${q}</p>
+          <p style="color:var(--ink);font-family:var(--serif);font-size:24px;line-height:1.2;margin:0">${q}</p>
           <div class="options">${opts.map(o => `<button class="option">${o}</button>`).join('')}</div>`);
         $$('.option', body).forEach(b => b.onclick = () => { b.setAttribute('aria-pressed', 'true'); answers[i] = b.textContent; setTimeout(() => step(i + 1), 250); });
       };
       const analysing = () => {
-        show('Analysing…', `<div class="progress"><i style="width:90%"></i></div><div class="centre" style="padding:30px 0"><span class="typing"><i></i><i></i><i></i></span><p>Building your routine from Mary's edit</p></div>`);
+        show('Analysing…', `<div class="progress"><i style="width:90%"></i></div><div class="centre" style="padding:36px 0"><span class="typing"><i></i><i></i><i></i></span><p>Building your routine from Mary's edit</p></div>`);
         setTimeout(result, 1400);
       };
       const result = () => {
         show('Your skin results', `
           <div class="progress"><i style="width:100%"></i></div>
-          <p style="color:var(--ink)"><b>Main focus: ${answers[1] || 'Dehydration'}</b></p>
+          <p class="eyebrow">Main focus</p>
+          <p style="color:var(--ink);font-family:var(--serif);font-size:26px;margin:4px 0 12px">${answers[1] || 'Dehydration'}</p>
           <div class="score"><span>Hydration balance</span><b>62</b><div class="bar"><i style="width:62%"></i></div></div>
           <div class="score"><span>Redness &amp; sensitivity</span><b>78</b><div class="bar"><i style="width:78%"></i></div></div>
           <div class="score"><span>Pores &amp; texture</span><b>71</b><div class="bar"><i style="width:71%"></i></div></div>
-          <p style="margin-top:18px;color:var(--ink)"><b>Mary's routine for you</b></p>
+          <p class="eyebrow" style="margin:26px 0 10px">Mary's routine for you</p>
           <div class="steps">
             <div class="step"><span class="step-num">1</span><div class="ph">${icon('i-image')}</div><div><small>PREP</small><b>Purifying Gel Cleanser</b></div></div>
             <div class="step"><span class="step-num">2</span><div class="ph">${icon('i-image')}</div><div><small>BOOST</small><b>Optimals Moisture Serum</b></div></div>
             <div class="step"><span class="step-num">3</span><div class="ph">${icon('i-image')}</div><div><small>NIGHT</small><b>Hydra Radiance Eye Cream</b></div></div>
           </div>
-          <div class="set-price"><span class="muted">Your routine</span><span class="price-lg">£42 as a set</span></div>
+          <div class="set-price"><span class="muted">Your routine</span><span><span class="price-lg">£42</span> <span class="muted" style="font-size:14px">as a set</span></span></div>
           <button class="btn block" data-add="My skin check routine|42.00">Add routine to bag</button>
           <button class="btn ghost block" style="margin-top:10px" id="sendMary">Send my results to Mary</button>`);
-        $('#sendMary').onclick = e => { e.currentTarget.textContent = 'Sent. Mary will be in touch'; e.currentTarget.disabled = true; };
+        $('#sendMary').onclick = e => { e.currentTarget.textContent = 'Sent · Mary will be in touch'; e.currentTarget.disabled = true; };
       };
       intro();
     },
