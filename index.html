@@ -169,7 +169,7 @@
   /* ============================================================
      Hero
      ============================================================ */
-  .hero { padding-top: 36px; padding-bottom: 36px; text-align: center; }
+  .hero { padding-top: 28px; padding-bottom: 36px; }
   .hero-grid { display: grid; gap: 40px; align-items: center; }
   .avatar {
     width: 104px; height: 104px; margin: 0 auto 20px; border-radius: 50%;
@@ -177,17 +177,34 @@
     box-shadow: 0 0 0 6px var(--paper), 0 0 0 7px var(--line);
   }
   .avatar .icon { width: 34px; height: 34px; stroke-width: 1.1; }
-  .hero .eyebrow { margin-bottom: 14px; }
-  .hero h1 { font-size: 44px; }
-  .role { margin: 14px 0 0; display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; font-weight: 500; color: var(--ink-2); }
-  .bio { color: var(--ink-3); margin: 14px auto 0; max-width: 38ch; font-size: 16px; }
-  .stats { display: flex; justify-content: center; gap: 0; margin: 24px 0 26px; }
-  .stat { padding: 0 20px; border-left: 1px solid var(--line); text-align: center; background: none; border-top: 0; border-right: 0; border-bottom: 0; }
-  .stat:first-child { border-left: 0; }
-  .stat b { display: block; font-weight: 500; font-size: 22px; letter-spacing: -.02em; line-height: 1; }
-  .stat span { font-size: 11px; color: var(--ink-4); letter-spacing: .06em; }
-  button.stat span { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ink-5); }
-  .hero-actions { display: grid; grid-template-columns: 1fr auto; gap: 10px; max-width: 420px; margin: 0 auto; }
+  .hero .eyebrow { margin-bottom: 18px; }
+  .hero-id { display: grid; grid-template-columns: 84px 1fr; gap: 18px; align-items: center; }
+  .hero-id .avatar { width: 84px; height: 84px; margin: 0; box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--line); }
+  .hero-id .avatar .icon { width: 30px; height: 30px; }
+  .hero h1 { font-size: 38px; }
+  .tagline { margin: 6px 0 0; color: var(--ink-3); font-size: 15px; font-weight: 300; }
+  .bio { color: var(--ink-3); margin: 20px 0 0; max-width: 54ch; font-size: 16px; }
+  .hero-actions { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-top: 24px; }
+  .stat-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+  .stat-tile { background: var(--fill); border: 0; border-radius: var(--r-md); padding: 14px; text-align: left; transition: background .2s; }
+  button.stat-tile:hover { background: var(--fill-2); }
+  .stat-tile small { display: block; font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 6px; }
+  .stat-tile b { display: flex; align-items: center; gap: 5px; font-weight: 500; font-size: 20px; letter-spacing: -.02em; line-height: 1.1; white-space: nowrap; }
+  .stat-tile b .icon { width: 16px; height: 16px; fill: currentColor; stroke: none; }
+  .qr-card { display: grid; grid-template-columns: 1fr; gap: 12px; align-items: center; background: var(--fill); border-radius: var(--r-md); padding: 16px; margin-top: 14px; }
+  .qr {
+    display: none; width: 92px; height: 92px; border-radius: var(--r-md); background-color: var(--paper); border: 1px solid var(--line); padding: 10px;
+    background-image:
+      linear-gradient(var(--ink-2) 0 0), linear-gradient(var(--ink-2) 0 0), linear-gradient(var(--ink-2) 0 0),
+      repeating-conic-gradient(var(--ink-5) 0 25%, transparent 0 50%);
+    background-size: 20px 20px, 20px 20px, 20px 20px, 12px 12px;
+    background-position: 10px 10px, calc(100% - 10px) 10px, 10px calc(100% - 10px), center;
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+    background-origin: border-box; background-clip: content-box;
+  }
+  .qr-card b { display: block; font-weight: 600; font-size: 15px; }
+  .qr-card p { margin: 4px 0 0; font-size: 13px; color: var(--ink-3); }
+  .qr-card .btn { justify-self: start; }
   .hero-portrait.ph { display: none; }
 
   /* ============================================================
@@ -557,7 +574,12 @@
   @media (min-width: 700px) {
     :root { --gutter: 32px; }
     .hero { padding-top: 56px; padding-bottom: 48px; }
-    .hero h1 { font-size: 60px; }
+    .hero h1 { font-size: 52px; }
+    .hero-id { grid-template-columns: 104px 1fr; gap: 24px; }
+    .hero-id .avatar { width: 104px; height: 104px; }
+    .qr-card { grid-template-columns: 92px 1fr; gap: 20px; }
+    .qr { display: block; }
+    .qr-card .btn { display: none; }
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
     .t-full { grid-column: 1 / -1; }
     .section { padding-top: 64px; }
@@ -612,17 +634,18 @@
     .top-cta { gap: 8px; margin-left: 8px; }
     .top-bag-btn { display: none; }
 
-    .hero { text-align: left; padding-top: 72px; padding-bottom: 32px; }
+    .hero { padding-top: 64px; padding-bottom: 32px; }
     .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 72px; }
-    .hero .avatar { display: none; }
+    .hero-id { grid-template-columns: 1fr; }
+    .hero-id .avatar { display: none; }
     .hero h1 { font-size: 80px; }
-    .role { justify-content: flex-start; }
-    .bio { margin-left: 0; font-size: 17px; }
-    .stats { justify-content: flex-start; margin: 32px 0 36px; }
-    .stat { padding: 0 28px; text-align: left; }
-    .stat:first-child { padding-left: 0; }
-    .stat b { font-size: 28px; }
-    .hero-actions { margin: 0; max-width: 440px; }
+    .tagline { font-size: 20px; margin-top: 10px; }
+    .bio { font-size: 17px; }
+    .hero-actions { max-width: 520px; }
+    .stat-tiles { max-width: 520px; }
+    .stat-tile { padding: 16px 18px; }
+    .stat-tile b { font-size: 24px; }
+    .qr-card { max-width: 520px; }
     .hero-portrait.ph { display: flex; aspect-ratio: 4 / 5; border-radius: var(--r-lg); }
     .hero-portrait .icon { width: 44px; height: 44px; }
     .hero-portrait .caption { position: absolute; left: 20px; bottom: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,.85); backdrop-filter: blur(8px); padding: 14px 16px; border-radius: var(--r-md); text-align: left; }
@@ -671,7 +694,7 @@
   }
 
   @media (min-width: 1280px) {
-    .hero h1 { font-size: 92px; }
+    .hero h1 { font-size: 88px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -696,6 +719,7 @@
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
   <symbol id="i-flip" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 8M20 4v4h-4M20 12a8 8 0 0 1-14 5.3L4 16M4 20v-4h4"/></symbol>
   <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
 </svg>
 
@@ -733,19 +757,31 @@
   <section class="hero wrap" aria-labelledby="sellerName">
     <div class="hero-grid">
       <div>
-        <div class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-user"/></svg></div>
         <p class="eyebrow">Independent Oriflame Brand Partner · London</p>
-        <h1 class="display" id="sellerName">Mary's <em>Edit</em></h1>
-        <p class="role">Independent Skincare Curator <span class="chip"><svg class="icon icon-sm" style="width:11px;height:11px;stroke-width:2.4"><use href="#i-check"/></svg>Verified</span></p>
-        <p class="bio">Personal skincare advice, routines matched to your skin, and my honest monthly favourites.</p>
-        <div class="stats">
-          <button class="stat" data-jump="reviews"><b>4.9</b><span>128 reviews</span></button>
-          <div class="stat"><b>6 yrs</b><span>with Oriflame</span></div>
-          <div class="stat"><b>1.2k</b><span>customers</span></div>
+        <div class="hero-id">
+          <div class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-user"/></svg></div>
+          <div>
+            <h1 class="display" id="sellerName">Mary's <em>Edit</em></h1>
+            <p class="tagline">Your journey. Your beauty. Your rules.</p>
+          </div>
         </div>
+        <p class="bio">Welcome to my digital storefront. I've curated my absolute favourite skin rituals, make-up edits and daily wellness essentials. Everything you see is recommended by me, backed by Oriflame. <button class="link" data-open="about" style="margin-left:4px">More about me</button></p>
         <div class="hero-actions">
-          <button class="btn" data-open="about">About me</button>
-          <button class="btn ghost square" data-open="chat" data-mode="human" aria-label="Message Mary"><svg class="icon"><use href="#i-chat"/></svg></button>
+          <button class="btn js-follow" aria-pressed="false">Follow</button>
+          <button class="btn ghost square" data-share="Mary's Edit storefront" aria-label="Share my shop"><svg class="icon"><use href="#i-upload"/></svg></button>
+        </div>
+        <div class="stat-tiles">
+          <div class="stat-tile"><small>Followers</small><b id="followerCount">12.4K</b></div>
+          <button class="stat-tile" data-jump="reviews" aria-label="Rating 4.9, see reviews"><small>Rating</small><b><svg class="icon"><use href="#i-star"/></svg>4.9</b></button>
+          <button class="stat-tile" data-open="chat" data-mode="human" aria-label="Response under 1 hour, message Mary"><small>Response</small><b>Under 1h</b></button>
+        </div>
+        <div class="qr-card">
+          <div class="qr" role="img" aria-label="QR code placeholder"></div>
+          <div>
+            <b>Scan to save my shop</b>
+            <p>Get exclusive offers and updates directly to your phone.</p>
+          </div>
+          <button class="btn ghost sm" data-toast="Adds Mary's Edit to your home screen">Save to home screen</button>
         </div>
       </div>
       <div class="ph hero-portrait" aria-hidden="true">
@@ -1073,7 +1109,7 @@
       <article class="card d12 t-full follow" aria-labelledby="followTitle">
         <div class="card-head" style="align-items:flex-start">
           <div><h3 id="followTitle">Follow Me</h3><div class="handle">@mary.beauty</div></div>
-          <button class="btn sm" id="followBtn" aria-pressed="false" style="border-radius:999px">Follow</button>
+          <button class="btn sm js-follow" aria-pressed="false" style="border-radius:999px">Follow</button>
         </div>
         <div class="insta">
           <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
@@ -1352,11 +1388,13 @@
     if (!humanReplied) { humanReplied = true; typing(hlog, 1400, () => say(hlog, 'Mary', "Thanks, got it! I'm with a customer right now but I'll reply properly within the hour. You'll get a notification here.")); }
   });
 
-  /* ---------- Follow ---------- */
-  $('#followBtn').addEventListener('click', e => {
-    const b = e.currentTarget, on = b.getAttribute('aria-pressed') !== 'true';
-    b.setAttribute('aria-pressed', on); b.textContent = on ? 'Following' : 'Follow'; b.classList.toggle('ghost', on);
-  });
+  /* ---------- Follow (hero + Follow Me stay in sync) ---------- */
+  let following = false;
+  $$('.js-follow').forEach(btn => btn.addEventListener('click', () => {
+    following = !following;
+    $$('.js-follow').forEach(b => { b.setAttribute('aria-pressed', following); b.textContent = following ? 'Following' : 'Follow'; b.classList.toggle('ghost', following); });
+    if (following) toast(`${icon('i-check')} You're following Mary's Edit`);
+  }));
 
   /* ---------- Join form ---------- */
   $('#signup').addEventListener('submit', e => {
