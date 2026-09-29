@@ -306,18 +306,60 @@
   .stars .icon { width: 12px; height: 12px; fill: currentColor; stroke: none; }
   .carousel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .carousel::-webkit-scrollbar { display: none; }
-  .slide { flex: 0 0 100%; scroll-snap-align: start; display: grid; gap: 12px; }
-  .review { background: var(--fill); border-radius: var(--r-md); padding: 18px; }
+  .review { flex: 0 0 86%; scroll-snap-align: start; background: var(--fill); border-radius: var(--r-md); padding: 20px; display: flex; flex-direction: column; }
   .review-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .review-head .av { width: 34px; height: 34px; border-radius: 50%; background: var(--fill-3); flex: none; }
   .review-head b { font-weight: 600; font-size: 14px; }
   .verified { font-size: 11px; color: var(--ink-4); display: inline-flex; align-items: center; gap: 3px; }
   .review-head .stars { margin-left: auto; }
   .review p { margin: 0; font-size: 15px; font-weight: 300; line-height: 1.5; color: var(--ink-2); }
-  .review .tiny { margin-top: 10px; }
   .dots { display: flex; justify-content: center; gap: 6px; margin-top: 18px; }
   .dots button { width: 18px; height: 2px; border: 0; padding: 6px 0; background: var(--line) content-box; transition: all .25s; }
   .dots button[aria-current="true"] { width: 32px; background-color: var(--ink); }
+
+  /* ---------- Daily routine (horizontal) ---------- */
+  .routine-head { align-items: flex-end; flex-wrap: wrap; }
+  .seg { display: inline-flex; padding: 3px; background: var(--fill); border-radius: 999px; }
+  .seg button { border: 0; background: none; padding: 8px 18px; border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--ink-3); transition: all .2s; }
+  .seg button[aria-pressed="true"] { background: var(--paper); color: var(--ink); box-shadow: 0 1px 3px rgba(28,27,25,.12); }
+  .routine-body { display: grid; gap: 20px; }
+  .rsteps {
+    list-style: none; margin: 0; padding: 0 0 4px; display: grid; grid-auto-flow: column; grid-auto-columns: 74%;
+    gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  }
+  .rsteps::-webkit-scrollbar { display: none; }
+  .rstep { scroll-snap-align: start; position: relative; display: flex; flex-direction: column; gap: 6px; }
+  .rstep .ph { aspect-ratio: 4 / 3; margin-bottom: 8px; }
+  .rnum {
+    position: absolute; top: 10px; left: 10px; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--primary); color: var(--on-primary) !important; display: grid; place-items: center;
+    font-size: 12px !important; letter-spacing: 0 !important; font-weight: 600;
+  }
+  .rstep:not(:last-child)::after {
+    content: ""; position: absolute; top: 34%; right: -14px; width: 14px; height: 1px; background: var(--ink-5);
+  }
+  .rstep small { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-4); }
+  .rstep b { font-weight: 500; font-size: 15px; line-height: 1.3; }
+  .rhow { font-size: 13px; color: var(--ink-3); }
+  .rstep-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 8px; }
+  .rstep-foot .price { font-size: 14px; color: var(--ink-2); }
+  .rsummary { background: var(--fill); border-radius: var(--r-md); padding: 20px; display: flex; flex-direction: column; align-items: flex-start; }
+  .rsummary .eyebrow { margin-bottom: 10px; }
+  .rsum-price { display: flex; align-items: baseline; gap: 10px; }
+  .rsum-price .price-lg { font-size: 34px; }
+  .rsave { margin: 6px 0 12px; font-size: 13px; font-weight: 600; }
+  .rsummary .ticks { margin: 0 0 18px; }
+  .rsummary .btn { margin-top: auto; }
+
+  /* ---------- Reviews row ---------- */
+  .reviews-head { align-items: flex-end; }
+  .arrows { display: none; gap: 8px; }
+  .arrow { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); display: grid; place-items: center; transition: border-color .2s, opacity .2s; }
+  .arrow:hover:not([disabled]) { border-color: var(--ink); }
+  .arrow[disabled] { opacity: .35; cursor: default; }
+  .review-foot { display: flex; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 14px; font-size: 12px; color: var(--ink-4); }
+  .review-head > div { display: flex; flex-direction: column; }
+  .review-foot span:last-child { white-space: nowrap; }
 
   /* ---------- Skin analysis ---------- */
   .measure { background: var(--fill); border-radius: var(--r-md); padding: 16px; display: grid; grid-template-columns: 100px 1fr; gap: 16px; align-items: center; margin-top: 20px; }
@@ -528,6 +570,14 @@
     .rec .ph { aspect-ratio: 1; }
     .rec-body .title-price { margin-top: 8px; }
     .rec-body .btn-row { margin-top: auto; }
+    .rsteps { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); grid-auto-columns: auto; gap: 28px; overflow: visible; }
+    .rstep:not(:last-child)::after { right: -28px; width: 28px; }
+    .rsummary { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+    .rsummary .ticks, .rsummary .rsave { margin: 0; }
+    .rsummary .btn { margin: 0 0 0 auto; width: auto; }
+    .rsummary .eyebrow { width: 100%; margin: 0; }
+    .arrows { display: flex; }
+    .review { flex-basis: calc((100% - 16px) / 2); }
     .follow .insta { grid-template-columns: repeat(6, 1fr); gap: 10px; }
     .people { flex: 1; }
     .person { justify-content: center; }
@@ -580,6 +630,13 @@
     .tiles { gap: 20px; }
     .measure { grid-template-columns: 120px 1fr; }
     .people .btn { min-height: 44px; }
+    .routine-body { grid-template-columns: 1fr 280px; gap: 32px; align-items: stretch; }
+    .rsummary { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; gap: 0; padding: 24px; }
+    .rsummary .rsave { margin: 6px 0 14px; }
+    .rsummary .ticks { margin: 0 0 20px; }
+    .rsummary .eyebrow { margin-bottom: 10px; }
+    .rsummary .btn { margin: auto 0 0; width: 100%; }
+    .review { flex-basis: calc((100% - 32px) / 3); }
     .form-grid { grid-template-columns: 1fr 1fr; }
 
     .scrim { backdrop-filter: blur(3px); }
@@ -790,22 +847,32 @@
         <div class="show-more centre"><button class="btn ghost" id="showMore">Show all 8 items</button></div>
       </article>
 
-      <!-- 6. Morning routine bundle -->
-      <article class="card d6 t-full" aria-labelledby="routineTitle">
-        <div class="card-head">
-          <h3 id="routineTitle">My Morning Routine</h3>
-          <span class="meta">3 steps</span>
+      <!-- 6. Daily routine bundle -->
+      <article class="card d12 t-full routine" id="routine" aria-labelledby="routineTitle">
+        <div class="card-head routine-head">
+          <div>
+            <h3 id="routineTitle">My Morning Routine</h3>
+            <p class="sub" id="routineSub">3 steps · about 2 minutes, every morning</p>
+          </div>
+          <div class="seg" role="group" aria-label="Choose routine">
+            <button data-routine="am" aria-pressed="true">Morning</button>
+            <button data-routine="pm" aria-pressed="false">Evening</button>
+          </div>
         </div>
-        <div class="steps">
-          <div class="step"><span class="step-num">1</span><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div><small>PREP</small><b>Purifying Gel Cleanser</b></div></div>
-          <div class="step"><span class="step-num">2</span><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div><small>BOOST</small><b>Skin Hydration Tonic</b></div></div>
-          <div class="step"><span class="step-num">3</span><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div><small>PROTECT</small><b>NovAge+ Shield Day Cream</b></div></div>
+        <div class="routine-body">
+          <ol class="rsteps" id="rsteps"></ol>
+          <aside class="rsummary" aria-live="polite">
+            <p class="eyebrow">Complete routine</p>
+            <div class="rsum-price"><span class="strike" id="rWas">£46.50</span><span class="price-lg" id="rNow">£39</span></div>
+            <p class="rsave" id="rSave">You save £7.50</p>
+            <ul class="ticks">
+              <li><svg class="icon"><use href="#i-check"/></svg>Free delivery on this set</li>
+              <li><svg class="icon"><use href="#i-check"/></svg>Chosen by Mary for dry skin</li>
+            </ul>
+            <button class="btn block" id="rBuy" data-add="Morning Routine set|39.00" data-done="Routine in bag">Shop the routine</button>
+            <button class="link" data-open="skin" style="margin-top:14px;align-self:center">Or take the skin check</button>
+          </aside>
         </div>
-        <div class="set-price push">
-          <span class="muted" style="font-size:14px">Bought together</span>
-          <span><span class="strike">£46.50</span><span class="price-lg">£39</span> <span class="muted" style="font-size:14px">as a set</span></span>
-        </div>
-        <button class="btn block" data-add="Morning Routine set (3 steps)|39.00" data-done="Routine in bag">Shop the routine</button>
       </article>
 
       <!-- 7. Favourite of the month -->
@@ -829,32 +896,26 @@
       </article>
 
       <!-- 8. Reviews -->
-      <article class="card d6 t-full" id="reviews" aria-labelledby="revTitle">
-        <div class="card-head" style="align-items:flex-start">
+      <article class="card d12 t-full" id="reviews" aria-labelledby="revTitle">
+        <div class="card-head reviews-head">
           <div>
             <h3 id="revTitle">What My Customers Say</h3>
-            <div class="rating-summary"><b>4.9</b><span class="stars" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span>128 reviews</div>
+            <div class="rating-summary"><b>4.9</b><span class="stars" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span>from 128 reviews</div>
+          </div>
+          <div class="arrows">
+            <button class="arrow" id="revPrev" aria-label="Previous reviews"><svg class="icon" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button>
+            <button class="arrow" id="revNext" aria-label="Next reviews"><svg class="icon"><use href="#i-arrow"/></svg></button>
           </div>
         </div>
         <div class="carousel" id="reviewTrack" tabindex="0" aria-label="Customer reviews, swipe for more">
-          <div class="slide">
-            <div class="review"><div class="review-head"><span class="av"></span><b>Sofia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Mary matched me to Hydra Radiance and my skin has never felt so comfortable."</p><div class="tiny">Bought: Hydra Radiance Eye Cream</div></div>
-            <div class="review"><div class="review-head"><span class="av"></span><b>Nadia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Smooth application and lasting hydration. Delivery was quick too."</p><div class="tiny">Bought: Morning Routine set</div></div>
-          </div>
-          <div class="slide">
-            <div class="review"><div class="review-head"><span class="av"></span><b>Grace</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Loved having someone real to ask. Mary replied within the hour."</p><div class="tiny">Bought: Glow Serum</div></div>
-            <div class="review"><div class="review-head"><span class="av"></span><b>Priya</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="4 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The 3 for 2 body care deal is brilliant value. Will reorder."</p><div class="tiny">Bought: 3 for 2 Body Care</div></div>
-          </div>
-          <div class="slide">
-            <div class="review"><div class="review-head"><span class="av"></span><b>Hannah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The skin check was spot on and the routine was easy to follow."</p><div class="tiny">Bought: Clay Mask</div></div>
-            <div class="review"><div class="review-head"><span class="av"></span><b>Leah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Honest recommendations, never pushy. That's why I keep coming back."</p><div class="tiny">Bought: Day Fluid SPF</div></div>
-          </div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Sofia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Mary matched me to Hydra Radiance and my skin has never felt so comfortable."</p><div class="review-foot"><span>Bought: Hydra Radiance Eye Cream</span><span>2 days ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Nadia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Smooth application and lasting hydration. Delivery was quick too."</p><div class="review-foot"><span>Bought: Morning Routine set</span><span>1 week ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Grace</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Loved having someone real to ask. Mary replied within the hour."</p><div class="review-foot"><span>Bought: Glow Serum</span><span>1 week ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Priya</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="4 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The 3 for 2 body care deal is brilliant value. Will reorder."</p><div class="review-foot"><span>Bought: 3 for 2 Body Care</span><span>2 weeks ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Hannah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The skin check was spot on and the routine was easy to follow."</p><div class="review-foot"><span>Bought: Clay Mask</span><span>3 weeks ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Leah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Honest recommendations, never pushy. That's why I keep coming back."</p><div class="review-foot"><span>Bought: Day Fluid SPF</span><span>1 month ago</span></div></div>
         </div>
-        <div class="dots" id="reviewDots">
-          <button aria-label="Reviews page 1" aria-current="true"></button>
-          <button aria-label="Reviews page 2"></button>
-          <button aria-label="Reviews page 3"></button>
-        </div>
+        <div class="dots" id="reviewDots"></div>
       </article>
     </div>
   </section>
@@ -1137,12 +1198,56 @@
   renderEdit();
 
   /* ---------- Reviews carousel ---------- */
-  const track = $('#reviewTrack'), dots = $$('#reviewDots button');
-  dots.forEach((d, i) => d.addEventListener('click', () => track.scrollTo({ left: i * (track.clientWidth + 16), behavior: 'smooth' })));
-  track.addEventListener('scroll', () => {
-    const i = Math.round(track.scrollLeft / (track.clientWidth + 16));
-    dots.forEach((d, k) => d.setAttribute('aria-current', k === i));
-  }, { passive: true });
+  const track = $('#reviewTrack'), dotsWrap = $('#reviewDots');
+  const pageW = () => track.clientWidth + 16;
+  const pages = () => Math.max(1, Math.round((track.scrollWidth + 16) / pageW()));
+  function buildDots() {
+    dotsWrap.innerHTML = Array.from({ length: pages() }, (_, i) => `<button aria-label="Reviews page ${i + 1}"></button>`).join('');
+    $$('button', dotsWrap).forEach((d, i) => d.onclick = () => track.scrollTo({ left: i * pageW(), behavior: 'smooth' }));
+    syncDots();
+  }
+  function syncDots() {
+    const i = Math.round(track.scrollLeft / pageW()), n = pages();
+    $$('button', dotsWrap).forEach((d, k) => d.setAttribute('aria-current', k === i));
+    $('#revPrev').disabled = i <= 0; $('#revNext').disabled = i >= n - 1;
+  }
+  $('#revPrev').onclick = () => track.scrollBy({ left: -pageW(), behavior: 'smooth' });
+  $('#revNext').onclick = () => track.scrollBy({ left: pageW(), behavior: 'smooth' });
+  track.addEventListener('scroll', syncDots, { passive: true });
+  addEventListener('resize', buildDots);
+  buildDots();
+
+  /* ---------- Daily routine (morning / evening) ---------- */
+  const routines = {
+    am: { title: 'My Morning Routine', sub: '3 steps · about 2 minutes, every morning', set: 39, name: 'Morning Routine set', steps: [
+      ['Prep', 'Purifying Gel Cleanser', 12.50, 'Massage onto damp skin · 30 sec'],
+      ['Boost', 'Skin Hydration Tonic', 11.00, 'Press in with palms · 10 sec'],
+      ['Protect', 'NovAge+ Shield Day Cream', 23.00, 'Smooth over face & neck · 1 min'],
+    ] },
+    pm: { title: 'My Evening Routine', sub: '3 steps · about 3 minutes, before bed', set: 37, name: 'Evening Routine set', steps: [
+      ['Cleanse', 'Micellar Cleansing Water', 9.00, 'Sweep over face & eyes · 30 sec'],
+      ['Treat', 'Optimals Moisture Serum', 16.50, 'Two drops, press in · 20 sec'],
+      ['Restore', 'Hydra Radiance Eye Cream', 18.90, 'Tap gently under eyes · 30 sec'],
+    ] },
+  };
+  function renderRoutine(key) {
+    const r = routines[key], was = r.steps.reduce((t, s) => t + s[2], 0);
+    $('#routineTitle').textContent = r.title; $('#routineSub').textContent = r.sub;
+    $('#rsteps').innerHTML = r.steps.map(([label, name, price, how], i) => `
+      <li class="rstep">
+        <div class="ph">${icon('i-image')}<span class="rnum">${i + 1}</span></div>
+        <small>Step ${i + 1} · ${label}</small>
+        <b>${name}</b>
+        <span class="rhow">${how}</span>
+        <div class="rstep-foot"><span class="price">${gbp(price)}</span><button class="add-sq" data-add="${name}|${price}" aria-label="Add ${name} to bag">${icon('i-plus', 'icon icon-sm')}</button></div>
+      </li>`).join('');
+    $('#rWas').textContent = gbp(was); $('#rNow').textContent = '£' + r.set;
+    $('#rSave').textContent = `You save ${gbp(was - r.set)}`;
+    const buy = $('#rBuy'); buy.dataset.add = `${r.name}|${r.set}`; buy.textContent = 'Shop the routine'; buy.classList.remove('done');
+    $$('[data-routine]').forEach(b => b.setAttribute('aria-pressed', b.dataset.routine === key));
+  }
+  $$('[data-routine]').forEach(b => b.onclick = () => renderRoutine(b.dataset.routine));
+  renderRoutine('am');
 
   /* ---------- Preview swatches (decorative) ---------- */
   setInterval(() => {
