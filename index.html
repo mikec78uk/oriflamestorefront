@@ -598,6 +598,11 @@
     .foot-link { text-align: left; }
     .people { gap: 16px; }
     .rec { order: -2; }
+    .offer { display: grid; grid-template-columns: 1fr 260px; grid-template-areas: "top top" "media actions"; column-gap: 32px; }
+    .offer .offer-top { grid-area: top; }
+    .offer .media-row { grid-area: media; grid-template-columns: 140px 1fr; margin: 0; align-items: center; }
+    .offer .media-row h3 { font-size: 26px; }
+    .offer .btn-row { grid-area: actions; grid-template-columns: 1fr; align-self: center; margin: 0; }
     .row2 { order: -1; }
     .rec-grid { grid-template-columns: 1fr 1fr; grid-template-areas: "img head" "img body"; grid-template-rows: auto 1fr; column-gap: 28px; }
     .rec-head { margin-bottom: 8px; }
@@ -800,9 +805,9 @@
 
     <div class="grid">
       <!-- 2. Limited-time offer -->
-      <article class="card d6 row2" aria-labelledby="offerTitle">
+      <article class="card d12 t-full row2 offer" aria-labelledby="offerTitle">
         <div class="offer-top">
-          <span class="chip solid">Offer</span>
+          <span class="chip solid">Limited offer</span>
           <span class="countdown"><i class="dot pulse"></i><span id="offerEnds">Ends soon</span></span>
         </div>
         <div class="media-row">
@@ -823,8 +828,8 @@
       <article class="card rec d12 t-full" aria-labelledby="recTitle">
         <div class="rec-grid">
         <div class="card-head rec-head">
-          <span class="chip"><i class="dot"></i>My recommendation</span>
-          <span class="meta" id="favMonth">October fav</span>
+          <span class="chip"><i class="dot"></i>Favourite of the month</span>
+          <span class="meta" id="favMonth">October</span>
         </div>
         <div class="ph rec-img"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Hydra Radiance Eye Cream</span></div>
         <div class="rec-body">
@@ -930,26 +935,6 @@
             <button class="btn block" id="rBuy" data-add="Morning Routine set|39.00" data-done="Routine in bag">Shop the routine</button>
             <button class="link" data-open="skin" style="margin-top:14px;align-self:center">Or take the skin check</button>
           </aside>
-        </div>
-      </article>
-
-      <!-- 7. Favourite of the month -->
-      <article class="card tint d6 row2" aria-labelledby="favTitle">
-        <div class="card-head">
-          <h3 id="favTitle">Favourite of the Month</h3>
-          <span class="chip">This month</span>
-        </div>
-        <div class="media-row" style="grid-template-columns:120px 1fr">
-          <div class="ph" style="aspect-ratio:.9;background:linear-gradient(160deg,var(--paper),var(--fill-3))"><svg class="icon"><use href="#i-image"/></svg><span>Fav serum</span></div>
-          <div>
-            <b style="font-weight:600;font-size:15px">Optimals Moisture Serum</b>
-            <div class="price-lg" style="margin:8px 0">£16.50</div>
-            <p class="muted clamp-2" style="margin:0;font-size:14px;font-weight:300;line-height:1.5">"Locks in hydration immediately and genuinely transforms dry patches in a week."</p>
-          </div>
-        </div>
-        <div class="btn-row push">
-          <button class="btn" data-add="Optimals Moisture Serum|16.50">Buy</button>
-          <button class="btn ghost" data-share="Optimals Moisture Serum">Share <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
         </div>
       </article>
 
@@ -1208,7 +1193,7 @@
   /* ---------- Offer countdown & month label ---------- */
   const end = new Date(); end.setDate(end.getDate() + 4);
   $('#offerEnds').textContent = `Ends ${end.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} · 4 days left`;
-  $('#favMonth').textContent = new Date().toLocaleDateString('en-GB', { month: 'long' }) + ' fav';
+  $('#favMonth').textContent = new Date().toLocaleDateString('en-GB', { month: 'long' });
 
   /* ---------- Tabs / top nav + scrollspy ---------- */
   const tabs = $$('[data-tab]');

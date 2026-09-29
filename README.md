@@ -8,12 +8,11 @@ A single-page, mobile-first wireframe of a seller storefront (example seller: "M
 |---|--------|----------------------|
 | 1 | Profile header + rating | Establishes trust (a real person, verified, 4.9★) within the first second of arriving from social |
 | – | Sticky tabs: Shop · Advice · Join my team | Visitors can jump to their intent. Scroll position updates the active tab |
-| 2 | Limited-time offer (3 for 2) | Urgency and value at the top converts impulse traffic |
-| 3 | My Recommendation | Personal endorsement: the core reason to buy from a person, not a shop |
+| 2 | Limited offer (3 for 2), full width | Urgency and value at the top converts impulse traffic |
+| 3 | Favourite of the Month (hero product) | Personal endorsement: the core reason to buy from a person, not a shop |
 | 4 | Offers of the Month | Broadens the basket with catalogue deals |
 | 5 | My Edit (filterable) | Browsing for visitors who haven't decided yet |
 | 6 | Morning Routine bundle | Raises order value with a set price |
-| 7 | Favourite of the Month | A second personal pick at the end of the browse |
 | 8 | Customer reviews | Social proof that closes the shopping section |
 | 9 | Skin Analysis | Guided discovery for undecided visitors, ends in a routine to buy |
 | 10 | Virtual Try-On | Lowers risk for colour cosmetics |
