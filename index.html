@@ -234,6 +234,10 @@
 
   /* ---------- Recommendation ---------- */
   .rec .ph { aspect-ratio: 4 / 3; }
+  .rec-grid { display: grid; grid-template-areas: "head" "img" "body"; }
+  .rec-head { grid-area: head; }
+  .rec-img { grid-area: img; }
+  .rec-body { grid-area: body; display: flex; flex-direction: column; }
   .quote { font-size: 16px; font-weight: 300; line-height: 1.55; color: var(--ink-2); margin: 14px 0 22px; }
   .title-price { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 22px; }
   .signature { display: flex; align-items: center; gap: 10px; margin: -8px 0 22px; font-size: 13px; color: var(--ink-3); }
@@ -517,6 +521,13 @@
     .mini .mini-add { display: grid; margin-left: auto; }
     .foot-link { text-align: left; }
     .people { gap: 16px; }
+    .rec { order: -2; }
+    .row2 { order: -1; }
+    .rec-grid { grid-template-columns: 1fr 1fr; grid-template-areas: "img head" "img body"; grid-template-rows: auto 1fr; column-gap: 28px; }
+    .rec-head { margin-bottom: 8px; }
+    .rec .ph { aspect-ratio: 1; }
+    .rec-body .title-price { margin-top: 8px; }
+    .rec-body .btn-row { margin-top: auto; }
     .follow .insta { grid-template-columns: repeat(6, 1fr); gap: 10px; }
     .people { flex: 1; }
     .person { justify-content: center; }
@@ -559,7 +570,9 @@
     .section-head h2 { font-size: 44px; }
     .card { padding: 32px; }
     .card h3 { font-size: 26px; }
-    .rec .ph { aspect-ratio: 16 / 10; flex: 1; min-height: 280px; }
+    .rec-grid { grid-template-columns: 1.15fr 1fr; column-gap: 48px; }
+    .rec .ph { aspect-ratio: 16 / 11; }
+    .rec-body .title-price h3 { font-size: 32px; }
     .quote { font-size: 17px; }
     .ootm { grid-template-columns: 1.4fr 1fr; gap: 32px; }
     .featured { padding: 20px; }
@@ -672,7 +685,7 @@
 
     <div class="grid">
       <!-- 2. Limited-time offer -->
-      <article class="card d5 t-full" aria-labelledby="offerTitle">
+      <article class="card d6 row2" aria-labelledby="offerTitle">
         <div class="offer-top">
           <span class="chip solid">Offer</span>
           <span class="countdown"><i class="dot pulse"></i><span id="offerEnds">Ends soon</span></span>
@@ -692,12 +705,14 @@
       </article>
 
       <!-- 3. My recommendation -->
-      <article class="card rec d7 r2 t-full" aria-labelledby="recTitle">
-        <div class="card-head">
+      <article class="card rec d12 t-full" aria-labelledby="recTitle">
+        <div class="rec-grid">
+        <div class="card-head rec-head">
           <span class="chip"><i class="dot"></i>My recommendation</span>
           <span class="meta" id="favMonth">October fav</span>
         </div>
-        <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Hydra Radiance Eye Cream</span></div>
+        <div class="ph rec-img"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Hydra Radiance Eye Cream</span></div>
+        <div class="rec-body">
         <div class="title-price">
           <h3 id="recTitle">Hydra Radiance Eye Cream</h3>
           <span class="price-lg">£18.90</span>
@@ -707,6 +722,8 @@
         <div class="btn-row">
           <button class="btn" data-add="Hydra Radiance Eye Cream|18.90">Buy now</button>
           <button class="btn ghost" data-share="Hydra Radiance Eye Cream">Share edit <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
+        </div>
+        </div>
         </div>
       </article>
 
@@ -774,7 +791,7 @@
       </article>
 
       <!-- 6. Morning routine bundle -->
-      <article class="card d6" aria-labelledby="routineTitle">
+      <article class="card d6 t-full" aria-labelledby="routineTitle">
         <div class="card-head">
           <h3 id="routineTitle">My Morning Routine</h3>
           <span class="meta">3 steps</span>
@@ -792,7 +809,7 @@
       </article>
 
       <!-- 7. Favourite of the month -->
-      <article class="card tint d5" aria-labelledby="favTitle">
+      <article class="card tint d6 row2" aria-labelledby="favTitle">
         <div class="card-head">
           <h3 id="favTitle">Favourite of the Month</h3>
           <span class="chip">This month</span>
