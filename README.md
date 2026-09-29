@@ -22,7 +22,7 @@ A single-page, mobile-first wireframe of a seller storefront (example seller: "M
 | 14 | Meet My Team | Shows the team, a bridge to recruitment |
 | 15 | Join My Team | Recruitment form (consent is opt-in) |
 | 16 | Follow Me | Keeps visitors coming back |
-| – | Sticky dock: Ask Mary · Bag | Primary actions always one tap away |
+| – | Oriflame site header + floating Ask Mary | Main-site navigation on top; live-chat style launcher always one tap away |
 
 ## Prototype behaviour
 - Add to bag / Buy / Claim offer update the bag count and total. The bag sheet supports quantity changes. Checkout ends the prototype.
