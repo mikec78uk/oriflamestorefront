@@ -17,9 +17,9 @@ A single-page, mobile-first wireframe of a seller storefront (example seller: "M
 | 8 | Customer reviews | Social proof that closes the shopping section |
 | 9 | Skin Analysis | Guided discovery for undecided visitors, ends in a routine to buy |
 | 10 | Virtual Try-On | Lowers risk for colour cosmetics |
-| 11 | AI Adviser | Instant answers, with hand-off to Mary |
-| 12 | Posts & Tutorials | Expertise and content |
-| 13 | Live help | Human fallback |
+| 11 | Posts & Tutorials (journal) | Magazine-style lead story + three columns |
+
+| – | Ask Mary panel | AI adviser (instant answers) and live chat with Mary, opened from the top bar/dock |
 | 14 | Meet My Team | Shows the team, a bridge to recruitment |
 | 15 | Join My Team | Recruitment form (consent is opt-in) |
 | 16 | Follow Me | Keeps visitors coming back |
