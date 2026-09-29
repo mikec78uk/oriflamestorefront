@@ -384,6 +384,14 @@
   .person b { font-size: 16px; font-weight: 500; letter-spacing: -.01em; line-height: 1; }
   .person .btn { width: 100%; margin-top: 8px; }
   .person .link { font-size: 10px; }
+  .team-more { padding-top: 22px; text-align: center; }
+  .team-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .team-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line-2); }
+  .team-row .avatar { width: 48px; height: 48px; margin: 0; box-shadow: none; }
+  .team-row .avatar .icon { width: 20px; height: 20px; }
+  .team-row b { display: block; font-weight: 500; }
+  .team-row .actions { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .team-row .link { font-size: 10px; }
 
   /* ---------- Join ---------- */
   .card.join { background: var(--fill); border-color: transparent; }
@@ -509,7 +517,9 @@
     .mini .mini-add { display: grid; margin-left: auto; }
     .foot-link { text-align: left; }
     .people { gap: 16px; }
-    .form-grid { grid-template-columns: 1fr 1fr; }
+    .follow .insta { grid-template-columns: repeat(6, 1fr); gap: 10px; }
+    .people { flex: 1; }
+    .person { justify-content: center; }
     .toast { bottom: calc(var(--dock-h) + 20px); }
   }
 
@@ -557,6 +567,7 @@
     .tiles { gap: 20px; }
     .measure { grid-template-columns: 120px 1fr; }
     .people .btn { min-height: 44px; }
+    .form-grid { grid-template-columns: 1fr 1fr; }
 
     .scrim { backdrop-filter: blur(3px); }
     .sheet { left: auto; right: 0; top: 0; bottom: 0; margin: 0; width: 460px; max-height: none; height: 100%; border-radius: 0; padding: 28px 36px 36px; transform: translateX(105%); }
@@ -946,10 +957,11 @@
           <div class="person"><div class="avatar"><svg class="icon"><use href="#i-user"/></svg></div><b>Elena</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">Nutritionist</span><button class="btn sm" data-open="chat" data-person="Elena">Message</button><button class="link" data-toast="Opens Elena's storefront">Visit page</button></div>
           <div class="person"><div class="avatar"><svg class="icon"><use href="#i-user"/></svg></div><b>Tanya</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">Skincare pro</span><button class="btn sm" data-open="chat" data-person="Tanya">Message</button><button class="link" data-toast="Opens Tanya's storefront">Visit page</button></div>
         </div>
+        <div class="team-more push"><button class="link" data-open="team">View more team members <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button></div>
       </article>
 
       <!-- 15. Join my team -->
-      <article class="card join d7 r2 t-full" id="join" aria-labelledby="joinTitle">
+      <article class="card join d7" id="join" aria-labelledby="joinTitle">
         <div id="joinForm">
           <p class="eyebrow" style="margin-bottom:10px">Now recruiting</p>
           <h3 id="joinTitle">Join My Team</h3>
@@ -972,7 +984,7 @@
       </article>
 
       <!-- 16. Follow me -->
-      <article class="card d5" aria-labelledby="followTitle">
+      <article class="card d12 t-full follow" aria-labelledby="followTitle">
         <div class="card-head" style="align-items:flex-start">
           <div><h3 id="followTitle">Follow Me</h3><div class="handle">@mary.beauty</div></div>
           <button class="btn sm" id="followBtn" aria-pressed="false" style="border-radius:999px">Follow</button>
@@ -1236,6 +1248,25 @@
           <button class="option" id="inPage">Chat here on the page</button>
         </div>`);
       $('#inPage').onclick = () => { close(); $('#aiInput').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => $('#aiInput').focus({ preventScroll: true }), 600); };
+    },
+    team() {
+      const members = [
+        ['Elena', 'Nutritionist', 'Wellness & supplements'],
+        ['Tanya', 'Skincare pro', 'Sensitive & dry skin'],
+        ['Amara', 'Make-up artist', 'Bridal & shade matching'],
+        ['Chloe', 'Fragrance specialist', 'Gifting & scent pairing'],
+        ['Jess', 'Haircare', 'Colour-treated hair'],
+        ['Sophie', 'New team member', 'Body care & bath'],
+      ];
+      show('My team', `
+        <p>Every specialist on my team is an independent Oriflame Brand Partner. Message anyone for free advice.</p>
+        <div class="team-list">${members.map(([n, r, f]) => `
+          <div class="team-row"><div class="avatar">${icon('i-user')}</div>
+            <div><b>${n}</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">${r}</span><div class="tiny">${f}</div></div>
+            <div class="actions"><button class="btn sm" data-open="chat" data-person="${n}">Message</button><button class="link" data-toast="Opens ${n}'s storefront">Visit page</button></div>
+          </div>`).join('')}</div>
+        <div class="centre" style="margin-top:22px"><button class="link" id="teamJoin">Want to join us? Sign up <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button></div>`);
+      $('#teamJoin').onclick = () => { close(); $('#join').scrollIntoView({ behavior: 'smooth' }); };
     },
     how() {
       show('How joining works', `
