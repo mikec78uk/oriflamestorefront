@@ -174,7 +174,7 @@
      Hero
      ============================================================ */
   .hero { padding-top: 28px; padding-bottom: 36px; }
-  .hero-grid { display: grid; gap: 40px; align-items: center; }
+  .hero-grid { display: grid; gap: 0; align-items: center; }
   .avatar {
     width: 104px; height: 104px; margin: 0 auto 20px; border-radius: 50%;
     background: linear-gradient(160deg, var(--fill), var(--fill-3)); display: grid; place-items: center; color: var(--ink-4);
@@ -209,7 +209,6 @@
   .qr-card b { display: block; font-weight: 600; font-size: 15px; }
   .qr-card p { margin: 4px 0 0; font-size: 13px; color: var(--ink-3); }
   .qr-card .btn { justify-self: start; }
-  .hero-portrait.ph { display: none; }
 
   /* ============================================================
      Sections & grid
@@ -662,23 +661,17 @@
     .fab-wrap { right: 28px; bottom: 28px; }
 
     .hero { padding-top: 64px; padding-bottom: 32px; }
-    .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 72px; }
+    .hero-grid { grid-template-columns: 1.15fr 1fr; gap: 64px; }
+    .hero-side .stat-tiles { margin-top: 0; }
     .hero-id { grid-template-columns: 112px 1fr; gap: 28px; }
     .hero-id .avatar { width: 112px; height: 112px; }
     .hero-id .avatar .icon { width: 40px; height: 40px; }
     .hero h1 { font-size: 60px; white-space: nowrap; }
     .tagline { font-size: 20px; margin-top: 10px; }
     .bio { font-size: 17px; }
-    .hero-actions { max-width: 520px; }
-    .stat-tiles { max-width: 520px; }
     .stat-tile { padding: 16px 18px; }
     .stat-tile b { font-size: 24px; }
-    .qr-card { max-width: 520px; }
-    .hero-portrait.ph { display: flex; aspect-ratio: 4 / 5; border-radius: var(--r-lg); }
-    .hero-portrait .icon { width: 44px; height: 44px; }
-    .hero-portrait .caption { position: absolute; left: 20px; bottom: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,.85); backdrop-filter: blur(8px); padding: 14px 16px; border-radius: var(--r-md); text-align: left; }
-    .hero-portrait .caption b { font-size: 15px; font-weight: 500; color: var(--ink); display: block; }
-    .hero-portrait .caption span { letter-spacing: .1em; }
+
 
     .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
     .d5 { grid-column: span 5; } .d6 { grid-column: span 6; } .d7 { grid-column: span 7; } .d12 { grid-column: span 12; }
@@ -803,6 +796,8 @@
           <button class="btn js-follow" aria-pressed="false">Follow</button>
           <button class="btn ghost square" data-share="Mary's Edit storefront" aria-label="Share my shop"><svg class="icon"><use href="#i-share"/></svg></button>
         </div>
+      </div>
+      <div class="hero-side">
         <div class="stat-tiles">
           <div class="stat-tile"><small>Followers</small><b id="followerCount">12.4K</b></div>
           <button class="stat-tile" data-jump="reviews" aria-label="Rating 4.9, see reviews"><small>Rating</small><b><svg class="icon"><use href="#i-star"/></svg>4.9</b></button>
@@ -816,10 +811,6 @@
           </div>
           <button class="btn ghost sm" data-toast="Adds Mary's Edit to your home screen">Save to home screen</button>
         </div>
-      </div>
-      <div class="ph hero-portrait" aria-hidden="true">
-        <svg class="icon"><use href="#i-image"/></svg><span>Product image</span>
-        <div class="caption"><div><b>This month I'm loving</b><span class="tiny">Optimals Hydra Radiance</span></div><svg class="icon" style="color:var(--ink)"><use href="#i-arrow"/></svg></div>
       </div>
     </div>
   </section>
