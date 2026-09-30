@@ -661,8 +661,12 @@
     .fab-wrap { right: 28px; bottom: 28px; }
 
     .hero { padding-top: 64px; padding-bottom: 32px; }
-    .hero-grid { grid-template-columns: 1.15fr 1fr; gap: 64px; }
-    .hero-side .stat-tiles { margin-top: 0; }
+    .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+    .hero-side { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; align-items: stretch; }
+    .hero-side .stat-tiles, .hero-side .qr-card { margin-top: 0; }
+    .hero-side .stat-tile { display: flex; flex-direction: column; justify-content: center; }
+    .hero-actions { max-width: 480px; }
+    .bio { max-width: none; }
     .hero-id { grid-template-columns: 112px 1fr; gap: 28px; }
     .hero-id .avatar { width: 112px; height: 112px; }
     .hero-id .avatar .icon { width: 40px; height: 40px; }
