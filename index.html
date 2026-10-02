@@ -206,6 +206,9 @@
     background-repeat: no-repeat, no-repeat, no-repeat, repeat;
     background-origin: border-box; background-clip: content-box;
   }
+  .qr.qr-live { background-image: none; padding: 6px; }
+  .qr svg { display: block; width: 100%; height: 100%; }
+  .qr svg path, .qr svg rect[fill='black'] { fill: var(--ink); }
   .qr-card b { display: block; font-weight: 600; font-size: 15px; }
   .qr-card p { margin: 4px 0 0; font-size: 13px; color: var(--ink-3); }
   .qr-card .btn { justify-self: start; }
@@ -242,6 +245,11 @@
   .ph span { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-4); max-width: 100%; }
   .ph .icon { width: 28px; height: 28px; stroke-width: 1.1; }
   .ph-wide { aspect-ratio: 16 / 9; }
+  .ph.has-img > .icon, .ph.has-img > span:not(.rnum):not(.play) { display: none; }
+  .ph > img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 8%;
+    filter: grayscale(1) contrast(1.05); mix-blend-mode: multiply;
+  }
 
   /* ---------- Offer ---------- */
   .offer-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 20px; }
@@ -350,7 +358,8 @@
   .rsteps::-webkit-scrollbar { display: none; }
   .rstep { scroll-snap-align: start; position: relative; display: flex; flex-direction: column; gap: 6px; }
   .rstep .ph { aspect-ratio: 4 / 3; margin-bottom: 8px; }
-  .rnum {
+  .rnum { z-index: 2;
+
     position: absolute; top: 10px; left: 10px; width: 30px; height: 30px; border-radius: 50%;
     background: var(--primary); color: var(--on-primary) !important; display: grid; place-items: center;
     font-size: 12px !important; letter-spacing: 0 !important; font-weight: 600;
@@ -726,6 +735,7 @@
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
 </head>
 <body>
 
@@ -808,7 +818,7 @@
           <button class="stat-tile" data-open="chat" data-mode="human" aria-label="Response under 1 hour, message Mary"><small>Response</small><b>Under 1h</b></button>
         </div>
         <div class="qr-card">
-          <div class="qr" role="img" aria-label="QR code placeholder"></div>
+          <a class="qr" id="shopQr" href="https://www.oriflame.com/" target="_blank" rel="noopener" aria-label="QR code linking to oriflame.com"></a>
           <div>
             <b>Scan to save my shop</b>
             <p>Get exclusive offers and updates directly to your phone.</p>
@@ -834,16 +844,16 @@
           <span class="countdown"><i class="dot pulse"></i><span id="offerEnds">Ends soon</span></span>
         </div>
         <div class="media-row">
-          <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span class="ellipsis">Body wash duo</span></div>
+          <div class="ph" data-code="41493"><svg class="icon"><use href="#i-image"/></svg><span class="ellipsis">Love Nature shower gel</span></div>
           <div>
-            <h3 id="offerTitle">3 for 2 on Body Care</h3>
-            <p class="muted clamp-2" style="margin:8px 0 0;font-size:14px">Mix and match any three premium bath gels and milk formula body washes.</p>
-            <div class="price-line"><span class="price-lg">£16.00</span><span class="strike">£24.00</span><span class="save">SAVE 33%</span></div>
+            <h3 id="offerTitle">3 for 2 on Love Nature Shower Gels</h3>
+            <p class="muted clamp-2" style="margin:8px 0 0;font-size:14px">Mix and match any three Love Nature shower gels, made with organic ingredients.</p>
+            <div class="price-line"><span class="price-lg">£9.98</span><span class="strike">£14.97</span><span class="save">SAVE 33%</span></div>
           </div>
         </div>
         <div class="btn-row push">
-          <button class="btn" data-add="3 for 2 Body Care bundle|16.00" data-done="Claimed">Claim offer</button>
-          <button class="btn ghost" data-share="3 for 2 on Body Care">Share <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
+          <button class="btn" data-add="3 for 2 Love Nature Shower Gels|9.98|41493" data-done="Claimed">Claim offer</button>
+          <button class="btn ghost" data-share="3 for 2 on Love Nature Shower Gels">Share <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
         </div>
       </article>
 
@@ -854,17 +864,17 @@
           <span class="chip"><i class="dot"></i>Favourite of the month</span>
           <span class="meta" id="favMonth">October</span>
         </div>
-        <div class="ph rec-img"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Hydra Radiance Eye Cream</span></div>
+        <div class="ph rec-img" data-code="45284"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Hydra Radiance Light Cream</span></div>
         <div class="rec-body">
         <div class="title-price">
-          <h3 id="recTitle">Hydra Radiance Eye Cream</h3>
-          <span class="price-lg">£18.90</span>
+          <h3 id="recTitle">Optimals Hydra Radiance Light Cream</h3>
+          <span class="price-lg">£12.99</span>
         </div>
-        <p class="quote">"I use this every single night to lock in hydration. It really brightens tired under-eyes and my skin feels calmer by morning."</p>
+        <p class="quote">"I use this every single day to lock in hydration. It's light enough for under make-up and my skin looks brighter by the end of the week."</p>
         <div class="signature"><i></i>Mary</div>
         <div class="btn-row">
-          <button class="btn" data-add="Hydra Radiance Eye Cream|18.90">Buy now</button>
-          <button class="btn ghost" data-share="Hydra Radiance Eye Cream">Share edit <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
+          <button class="btn" data-add="Optimals Hydra Radiance Light Cream|12.99|45284">Buy now</button>
+          <button class="btn ghost" data-share="Optimals Hydra Radiance Light Cream">Share edit <svg class="icon icon-sm"><use href="#i-out"/></svg></button>
         </div>
         </div>
         </div>
@@ -878,28 +888,28 @@
         </div>
         <div class="ootm">
           <div class="featured">
-            <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Giordani Gold Liquid Silk Foundation</span></div>
-            <h4>Liquid Silk Foundation Set</h4>
+            <div class="ph" data-code="32922"><svg class="icon"><use href="#i-image"/></svg><span>Giordani Gold Liquid Silk Foundation</span></div>
+            <h4>Giordani Gold Liquid Silk Foundation SPF 12</h4>
             <div class="featured-foot">
-              <span class="price-lg">£28.90</span>
-              <button class="btn sm" data-add="Liquid Silk Foundation Set|28.90">Add to bag</button>
+              <span class="price-line" style="margin:0"><span class="price-lg">£12.49</span><span class="strike">£17.99</span></span>
+              <button class="btn sm" data-add="Giordani Gold Liquid Silk Foundation SPF 12|12.49|32922">Add to bag</button>
             </div>
           </div>
           <div>
             <div class="mini-list">
-              <button class="mini" data-add="The ONE Mascara|12.90" aria-label="Add The ONE Mascara, £12.90">
-                <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Product 1</span></div>
-                <div class="mini-info"><b class="ellipsis">The ONE Mascara</b><span class="price">£12.90</span></div>
+              <button class="mini" data-add="The ONE Wonder Lash XXL Mascara|7.99|47168" aria-label="Add The ONE Wonder Lash XXL Mascara, £7.99">
+                <div class="ph" data-code="47168"><svg class="icon"><use href="#i-image"/></svg><span>Product 1</span></div>
+                <div class="mini-info"><b class="ellipsis">The ONE Wonder Lash XXL Mascara</b><span class="price">£7.99</span></div>
                 <span class="add-sq mini-add"><svg class="icon icon-sm"><use href="#i-plus"/></svg></span>
               </button>
-              <button class="mini" data-add="Love Nature Gel|9.90" aria-label="Add Love Nature Gel, £9.90">
-                <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Product 2</span></div>
-                <div class="mini-info"><b class="ellipsis">Love Nature Gel</b><span class="price">£9.90</span></div>
+              <button class="mini" data-add="Milk & Honey Gold Nourishing Hand & Body Cream|6.99|46968" aria-label="Add Milk &amp; Honey Gold Hand &amp; Body Cream, £6.99">
+                <div class="ph" data-code="46968"><svg class="icon"><use href="#i-image"/></svg><span>Product 2</span></div>
+                <div class="mini-info"><b class="ellipsis">Milk &amp; Honey Gold Hand &amp; Body Cream</b><span class="price">£6.99</span></div>
                 <span class="add-sq mini-add"><svg class="icon icon-sm"><use href="#i-plus"/></svg></span>
               </button>
-              <button class="mini" data-add="Optimals Tonic|11.00" aria-label="Add Optimals Tonic, £11.00">
-                <div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Product 3</span></div>
-                <div class="mini-info"><b class="ellipsis">Optimals Tonic</b><span class="price">£11.00</span></div>
+              <button class="mini" data-add="Optimals Hydrating Facial Toner|8.49|47278" aria-label="Add Optimals Hydrating Facial Toner, £8.49">
+                <div class="ph" data-code="47278"><svg class="icon"><use href="#i-image"/></svg><span>Product 3</span></div>
+                <div class="mini-info"><b class="ellipsis">Optimals Hydrating Facial Toner</b><span class="price">£8.49</span></div>
                 <span class="add-sq mini-add"><svg class="icon icon-sm"><use href="#i-plus"/></svg></span>
               </button>
             </div>
@@ -932,14 +942,14 @@
           <button class="filter" data-filter="wellness" aria-pressed="false">Wellness</button>
         </div>
         <div class="tiles" id="editGrid">
-          <div class="tile" data-cat="skincare"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Glow Serum</span></div><div class="tile-foot"><div><b>Glow Serum</b><span class="price">£14.50</span></div><button class="add-sq" data-add="Glow Serum|14.50" aria-label="Add Glow Serum to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="skincare"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Clay Mask</span></div><div class="tile-foot"><div><b>Clay Mask</b><span class="price">£19.00</span></div><button class="add-sq" data-add="Clay Mask|19.00" aria-label="Add Clay Mask to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="makeup"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Lip Balm Set</span></div><div class="tile-foot"><div><b>Lip Balm Set</b><span class="price">£9.90</span></div><button class="add-sq" data-add="Lip Balm Set|9.90" aria-label="Add Lip Balm Set to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="skincare"><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Day Fluid SPF</span></div><div class="tile-foot"><div><b>Day Fluid SPF</b><span class="price">£12.00</span></div><button class="add-sq" data-add="Day Fluid SPF|12.00" aria-label="Add Day Fluid SPF to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="wellness" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Omega-3</span></div><div class="tile-foot"><div><b>Wellness Omega-3</b><span class="price">£21.00</span></div><button class="add-sq" data-add="Wellness Omega-3|21.00" aria-label="Add Wellness Omega-3 to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="makeup" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Brow Pencil</span></div><div class="tile-foot"><div><b>Brow Pencil</b><span class="price">£7.50</span></div><button class="add-sq" data-add="Brow Pencil|7.50" aria-label="Add Brow Pencil to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="wellness" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Protein Shake</span></div><div class="tile-foot"><div><b>Protein Shake</b><span class="price">£24.00</span></div><button class="add-sq" data-add="Protein Shake|24.00" aria-label="Add Protein Shake to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="skincare" data-more><div class="ph"><svg class="icon"><use href="#i-image"/></svg><span>Night Cream</span></div><div class="tile-foot"><div><b>Night Cream</b><span class="price">£16.00</span></div><button class="add-sq" data-add="Night Cream|16.00" aria-label="Add Night Cream to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare"><div class="ph" data-code="45248"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Even Out Serum</span></div><div class="tile-foot"><div><b>Optimals Even Out Serum</b><span class="price">£14.99</span></div><button class="add-sq" data-add="Optimals Even Out Serum|14.99|45248" aria-label="Add Optimals Even Out Serum to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare"><div class="ph" data-code="41674"><svg class="icon"><use href="#i-image"/></svg><span>Pure Skin 5 Minute Oil-control Clay Mask</span></div><div class="tile-foot"><div><b>Pure Skin 5 Minute Oil-control Clay Mask</b><span class="price">£6.99</span></div><button class="add-sq" data-add="Pure Skin 5 Minute Oil-control Clay Mask|6.99|41674" aria-label="Add Pure Skin 5 Minute Oil-control Clay Mask to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="makeup"><div class="ph" data-code="12760"><svg class="icon"><use href="#i-image"/></svg><span>Tender Care Natural Multi-purpose Balm</span></div><div class="tile-foot"><div><b>Tender Care Natural Multi-purpose Balm</b><span class="price">£4.49</span></div><button class="add-sq" data-add="Tender Care Natural Multi-purpose Balm|4.49|12760" aria-label="Add Tender Care Natural Multi-purpose Balm to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare"><div class="ph" data-code="45292"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Daily Glow Multi-Protector SPF50</span></div><div class="tile-foot"><div><b>Optimals Daily Glow Multi-Protector SPF50</b><span class="price">£14.99</span></div><button class="add-sq" data-add="Optimals Daily Glow Multi-Protector SPF50|14.99|45292" aria-label="Add Optimals Daily Glow Multi-Protector SPF50 to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="wellness" data-more><div class="ph" data-code="38556"><svg class="icon"><use href="#i-image"/></svg><span>Wellosophy Omega 3</span></div><div class="tile-foot"><div><b>Wellosophy Omega 3</b><span class="price">£14.99</span></div><button class="add-sq" data-add="Wellosophy Omega 3|14.99|38556" aria-label="Add Wellosophy Omega 3 to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="makeup" data-more><div class="ph" data-code="43206"><svg class="icon"><use href="#i-image"/></svg><span>The ONE Browcara</span></div><div class="tile-foot"><div><b>The ONE Browcara</b><span class="price">£8.49</span></div><button class="add-sq" data-add="The ONE Browcara|8.49|43206" aria-label="Add The ONE Browcara to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="wellness" data-more><div class="ph" data-code="37289"><svg class="icon"><use href="#i-image"/></svg><span>Wellosophy Natural Balance Shake Chocolate</span></div><div class="tile-foot"><div><b>Wellosophy Natural Balance Shake Chocolate</b><span class="price">£31.99</span></div><button class="add-sq" data-add="Wellosophy Natural Balance Shake Chocolate|31.99|37289" aria-label="Add Wellosophy Natural Balance Shake Chocolate to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare" data-more><div class="ph" data-code="47006"><svg class="icon"><use href="#i-image"/></svg><span>Royal Velvet Firming Night Cream</span></div><div class="tile-foot"><div><b>Royal Velvet Firming Night Cream</b><span class="price">£16.49</span></div><button class="add-sq" data-add="Royal Velvet Firming Night Cream|16.49|47006" aria-label="Add Royal Velvet Firming Night Cream to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
         </div>
         <div class="show-more centre"><button class="btn ghost" id="showMore">Show all 8 items</button></div>
       </article>
@@ -960,13 +970,13 @@
           <ol class="rsteps" id="rsteps"></ol>
           <aside class="rsummary" aria-live="polite">
             <p class="eyebrow">Complete routine</p>
-            <div class="rsum-price"><span class="strike" id="rWas">£46.50</span><span class="price-lg" id="rNow">£39</span></div>
-            <p class="rsave" id="rSave">You save £7.50</p>
+            <div class="rsum-price"><span class="strike" id="rWas">£51.97</span><span class="price-lg" id="rNow">£44</span></div>
+            <p class="rsave" id="rSave">You save £7.97</p>
             <ul class="ticks">
               <li><svg class="icon"><use href="#i-check"/></svg>Free delivery on this set</li>
               <li><svg class="icon"><use href="#i-check"/></svg>Chosen by Mary for dry skin</li>
             </ul>
-            <button class="btn block" id="rBuy" data-add="Morning Routine set|39.00" data-done="Routine in bag">Shop the routine</button>
+            <button class="btn block" id="rBuy" data-add="Morning Routine set|44.00" data-done="Routine in bag">Shop the routine</button>
             <button class="link" data-open="skin" style="margin-top:14px;align-self:center">Or take the skin check</button>
           </aside>
         </div>
@@ -1011,12 +1021,12 @@
           </div>
         </div>
         <div class="carousel" id="reviewTrack" tabindex="0" aria-label="Customer reviews, swipe for more">
-          <div class="review"><div class="review-head"><span class="av"></span><div><b>Sofia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Mary matched me to Hydra Radiance and my skin has never felt so comfortable."</p><div class="review-foot"><span>Bought: Hydra Radiance Eye Cream</span><span>2 days ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Sofia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Mary matched me to Hydra Radiance and my skin has never felt so comfortable."</p><div class="review-foot"><span>Bought: Optimals Hydra Radiance Light Cream</span><span>2 days ago</span></div></div>
           <div class="review"><div class="review-head"><span class="av"></span><div><b>Nadia</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Smooth application and lasting hydration. Delivery was quick too."</p><div class="review-foot"><span>Bought: Morning Routine set</span><span>1 week ago</span></div></div>
-          <div class="review"><div class="review-head"><span class="av"></span><div><b>Grace</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Loved having someone real to ask. Mary replied within the hour."</p><div class="review-foot"><span>Bought: Glow Serum</span><span>1 week ago</span></div></div>
-          <div class="review"><div class="review-head"><span class="av"></span><div><b>Priya</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="4 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The 3 for 2 body care deal is brilliant value. Will reorder."</p><div class="review-foot"><span>Bought: 3 for 2 Body Care</span><span>2 weeks ago</span></div></div>
-          <div class="review"><div class="review-head"><span class="av"></span><div><b>Hannah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The skin check was spot on and the routine was easy to follow."</p><div class="review-foot"><span>Bought: Clay Mask</span><span>3 weeks ago</span></div></div>
-          <div class="review"><div class="review-head"><span class="av"></span><div><b>Leah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Honest recommendations, never pushy. That's why I keep coming back."</p><div class="review-foot"><span>Bought: Day Fluid SPF</span><span>1 month ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Grace</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Loved having someone real to ask. Mary replied within the hour."</p><div class="review-foot"><span>Bought: Optimals Even Out Serum</span><span>1 week ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Priya</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="4 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The 3 for 2 on shower gels is brilliant value. Will reorder."</p><div class="review-foot"><span>Bought: Love Nature Shower Gel</span><span>2 weeks ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Hannah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"The skin check was spot on and the routine was easy to follow."</p><div class="review-foot"><span>Bought: Pure Skin Clay Mask</span><span>3 weeks ago</span></div></div>
+          <div class="review"><div class="review-head"><span class="av"></span><div><b>Leah</b><span class="verified"><svg class="icon icon-sm"><use href="#i-check"/></svg>Verified</span></div><span class="stars" aria-label="5 stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span></div><p>"Honest recommendations, never pushy. That's why I keep coming back."</p><div class="review-foot"><span>Bought: Optimals Daily Glow SPF50</span><span>1 month ago</span></div></div>
         </div>
         <div class="dots" id="reviewDots"></div>
       </article>
@@ -1188,6 +1198,30 @@
   const gbp = n => '£' + n.toFixed(2);
   const icon = (id, cls = 'icon') => `<svg class="${cls}"><use href="#${id}"/></svg>`;
 
+  /* ---------- Product images (Oriflame CDN, shown in greyscale) ---------- */
+  const productImg = c => `https://media-cdn.oriflame.com/productImage?externalMediaId=product-management-media%2FProducts%2F${c}%2F${c}_1.png&w=600&h=600&q=90`;
+  function hydrate(root = document) {
+    $$('.ph[data-code]:not(.has-img)', root).forEach(ph => {
+      const img = new Image();
+      img.alt = (ph.querySelector('span:not(.rnum):not(.play)') || {}).textContent || '';
+      img.loading = 'lazy';
+      img.onerror = () => { img.remove(); ph.classList.remove('has-img'); };
+      img.src = productImg(ph.dataset.code);
+      ph.classList.add('has-img'); ph.append(img);
+    });
+  }
+  hydrate();
+
+  /* ---------- Save-my-shop QR (placeholder link to oriflame.com) ---------- */
+  function drawQr() {
+    const el = $('#shopQr');
+    if (!el || !window.qrcode) return;
+    const qr = qrcode(0, 'M'); qr.addData('https://www.oriflame.com/'); qr.make();
+    el.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+    el.classList.add('qr-live');
+  }
+  if (window.qrcode) drawQr(); else addEventListener('load', drawQr);
+
   /* ---------- Toast ---------- */
   const toastEl = $('#toast'); let toastT;
   function toast(msg) {
@@ -1198,8 +1232,8 @@
 
   /* ---------- Bag ---------- */
   const bag = new Map();
-  function addToBag(name, price) {
-    const item = bag.get(name) || { name, price, qty: 0 };
+  function addToBag(name, price, code) {
+    const item = bag.get(name) || { name, price, code, qty: 0 };
     item.qty++; bag.set(name, item); renderBagCount(true);
     toast(`${icon('i-check')} Added to bag: ${name}`);
   }
@@ -1214,8 +1248,8 @@
   document.addEventListener('click', e => {
     const add = e.target.closest('[data-add]');
     if (add) {
-      const [name, price] = add.dataset.add.split('|');
-      addToBag(name, parseFloat(price));
+      const [name, price, code] = add.dataset.add.split('|');
+      addToBag(name, parseFloat(price), code);
       if (add.classList.contains('add-sq')) { add.classList.add('added'); add.innerHTML = icon('i-check', 'icon icon-sm'); }
       const miniAdd = add.querySelector('.mini-add');
       if (miniAdd) { miniAdd.classList.add('added'); miniAdd.innerHTML = icon('i-check', 'icon icon-sm'); }
@@ -1297,29 +1331,29 @@
 
   /* ---------- Daily routine (morning / evening) ---------- */
   const routines = {
-    am: { title: 'My Morning Routine', sub: '3 steps · about 2 minutes, every morning', set: 39, name: 'Morning Routine set', steps: [
-      ['Prep', 'Purifying Gel Cleanser', 12.50, 'Massage onto damp skin · 30 sec'],
-      ['Boost', 'Skin Hydration Tonic', 11.00, 'Press in with palms · 10 sec'],
-      ['Protect', 'NovAge+ Shield Day Cream', 23.00, 'Smooth over face & neck · 1 min'],
+    am: { title: 'My Morning Routine', sub: '3 steps · about 2 minutes, every morning', set: 44, name: 'Morning Routine set', steps: [
+      ['Cleanse', 'Optimals Soft Creamy Cleanser', 8.49, 'Massage onto damp skin · 30 sec', '46900'],
+      ['Tone', 'Optimals Hydrating Facial Toner', 8.49, 'Press in with palms · 10 sec', '47278'],
+      ['Protect', 'NovAge+ Multi-Active Day Cream Light SPF 30', 34.99, 'Smooth over face & neck · 1 min', '41044'],
     ] },
-    pm: { title: 'My Evening Routine', sub: '3 steps · about 3 minutes, before bed', set: 37, name: 'Evening Routine set', steps: [
-      ['Cleanse', 'Micellar Cleansing Water', 9.00, 'Sweep over face & eyes · 30 sec'],
-      ['Treat', 'Optimals Moisture Serum', 16.50, 'Two drops, press in · 20 sec'],
-      ['Restore', 'Hydra Radiance Eye Cream', 18.90, 'Tap gently under eyes · 30 sec'],
+    pm: { title: 'My Evening Routine', sub: '3 steps · about 3 minutes, before bed', set: 34, name: 'Evening Routine set', steps: [
+      ['Cleanse', 'Optimals Comforting Micellar Water', 8.49, 'Sweep over face & eyes · 30 sec', '45287'],
+      ['Treat', 'Optimals Even Out Serum', 14.99, 'Two drops, press in · 20 sec', '45248'],
+      ['Restore', 'Royal Velvet Firming Night Cream', 16.49, 'Smooth over face & neck · 30 sec', '47006'],
     ] },
   };
   function renderRoutine(key) {
     const r = routines[key], was = r.steps.reduce((t, s) => t + s[2], 0);
     $('#routineTitle').textContent = r.title; $('#routineSub').textContent = r.sub;
-    $('#rsteps').innerHTML = r.steps.map(([label, name, price, how], i) => `
+    $('#rsteps').innerHTML = r.steps.map(([label, name, price, how, code], i) => `
       <li class="rstep">
-        <div class="ph">${icon('i-image')}<span class="rnum">${i + 1}</span></div>
+        <div class="ph" data-code="${code}">${icon('i-image')}<span class="rnum">${i + 1}</span></div>
         <small>Step ${i + 1} · ${label}</small>
         <b>${name}</b>
         <span class="rhow">${how}</span>
-        <div class="rstep-foot"><span class="price">${gbp(price)}</span><button class="add-sq" data-add="${name}|${price}" aria-label="Add ${name} to bag">${icon('i-plus', 'icon icon-sm')}</button></div>
+        <div class="rstep-foot"><span class="price">${gbp(price)}</span><button class="add-sq" data-add="${name}|${price}|${code}" aria-label="Add ${name} to bag">${icon('i-plus', 'icon icon-sm')}</button></div>
       </li>`).join('');
-    $('#rWas').textContent = gbp(was); $('#rNow').textContent = '£' + r.set;
+    hydrate($('#rsteps')); $('#rWas').textContent = gbp(was); $('#rNow').textContent = '£' + r.set;
     $('#rSave').textContent = `You save ${gbp(was - r.set)}`;
     const buy = $('#rBuy'); buy.dataset.add = `${r.name}|${r.set}`; buy.textContent = 'Shop the routine'; buy.classList.remove('done');
     $$('[data-routine]').forEach(b => b.setAttribute('aria-pressed', b.dataset.routine === key));
@@ -1386,10 +1420,10 @@
 
   const log = $('#chatLog', askEl), hlog = $('#humanLog', askEl);
   const replies = [
-    [/hydrat|dry|moist/i, 'Mary recommends the <b>Hydra Radiance Eye Cream</b> (£18.90) for overnight hydration, or the <b>Optimals Moisture Serum</b> (£16.50) for daytime.', 'Hydra Radiance Eye Cream|18.90'],
-    [/oily|shine|pore/i, 'For oily skin Mary loves the <b>Clay Mask</b> twice a week plus the <b>Optimals Tonic</b> daily.', 'Clay Mask|19.00'],
-    [/shade|foundation|match/i, 'Try the <b>Liquid Silk Foundation Set</b>. The virtual try-on will help you find your shade.', 'Liquid Silk Foundation Set|28.90'],
-    [/gift|present|under/i, 'Under £20: the <b>Lip Balm Set</b> (£9.90) is Mary\'s most-gifted item.', 'Lip Balm Set|9.90'],
+    [/hydrat|dry|moist/i, 'Mary recommends the <b>Optimals Hydra Radiance Light Cream</b> (£12.99), her favourite this month for all-day hydration.', 'Optimals Hydra Radiance Light Cream|12.99|45284'],
+    [/oily|shine|pore/i, 'For oily skin Mary loves the <b>Pure Skin 5 Minute Oil-control Clay Mask</b> (£6.99) twice a week, plus the <b>Optimals Hydrating Facial Toner</b> daily.', 'Pure Skin 5 Minute Oil-control Clay Mask|6.99|41674'],
+    [/shade|foundation|match/i, 'Try the <b>Giordani Gold Liquid Silk Foundation SPF 12</b>, now £12.49. The virtual try-on will help you find your shade.', 'Giordani Gold Liquid Silk Foundation SPF 12|12.49|32922'],
+    [/gift|present|under/i, 'Under £20: the <b>Milk &amp; Honey Gold Nourishing Hand &amp; Body Cream</b> (£6.99) is Mary\'s most-gifted item.', 'Milk & Honey Gold Nourishing Hand & Body Cream|6.99|46968'],
   ];
   const now = () => new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
   function say(target, who, text, isMe) {
@@ -1448,7 +1482,7 @@
   const sheet = $('#sheet'), scrim = $('#scrim'), body = $('#sheetBody'), title = $('#sheetTitle');
   let lastFocus;
   function show(t, html) {
-    title.textContent = t; body.innerHTML = html; sheet.scrollTop = 0;
+    title.textContent = t; body.innerHTML = html; hydrate(body); sheet.scrollTop = 0;
     sheet.classList.add('open'); scrim.classList.add('open'); sheet.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     setTimeout(() => $('#sheetClose').focus(), 50);
@@ -1478,7 +1512,7 @@
         return;
       }
       const lines = [...bag.values()].map(i => `
-        <div class="bag-line"><div class="ph">${icon('i-image')}</div>
+        <div class="bag-line"><div class="ph"${i.code ? ` data-code="${i.code}"` : ''}>${icon('i-image')}</div>
           <div><b>${i.name}</b><span class="tiny">${gbp(i.price)} each</span></div>
           <div class="qty"><button data-q="-1" data-n="${i.name}" aria-label="Remove one">−</button><span>${i.qty}</span><button data-q="1" data-n="${i.name}" aria-label="Add one">+</button></div>
         </div>`).join('');
@@ -1621,12 +1655,12 @@
           <div class="score"><span>Pores &amp; texture</span><b>71</b><div class="bar"><i style="width:71%"></i></div></div>
           <p class="eyebrow" style="margin:26px 0 10px">Mary's routine for you</p>
           <div class="steps">
-            <div class="step"><span class="step-num">1</span><div class="ph">${icon('i-image')}</div><div><small>PREP</small><b>Purifying Gel Cleanser</b></div></div>
-            <div class="step"><span class="step-num">2</span><div class="ph">${icon('i-image')}</div><div><small>BOOST</small><b>Optimals Moisture Serum</b></div></div>
-            <div class="step"><span class="step-num">3</span><div class="ph">${icon('i-image')}</div><div><small>NIGHT</small><b>Hydra Radiance Eye Cream</b></div></div>
+            <div class="step"><span class="step-num">1</span><div class="ph" data-code="46900">${icon('i-image')}</div><div><small>CLEANSE</small><b>Optimals Soft Creamy Cleanser</b></div></div>
+            <div class="step"><span class="step-num">2</span><div class="ph" data-code="45248">${icon('i-image')}</div><div><small>TREAT</small><b>Optimals Even Out Serum</b></div></div>
+            <div class="step"><span class="step-num">3</span><div class="ph" data-code="45284">${icon('i-image')}</div><div><small>HYDRATE</small><b>Optimals Hydra Radiance Light Cream</b></div></div>
           </div>
-          <div class="set-price"><span class="muted">Your routine</span><span><span class="price-lg">£42</span> <span class="muted" style="font-size:14px">as a set</span></span></div>
-          <button class="btn block" data-add="My skin check routine|42.00">Add routine to bag</button>
+          <div class="set-price"><span class="muted">Your routine</span><span><span class="price-lg">£31</span> <span class="muted" style="font-size:14px">as a set</span></span></div>
+          <button class="btn block" data-add="My skin check routine|31.00">Add routine to bag</button>
           <button class="btn ghost block" style="margin-top:10px" id="sendMary">Send my results to Mary</button>`);
         $('#sendMary').onclick = e => { e.currentTarget.textContent = 'Sent · Mary will be in touch'; e.currentTarget.disabled = true; };
       };
