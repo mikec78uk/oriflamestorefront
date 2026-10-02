@@ -309,7 +309,27 @@
   .tiles { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
   .tile { display: flex; flex-direction: column; gap: 10px; }
   .tile[hidden] { display: none; }
-  .tile .ph { aspect-ratio: 4 / 5; }
+  .tile .ph { aspect-ratio: 4 / 5; transition: box-shadow .25s var(--ease), transform .15s; }
+  .tile[data-pdp] { cursor: pointer; border-radius: var(--r-md); }
+  .tile[data-pdp]:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 6px; }
+  .tile .ph > img { transition: transform .45s var(--ease); }
+  .tile[data-pdp]:hover .ph { box-shadow: inset 0 0 0 1px var(--ink-5); }
+  .tile[data-pdp]:hover .ph > img { transform: scale(1.05); }
+  .tile[data-pdp]:hover b { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .tile[data-pdp]:active .ph { transform: scale(.985); }
+  .pdp-cue {
+    position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 2;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    background: rgba(255,255,255,.94); border-radius: var(--r-sm); padding: 10px 12px;
+    font-size: 10.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink);
+    opacity: 0; transform: translateY(6px); transition: opacity .25s var(--ease), transform .25s var(--ease);
+  }
+  .pdp-cue span { color: var(--ink); font-size: inherit; letter-spacing: inherit; }
+  .tile[data-pdp]:hover .pdp-cue, .tile[data-pdp]:focus-visible .pdp-cue { opacity: 1; transform: none; }
+  @media (hover: none) {
+    .pdp-cue { opacity: 1; transform: none; left: auto; right: 8px; bottom: 8px; width: 30px; height: 30px; padding: 0; justify-content: center; border-radius: 50%; }
+    .pdp-cue span { display: none; }
+  }
   .tile-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; }
   .tile b { font-weight: 500; font-size: 14px; display: block; }
   .tile .price { font-size: 13px; color: var(--ink-3); font-weight: 500; }
@@ -953,14 +973,14 @@
           <button class="filter" data-filter="wellness" aria-pressed="false">Wellness</button>
         </div>
         <div class="tiles" id="editGrid">
-          <div class="tile" data-cat="skincare"><div class="ph" data-code="45248"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Even Out Serum</span></div><div class="tile-foot"><div><b>Optimals Even Out Serum</b><span class="price">£14.99</span></div><button class="add-sq" data-add="Optimals Even Out Serum|14.99|45248" aria-label="Add Optimals Even Out Serum to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="skincare"><div class="ph" data-code="41674"><svg class="icon"><use href="#i-image"/></svg><span>Pure Skin 5 Minute Oil-control Clay Mask</span></div><div class="tile-foot"><div><b>Pure Skin 5 Minute Oil-control Clay Mask</b><span class="price">£6.99</span></div><button class="add-sq" data-add="Pure Skin 5 Minute Oil-control Clay Mask|6.99|41674" aria-label="Add Pure Skin 5 Minute Oil-control Clay Mask to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="makeup"><div class="ph" data-code="12760"><svg class="icon"><use href="#i-image"/></svg><span>Tender Care Natural Multi-purpose Balm</span></div><div class="tile-foot"><div><b>Tender Care Natural Multi-purpose Balm</b><span class="price">£4.49</span></div><button class="add-sq" data-add="Tender Care Natural Multi-purpose Balm|4.49|12760" aria-label="Add Tender Care Natural Multi-purpose Balm to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="skincare"><div class="ph" data-code="45292"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Daily Glow Multi-Protector SPF50</span></div><div class="tile-foot"><div><b>Optimals Daily Glow Multi-Protector SPF50</b><span class="price">£14.99</span></div><button class="add-sq" data-add="Optimals Daily Glow Multi-Protector SPF50|14.99|45292" aria-label="Add Optimals Daily Glow Multi-Protector SPF50 to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="wellness" data-more><div class="ph" data-code="38556"><svg class="icon"><use href="#i-image"/></svg><span>Wellosophy Omega 3</span></div><div class="tile-foot"><div><b>Wellosophy Omega 3</b><span class="price">£14.99</span></div><button class="add-sq" data-add="Wellosophy Omega 3|14.99|38556" aria-label="Add Wellosophy Omega 3 to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="makeup" data-more><div class="ph" data-code="43206"><svg class="icon"><use href="#i-image"/></svg><span>The ONE Browcara</span></div><div class="tile-foot"><div><b>The ONE Browcara</b><span class="price">£8.49</span></div><button class="add-sq" data-add="The ONE Browcara|8.49|43206" aria-label="Add The ONE Browcara to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="wellness" data-more><div class="ph" data-code="37289"><svg class="icon"><use href="#i-image"/></svg><span>Wellosophy Natural Balance Shake Chocolate</span></div><div class="tile-foot"><div><b>Wellosophy Natural Balance Shake Chocolate</b><span class="price">£31.99</span></div><button class="add-sq" data-add="Wellosophy Natural Balance Shake Chocolate|31.99|37289" aria-label="Add Wellosophy Natural Balance Shake Chocolate to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
-          <div class="tile" data-cat="skincare" data-more><div class="ph" data-code="47006"><svg class="icon"><use href="#i-image"/></svg><span>Royal Velvet Firming Night Cream</span></div><div class="tile-foot"><div><b>Royal Velvet Firming Night Cream</b><span class="price">£16.49</span></div><button class="add-sq" data-add="Royal Velvet Firming Night Cream|16.49|47006" aria-label="Add Royal Velvet Firming Night Cream to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare"None data-pdp="Optimals Even Out Serum" role="link" tabindex="0" aria-label="View Optimals Even Out Serum"><div class="ph" data-code="45248"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Even Out Serum</span><div class="pdp-cue"><span>View product</span><svg class="icon icon-sm"><use href="#i-arrow"/></svg></div></div><div class="tile-foot"><div><b>Optimals Even Out Serum</b><span class="price">£14.99</span></div><button class="add-sq" data-add="Optimals Even Out Serum|14.99|45248" aria-label="Add Optimals Even Out Serum to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare"None data-pdp="Pure Skin 5 Minute Oil-control Clay Mask" role="link" tabindex="0" aria-label="View Pure Skin 5 Minute Oil-control Clay Mask"><div class="ph" data-code="41674"><svg class="icon"><use href="#i-image"/></svg><span>Pure Skin 5 Minute Oil-control Clay Mask</span><div class="pdp-cue"><span>View product</span><svg class="icon icon-sm"><use href="#i-arrow"/></svg></div></div><div class="tile-foot"><div><b>Pure Skin 5 Minute Oil-control Clay Mask</b><span class="price">£6.99</span></div><button class="add-sq" data-add="Pure Skin 5 Minute Oil-control Clay Mask|6.99|41674" aria-label="Add Pure Skin 5 Minute Oil-control Clay Mask to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="makeup"None data-pdp="Tender Care Natural Multi-purpose Balm" role="link" tabindex="0" aria-label="View Tender Care Natural Multi-purpose Balm"><div class="ph" data-code="12760"><svg class="icon"><use href="#i-image"/></svg><span>Tender Care Natural Multi-purpose Balm</span><div class="pdp-cue"><span>View product</span><svg class="icon icon-sm"><use href="#i-arrow"/></svg></div></div><div class="tile-foot"><div><b>Tender Care Natural Multi-purpose Balm</b><span class="price">£4.49</span></div><button class="add-sq" data-add="Tender Care Natural Multi-purpose Balm|4.49|12760" aria-label="Add Tender Care Natural Multi-purpose Balm to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare"None data-pdp="Optimals Daily Glow Multi-Protector SPF50" role="link" tabindex="0" aria-label="View Optimals Daily Glow Multi-Protector SPF50"><div class="ph" data-code="45292"><svg class="icon"><use href="#i-image"/></svg><span>Optimals Daily Glow Multi-Protector SPF50</span><div class="pdp-cue"><span>View product</span><svg class="icon icon-sm"><use href="#i-arrow"/></svg></div></div><div class="tile-foot"><div><b>Optimals Daily Glow Multi-Protector SPF50</b><span class="price">£14.99</span></div><button class="add-sq" data-add="Optimals Daily Glow Multi-Protector SPF50|14.99|45292" aria-label="Add Optimals Daily Glow Multi-Protector SPF50 to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="wellness" data-more data-pdp="Wellosophy Omega 3" role="link" tabindex="0" aria-label="View Wellosophy Omega 3"><div class="ph" data-code="38556"><svg class="icon"><use href="#i-image"/></svg><span>Wellosophy Omega 3</span><div class="pdp-cue"><span>View product</span><svg class="icon icon-sm"><use href="#i-arrow"/></svg></div></div><div class="tile-foot"><div><b>Wellosophy Omega 3</b><span class="price">£14.99</span></div><button class="add-sq" data-add="Wellosophy Omega 3|14.99|38556" aria-label="Add Wellosophy Omega 3 to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="makeup" data-more data-pdp="The ONE Browcara" role="link" tabindex="0" aria-label="View The ONE Browcara"><div class="ph" data-code="43206"><svg class="icon"><use href="#i-image"/></svg><span>The ONE Browcara</span><div class="pdp-cue"><span>View product</span><svg class="icon icon-sm"><use href="#i-arrow"/></svg></div></div><div class="tile-foot"><div><b>The ONE Browcara</b><span class="price">£8.49</span></div><button class="add-sq" data-add="The ONE Browcara|8.49|43206" aria-label="Add The ONE Browcara to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="wellness" data-more data-pdp="Wellosophy Natural Balance Shake Chocolate" role="link" tabindex="0" aria-label="View Wellosophy Natural Balance Shake Chocolate"><div class="ph" data-code="37289"><svg class="icon"><use href="#i-image"/></svg><span>Wellosophy Natural Balance Shake Chocolate</span><div class="pdp-cue"><span>View product</span><svg class="icon icon-sm"><use href="#i-arrow"/></svg></div></div><div class="tile-foot"><div><b>Wellosophy Natural Balance Shake Chocolate</b><span class="price">£31.99</span></div><button class="add-sq" data-add="Wellosophy Natural Balance Shake Chocolate|31.99|37289" aria-label="Add Wellosophy Natural Balance Shake Chocolate to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
+          <div class="tile" data-cat="skincare" data-more data-pdp="Royal Velvet Firming Night Cream" role="link" tabindex="0" aria-label="View Royal Velvet Firming Night Cream"><div class="ph" data-code="47006"><svg class="icon"><use href="#i-image"/></svg><span>Royal Velvet Firming Night Cream</span><div class="pdp-cue"><span>View product</span><svg class="icon icon-sm"><use href="#i-arrow"/></svg></div></div><div class="tile-foot"><div><b>Royal Velvet Firming Night Cream</b><span class="price">£16.49</span></div><button class="add-sq" data-add="Royal Velvet Firming Night Cream|16.49|47006" aria-label="Add Royal Velvet Firming Night Cream to bag"><svg class="icon icon-sm"><use href="#i-plus"/></svg></button></div></div>
         </div>
         <div class="show-more centre"><button class="btn ghost" id="showMore">Show all 8 items</button></div>
       </article>
@@ -1261,6 +1281,8 @@
       if (add.dataset.done) { add.textContent = add.dataset.done; add.classList.add('done'); }
       return;
     }
+    const pdp = e.target.closest('[data-pdp]');
+    if (pdp) { toast(`Opens the ${pdp.dataset.pdp} product page (prototype)`); return; }
     const share = e.target.closest('[data-share]');
     if (share) {
       const url = location.href.split('#')[0];
@@ -1492,6 +1514,7 @@
   }
   scrim.addEventListener('click', close); $('#sheetClose').addEventListener('click', close);
   addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.classList.contains('open')) close(); });
+  addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-pdp]')) { e.preventDefault(); e.target.click(); } });
 
   const sheets = {
     about() {
