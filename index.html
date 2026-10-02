@@ -504,6 +504,9 @@
   .handle { font-size: 14px; color: var(--ink-3); margin-top: 6px; }
   .insta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
   .insta .ph { aspect-ratio: 1; border-radius: var(--r-sm); }
+  .insta .photo { padding: 0; border: 0; cursor: pointer; }
+  .insta .photo img { position: absolute; inset: 0; padding: 0; mix-blend-mode: normal; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); transition: transform .4s var(--ease); }
+  .insta .photo:hover img { transform: scale(1.04); }
   .socials { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); margin-top: 20px; padding-top: 16px; }
   .socials button { background: none; border: 0; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); padding: 4px; }
   .socials button:hover { color: var(--ink); }
@@ -1000,8 +1003,12 @@
           <button class="btn sm js-follow" aria-pressed="false" style="border-radius:999px">Follow</button>
         </div>
         <div class="insta">
-          <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
-          <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div><div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
+          <button class="ph photo" data-toast="Opens this post on Instagram"><img src="images/social/post-1.jpg" alt="Wellosophy Beauty Collagen Complex drink in a glass" loading="lazy"></button>
+          <button class="ph photo" data-toast="Opens this post on Instagram"><img src="images/social/post-2.jpg" alt="Diamond Cellular Restorative Night Concentrate in hand" loading="lazy"></button>
+          <button class="ph photo" data-toast="Opens this post on Instagram"><img src="images/social/post-3.jpg" alt="NovAge+ Proceuticals Micro Essence Multi Mist" loading="lazy"></button>
+          <button class="ph photo" data-toast="Opens this post on Instagram"><img src="images/social/post-4.jpg" alt="Lipstick swatches on three skin tones" loading="lazy"></button>
+          <button class="ph photo" data-toast="Opens this post on Instagram"><img src="images/social/post-5.jpg" alt="Oriflame Children on the Edge campaign" loading="lazy"></button>
+          <button class="ph photo" data-toast="Opens this post on Instagram"><img src="images/social/post-6.jpg" alt="Oriflame team at an awards evening" loading="lazy"></button>
         </div>
         <div class="socials push">
           <button data-toast="Opens Instagram">Instagram</button><i></i><button data-toast="Opens Facebook">Facebook</button><i></i><button data-toast="Opens TikTok">TikTok</button>
