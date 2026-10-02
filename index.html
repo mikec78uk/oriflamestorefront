@@ -1144,8 +1144,8 @@
         <h3 id="meetTitle">Meet My Team</h3>
         <p class="sub">Talk to a specialist, free.</p>
         <div class="people">
-          <div class="person"><div class="avatar"><svg class="icon"><use href="#i-user"/></svg></div><b>Elena</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">Beauty Advisor</span><button class="btn sm" data-open="chat" data-person="Elena">Message</button><button class="link" data-toast="Opens Elena's storefront">Visit page</button></div>
-          <div class="person"><div class="avatar"><svg class="icon"><use href="#i-user"/></svg></div><b>Tanya</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">Specialist</span><button class="btn sm" data-open="chat" data-person="Tanya">Message</button><button class="link" data-toast="Opens Tanya's storefront">Visit page</button></div>
+          <div class="person"><div class="avatar"><img class="mary-img" src="images/elena.jpg" alt=""></div><b>Elena</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">Beauty Advisor</span><button class="btn sm" data-open="chat" data-person="Elena">Message</button><button class="link" data-toast="Opens Elena's storefront">Visit page</button></div>
+          <div class="person"><div class="avatar"><img class="mary-img" src="images/tanya.jpg" alt=""></div><b>Tanya</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">Specialist</span><button class="btn sm" data-open="chat" data-person="Tanya">Message</button><button class="link" data-toast="Opens Tanya's storefront">Visit page</button></div>
         </div>
         <div class="team-more push"><button class="link" data-open="team">View more team members <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button></div>
       </article>
@@ -1574,7 +1574,7 @@
       show('My team', `
         <p>Every specialist on my team is an independent Oriflame Brand Partner. Message anyone for free advice.</p>
         <div class="team-list">${members.map(([n, r, f]) => `
-          <div class="team-row"><div class="avatar">${icon('i-user')}</div>
+          <div class="team-row"><div class="avatar">${n === 'Elena' || n === 'Tanya' ? `<img class="mary-img" src="images/${n.toLowerCase()}.jpg" alt="">` : icon('i-user')}</div>
             <div><b>${n}</b><span class="tiny" style="letter-spacing:.12em;text-transform:uppercase">${r}</span><div class="tiny">${f}</div></div>
             <div class="actions"><button class="btn sm" data-open="chat" data-person="${n}">Message</button><button class="link" data-toast="Opens ${n}'s storefront">Visit page</button></div>
           </div>`).join('')}</div>
