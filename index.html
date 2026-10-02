@@ -425,6 +425,8 @@
   .stories::-webkit-scrollbar { display: none; }
   .story { scroll-snap-align: start; background: none; border: 0; padding: 0; text-align: left; display: flex; color: inherit; text-decoration: none; flex-direction: column; gap: 6px; }
   .ph > img.cover { padding: 0; object-fit: cover; mix-blend-mode: normal; }
+  .tryon-img { aspect-ratio: 4 / 3; margin: 20px 0; padding: 0; }
+  .tryon-img img { object-position: 50% 42%; }
   .story .ph { aspect-ratio: 4 / 3; margin-bottom: 8px; transition: filter .3s; }
   .story:hover .ph { filter: brightness(.96); }
   .story:hover b { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
@@ -1078,17 +1080,7 @@
       <article class="card d6" aria-labelledby="tryTitle">
         <h3 id="tryTitle">Try It On You</h3>
         <p class="sub">Virtual lipstick, mascara and blush try-on, straight from your camera.</p>
-        <div class="camera" aria-hidden="true">
-          <span class="live"><i class="dot pulse"></i>LIVE CAMERA</span>
-          <div class="face"></div>
-          <span class="shade-name" id="shadeNamePreview">Warm Peach</span>
-          <div class="swatches" id="previewSwatches">
-            <button class="swatch" style="background:#a8a49d" data-shade="Warm Peach" aria-pressed="true" tabindex="-1"></button>
-            <button class="swatch" style="background:#86827b" data-shade="Matte Rose" aria-pressed="false" tabindex="-1"></button>
-            <button class="swatch" style="background:#625e58" data-shade="Berry" aria-pressed="false" tabindex="-1"></button>
-            <button class="swatch" style="background:#3e3b37" data-shade="Deep Plum" aria-pressed="false" tabindex="-1"></button>
-          </div>
-        </div>
+        <div class="ph tryon-img"><img class="cover" src="images/try-on.jpg" alt="Oriflame Virtual Makeup Lab on a phone, surrounded by make-up"></div>
         <button class="btn block push" data-open="tryon">Open virtual try-on</button>
       </article>
 
@@ -1374,12 +1366,6 @@
   $$('[data-routine]').forEach(b => b.onclick = () => renderRoutine(b.dataset.routine));
   renderRoutine('am');
 
-  /* ---------- Preview swatches (decorative) ---------- */
-  setInterval(() => {
-    const s = $$('#previewSwatches .swatch'); const i = s.findIndex(x => x.getAttribute('aria-pressed') === 'true');
-    const n = s[(i + 1) % s.length]; s.forEach(x => x.setAttribute('aria-pressed', x === n));
-    $('#shadeNamePreview').textContent = n.dataset.shade;
-  }, 2400);
 
   /* ---------- Ask Mary panel: AI adviser + live help ---------- */
   const askEl = document.createElement('div');
