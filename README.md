@@ -40,3 +40,6 @@ A single-page, mobile-first wireframe of a seller storefront (example seller: "M
 
 ## Visual language
 A warm tonal greyscale (stone neutrals, not pure grey), Inter throughout (light-weight accents in headings, tight tracking on display sizes), hairline borders, small corner radii, tracked uppercase labels, and one inverted (dark) card for live help.
+
+## Colour version
+Open `colour.html` (or add `?theme=colour` to the URL) for a full-colour version styled after uk.oriflame.com: a mint announcement bar, pink offer accents, square corners, colour product imagery and the Jost typeface (standing in for Oriflame's proprietary SansOri). `index.html` stays greyscale for usability testing. Both versions share the same markup, so any content change applies to both.

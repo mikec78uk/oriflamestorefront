@@ -5,9 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mary's Edit · Storefront Wireframe</title>
 <meta name="description" content="Greyscale wireframe of an Oriflame seller storefront, for unmoderated usability testing.">
+<script>
+  /* Colour version: add ?theme=colour to the URL (or open colour.html) */
+  if (/[?&]theme=(colou?r|oriflame)\b/i.test(location.search)) document.documentElement.dataset.theme = 'oriflame';
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
      Tokens: a warm, tonal greyscale
@@ -761,6 +765,54 @@
   @media (min-width: 1280px) {
     .hero h1 { font-size: 68px; }
   }
+
+
+  /* ============================================================
+     Colour version — Oriflame site styling (?theme=colour)
+     ============================================================ */
+  :root[data-theme="oriflame"] {
+    --ink: #111111; --ink-2: #333333; --ink-3: #555555; --ink-4: #6f6f6f; --ink-5: #b5b5b5;
+    --line: #e5e5e5; --line-2: #efefef; --fill: #f5f5f5; --fill-2: #eeeeee; --fill-3: #e6e6e6;
+    --paper: #ffffff; --canvas: #ffffff; --primary: #111111; --on-primary: #ffffff;
+    --accent: #cf578a; --accent-soft: #fbeef4; --mint: #a8d5ba; --mint-soft: #e1f4eb;
+    --sans: "Jost", "Futura", "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+    --r-lg: 0; --r-md: 0; --r-sm: 0;
+  }
+  [data-theme="oriflame"] body { letter-spacing: 0; }
+  /* full-colour imagery */
+  [data-theme="oriflame"] .ph > img, [data-theme="oriflame"] .mary-img,
+  [data-theme="oriflame"] .insta .photo img, [data-theme="oriflame"] img.cover { filter: none !important; }
+  [data-theme="oriflame"] .ph { background: var(--fill); }
+  /* type */
+  [data-theme="oriflame"] .display, [data-theme="oriflame"] .card h3, [data-theme="oriflame"] .sheet-head h3 { font-weight: 400; letter-spacing: -.01em; }
+  [data-theme="oriflame"] .display em { color: var(--accent); font-weight: 400; }
+  [data-theme="oriflame"] .btn { letter-spacing: .12em; font-weight: 500; }
+  [data-theme="oriflame"] .btn.pill, [data-theme="oriflame"] .js-follow[style] { border-radius: 999px !important; }
+  /* header */
+  [data-theme="oriflame"] .announce { background: var(--mint); color: #333; font-size: 13px; letter-spacing: .06em; font-weight: 400; }
+  [data-theme="oriflame"] .topbar { background: #fff; }
+  [data-theme="oriflame"] .tabs { background: #fff; }
+  [data-theme="oriflame"] .mainnav a { font-size: 16px; letter-spacing: .12em; color: #333; }
+  [data-theme="oriflame"] .badge-count { background: var(--accent); }
+  /* offers & prices */
+  [data-theme="oriflame"] .chip.solid { background: var(--accent); border-color: var(--accent); }
+  [data-theme="oriflame"] .countdown { color: var(--accent); }
+  [data-theme="oriflame"] .countdown .dot { background: var(--accent); }
+  [data-theme="oriflame"] .price-line .price-lg { color: var(--accent); }
+  [data-theme="oriflame"] .save { color: var(--accent); border-color: var(--accent); }
+  [data-theme="oriflame"] .rsave { color: var(--accent); }
+  [data-theme="oriflame"] .rec .chip .dot { color: var(--accent); }
+  [data-theme="oriflame"] .stars { color: #111; }
+  /* soft brand fills */
+  [data-theme="oriflame"] .card.join, [data-theme="oriflame"] .ask-presence { background: var(--mint-soft); }
+  [data-theme="oriflame"] .rsummary, [data-theme="oriflame"] .measure, [data-theme="oriflame"] .qr-card { background: var(--mint-soft); }
+  [data-theme="oriflame"] .stat-tile { background: var(--fill); }
+  [data-theme="oriflame"] .status-on .dot, [data-theme="oriflame"] .ask-presence .avatar::after { background: #3aa76d; }
+  [data-theme="oriflame"] .fab-av::after { background: #3aa76d; }
+  [data-theme="oriflame"] .filter[aria-pressed="true"], [data-theme="oriflame"] .seg button[aria-pressed="true"] { background: #111; color: #fff; border-color: #111; }
+  [data-theme="oriflame"] .rnum { background: var(--accent); }
+  [data-theme="oriflame"] .add-sq.added { background: var(--accent); border-color: var(--accent); }
+  [data-theme="oriflame"] .link { border-bottom-color: #111; }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
