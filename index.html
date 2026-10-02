@@ -314,7 +314,7 @@
   .tile[data-pdp]:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 6px; }
   .tile .ph > img { transition: transform .45s var(--ease); }
   .tile[data-pdp]:hover .ph { box-shadow: inset 0 0 0 1px var(--ink-5); }
-  .tile[data-pdp]:hover .ph > img { transform: scale(1.05); }
+  .tile[data-pdp]:hover .ph > img { transform: scale(1.14); }
   .tile[data-pdp]:hover b { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
   .tile[data-pdp]:active .ph { transform: scale(.985); }
   .pdp-cue {
@@ -325,7 +325,6 @@
     opacity: 0; transform: translateY(6px); transition: opacity .25s var(--ease), transform .25s var(--ease);
   }
   .pdp-cue span { color: var(--ink); font-size: inherit; letter-spacing: inherit; }
-  .tile[data-pdp]:hover .pdp-cue, .tile[data-pdp]:focus-visible .pdp-cue { opacity: 1; transform: none; }
   @media (hover: none) {
     .pdp-cue { opacity: 1; transform: none; left: auto; right: 8px; bottom: 8px; width: 30px; height: 30px; padding: 0; justify-content: center; border-radius: 50%; }
     .pdp-cue span { display: none; }
