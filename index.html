@@ -181,6 +181,12 @@
     box-shadow: 0 0 0 6px var(--paper), 0 0 0 7px var(--line);
   }
   .avatar .icon { width: 34px; height: 34px; stroke-width: 1.1; }
+  .mary-img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; border-radius: inherit; filter: grayscale(1) contrast(1.05); display: block; }
+  .avatar, .fab-av { overflow: hidden; }
+  .fab-av { overflow: visible; }
+  .fab-av .mary-img { border-radius: 50%; }
+  .ask-presence .avatar { overflow: visible; }
+  .ask-presence .mary-img { border-radius: 50%; }
   .hero .eyebrow { margin-bottom: 18px; }
   .hero-id { display: grid; grid-template-columns: 84px 1fr; gap: 18px; align-items: center; }
   .hero-id .avatar { width: 84px; height: 84px; margin: 0; box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--line); }
@@ -802,7 +808,7 @@
     <div class="hero-grid">
       <div>
         <div class="hero-id">
-          <button class="avatar" data-open="about" aria-label="About Mary" style="border:0;padding:0"><svg class="icon"><use href="#i-user"/></svg></button>
+          <button class="avatar" data-open="about" aria-label="About Mary" style="border:0;padding:0"><img class="mary-img" src="images/mary.jpg" alt=""></button>
           <div>
             <h1 class="display" id="sellerName">Mary's <em>Edit</em></h1>
             <p class="tagline">Your journey. Your beauty. Your rules.</p>
@@ -1185,7 +1191,7 @@
     <b>Mary · online now</b>
     <span>Hi! Need a hand choosing? Ask me anything.</span>
   </div>
-  <button class="fab" data-open="chat" aria-label="Ask Mary, online now"><span class="fab-av"><svg class="icon"><use href="#i-user"/></svg></span>Ask Mary</button>
+  <button class="fab" data-open="chat" aria-label="Ask Mary, online now"><span class="fab-av"><img class="mary-img" src="images/mary.jpg" alt=""></span>Ask Mary</button>
 </div>
 
 <!-- Sheet -->
@@ -1378,7 +1384,7 @@
   /* ---------- Ask Mary panel: AI adviser + live help ---------- */
   const askEl = document.createElement('div');
   askEl.innerHTML = `
-    <div class="ask-presence"><div class="avatar">${icon('i-user')}</div><div><b>Mary is online</b><span>Usually replies within an hour</span></div></div>
+    <div class="ask-presence"><div class="avatar"><img class="mary-img" src="images/mary.jpg" alt=""></div><div><b>Mary is online</b><span>Usually replies within an hour</span></div></div>
     <div class="seg ask-seg" role="group" aria-label="How would you like help?">
       <button data-ask="ai" aria-pressed="true">Instant answers</button>
       <button data-ask="human" aria-pressed="false">Chat with Mary</button>
@@ -1504,7 +1510,7 @@
   const sheets = {
     about() {
       show('About Mary', `
-        <div class="ph ph-wide" style="margin-bottom:18px">${icon('i-image')}<span>Photo of Mary</span></div>
+        <div class="ph ph-wide" style="margin-bottom:18px;padding:0"><img class="mary-img" src="images/mary.jpg" alt="Mary" style="border-radius:var(--r-md);object-position:50% 25%"></div>
         <p>Hi, I'm Mary! I've been helping women across London find skincare that actually works for them for 6 years. I only recommend products I use myself.</p>
         <div class="stat-pair">
           <div><b>6 yrs</b><span class="tiny">with Oriflame</span></div>
