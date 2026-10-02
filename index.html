@@ -423,7 +423,8 @@
     overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-top: 4px;
   }
   .stories::-webkit-scrollbar { display: none; }
-  .story { scroll-snap-align: start; background: none; border: 0; padding: 0; text-align: left; display: flex; flex-direction: column; gap: 6px; }
+  .story { scroll-snap-align: start; background: none; border: 0; padding: 0; text-align: left; display: flex; color: inherit; text-decoration: none; flex-direction: column; gap: 6px; }
+  .ph > img.cover { padding: 0; object-fit: cover; mix-blend-mode: normal; }
   .story .ph { aspect-ratio: 4 / 3; margin-bottom: 8px; transition: filter .3s; }
   .story:hover .ph { filter: brightness(.96); }
   .story:hover b { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
@@ -1098,32 +1099,32 @@
           <button class="link" data-toast="Opens all posts">View all posts <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button>
         </div>
         <div class="stories">
-          <button class="story lead" data-toast="Video tutorial would play here">
-            <div class="ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span></div>
+          <button class="story lead" data-toast="Article would open here">
+            <div class="ph"><img class="cover" src="https://media-cdn.oriflame.com/contentImage?externalMediaId=da7d106f-ea59-40a8-af1c-2bfa93b7c712&amp;name=EditorialCarouselThumbnail580x340psdD&amp;inputFormat=jpg&amp;w=876&amp;q=85" alt="Glitter eyeshadow look" loading="lazy"></div>
             <div class="story-text">
-              <p class="kicker">Video · 5 min</p>
-              <b>My 5-minute glow routine, step by step</b>
-              <p class="dek">Layering for a calm, hydrated barrier, filmed in real time with the products I use every morning.</p>
-              <span class="byline">By Mary · 12 Sep</span>
+              <p class="kicker">Make-up · Article</p>
+              <b>Catch the light: the make-up artist's guide to glitter eyeshadow</b>
+              <p class="dek">How to work THE ONE Liquid Glitter Eye Shadow, from a soft shimmer across the lid to a full sparkling eye.</p>
+              <span class="byline">Shared by Mary · from the Oriflame Beauty Insights Hub</span>
             </div>
           </button>
           <button class="story" data-toast="Article would open here">
-            <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
-            <p class="kicker">Article · 3 min read</p>
-            <b>Why hydration matters more than you think</b>
-            <span class="byline">By Mary · 5 Sep</span>
+            <div class="ph"><img class="cover" src="https://media-cdn.oriflame.com/contentImage?externalMediaId=9770a896-a962-41ab-9747-8304f5626537&amp;name=EditorialPage_Thumbnail_600x315_diamond+cellular+restage&amp;inputFormat=jpg&amp;w=876&amp;q=85" alt="Cleansers for different skin types" loading="lazy"></div>
+            <p class="kicker">Skincare · Article</p>
+            <b>How to choose the best cleanser for your skin type</b>
+            <span class="byline">Shared by Mary</span>
           </button>
-          <button class="story" data-toast="Guide would open here">
-            <div class="ph"><svg class="icon"><use href="#i-image"/></svg></div>
-            <p class="kicker">Guide · 4 min read</p>
-            <b>How to find your foundation shade online</b>
-            <span class="byline">By Tanya · 29 Aug</span>
+          <button class="story" data-toast="Article would open here">
+            <div class="ph"><img class="cover" src="https://media-cdn.oriflame.com/contentImage?externalMediaId=432e3e95-47f9-4b6c-bd64-13e0cba2539b&amp;name=EditorialCarouselThumbnail_580x340&amp;inputFormat=jpg&amp;w=876&amp;q=85" alt="Suncare essentials" loading="lazy"></div>
+            <p class="kicker">In season · Guide</p>
+            <b>Shining on suncare: your ultimate guide to sun protection</b>
+            <span class="byline">Shared by Mary</span>
           </button>
-          <button class="story" data-toast="Video would play here">
-            <div class="ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span></div>
-            <p class="kicker">Video · 2 min</p>
-            <b>Gift guide: my favourite picks under £20</b>
-            <span class="byline">By Mary · 22 Aug</span>
+          <button class="story" data-toast="Article would open here">
+            <div class="ph"><img class="cover" src="https://media-cdn.oriflame.com/contentImage?externalMediaId=fd045f7b-da77-4ed8-aa25-fac050a0937e&amp;name=editorial+thumbnail&amp;inputFormat=jpg&amp;w=876&amp;q=85" alt="Wellosophy Hair, Skin and Nails Gummies" loading="lazy"></div>
+            <p class="kicker">Wellosophy · Article</p>
+            <b>Hair, Skin &amp; Nails Gummies: a simple daily beauty habit</b>
+            <span class="byline">Shared by Mary</span>
           </button>
         </div>
       </article>
