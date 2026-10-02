@@ -309,14 +309,15 @@
   .tiles { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
   .tile { display: flex; flex-direction: column; gap: 10px; }
   .tile[hidden] { display: none; }
-  .tile .ph { aspect-ratio: 4 / 5; transition: box-shadow .25s var(--ease), transform .15s; }
-  .tile[data-pdp] { cursor: pointer; border-radius: var(--r-md); }
-  .tile[data-pdp]:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 6px; }
-  .tile .ph > img { transition: transform .45s var(--ease); }
-  .tile[data-pdp]:hover .ph { box-shadow: inset 0 0 0 1px var(--ink-5); }
-  .tile[data-pdp]:hover .ph > img { transform: scale(1.14); }
-  .tile[data-pdp]:hover b { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-  .tile[data-pdp]:active .ph { transform: scale(.985); }
+  .tile .ph { aspect-ratio: 4 / 5; }
+  [data-pdp] .ph { transition: box-shadow .25s var(--ease), transform .15s; }
+  [data-pdp] { cursor: pointer; border-radius: var(--r-md); }
+  [data-pdp]:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 6px; }
+  [data-pdp] .ph > img { transition: transform .45s var(--ease); }
+  [data-pdp]:hover .ph { box-shadow: inset 0 0 0 1px var(--ink-5); }
+  [data-pdp]:hover .ph > img { transform: scale(1.14); }
+  [data-pdp]:hover b { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  [data-pdp]:active .ph { transform: scale(.985); }
   .pdp-cue {
     position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 2;
     display: flex; align-items: center; justify-content: space-between; gap: 8px;
@@ -1372,8 +1373,8 @@
     const r = routines[key], was = r.steps.reduce((t, s) => t + s[2], 0);
     $('#routineTitle').textContent = r.title; $('#routineSub').textContent = r.sub;
     $('#rsteps').innerHTML = r.steps.map(([label, name, price, how, code], i) => `
-      <li class="rstep">
-        <div class="ph" data-code="${code}">${icon('i-image')}<span class="rnum">${i + 1}</span></div>
+      <li class="rstep" data-pdp="${name}" role="link" tabindex="0" aria-label="View ${name}">
+        <div class="ph" data-code="${code}">${icon('i-image')}<span class="rnum">${i + 1}</span><div class="pdp-cue"><span>View product</span>${icon('i-arrow', 'icon icon-sm')}</div></div>
         <small>Step ${i + 1} · ${label}</small>
         <b>${name}</b>
         <span class="rhow">${how}</span>
